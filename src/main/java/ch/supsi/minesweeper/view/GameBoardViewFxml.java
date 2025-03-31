@@ -17,6 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class GameBoardViewFxml implements ControlledFxView {
+    private static final int ROWS = 9;
+    private static final int COLUMNS = 9;
 
     private static GameBoardViewFxml myself;
 
@@ -269,7 +271,7 @@ public class GameBoardViewFxml implements ControlledFxView {
 
     @FXML
     private Button cell88;
-    
+
     private GameBoardViewFxml() {}
 
     public static GameBoardViewFxml getInstance() {
