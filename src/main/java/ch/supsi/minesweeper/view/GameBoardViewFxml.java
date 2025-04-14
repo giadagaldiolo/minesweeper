@@ -14,9 +14,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class GameBoardViewFxml implements ControlledFxView {
+
+    private Button[][] buttons = new Button[9][9];
 
     private static GameBoardViewFxml myself;
 
@@ -294,20 +298,105 @@ public class GameBoardViewFxml implements ControlledFxView {
 
     @Override
     public void initialize(EventHandler eventHandler, AbstractModel model) {
+        createButtonsMatrix();
         this.createBehaviour();
         this.playerEventHandler = (PlayerEventHandler) eventHandler;
         this.gameModel = (GameModel) model;
     }
 
     private void createBehaviour() {
-        // cell00
-        this.cell00.setOnAction(event -> this.playerEventHandler.move());
-
-        // cell01
-        this.cell01.setOnAction(event -> this.playerEventHandler.move());
+        for (int i = 0; i<9; i++) {
+            for (int j = 0; j<9; j++) {
+                buttons[i][j].setOnAction(event-> this.playerEventHandler.move());
+            }
+        }
 
         // add event handlers for all necessary buttons
         // ...
+    }
+
+    private void createButtonsMatrix() {
+        buttons[0][0] = cell00;
+        buttons[0][1] = cell01;
+        buttons[0][2] = cell02;
+        buttons[0][3] = cell03;
+        buttons[0][4] = cell04;
+        buttons[0][5] = cell05;
+        buttons[0][6] = cell06;
+        buttons[0][7] = cell07;
+        buttons[0][8] = cell08;
+        buttons[1][0] = cell10;
+        buttons[1][1] = cell11;
+        buttons[1][2] = cell12;
+        buttons[1][3] = cell13;
+        buttons[1][4] = cell14;
+        buttons[1][5] = cell15;
+        buttons[1][6] = cell16;
+        buttons[1][7] = cell17;
+        buttons[1][8] = cell18;
+        buttons[2][0] = cell20;
+        buttons[2][1] = cell21;
+        buttons[2][2] = cell22;
+        buttons[2][3] = cell23;
+        buttons[2][4] = cell24;
+        buttons[2][5] = cell25;
+        buttons[2][6] = cell26;
+        buttons[2][7] = cell27;
+        buttons[2][8] = cell28;
+        buttons[3][0] = cell30;
+        buttons[3][1] = cell31;
+        buttons[3][2] = cell32;
+        buttons[3][3] = cell33;
+        buttons[3][4] = cell34;
+        buttons[3][5] = cell35;
+        buttons[3][6] = cell36;
+        buttons[3][7] = cell37;
+        buttons[3][8] = cell38;
+        buttons[4][0] = cell40;
+        buttons[4][1] = cell41;
+        buttons[4][2] = cell42;
+        buttons[4][3] = cell43;
+        buttons[4][4] = cell44;
+        buttons[4][5] = cell45;
+        buttons[4][6] = cell46;
+        buttons[4][7] = cell47;
+        buttons[4][8] = cell48;
+        buttons[5][0] = cell50;
+        buttons[5][1] = cell51;
+        buttons[5][2] = cell52;
+        buttons[5][3] = cell53;
+        buttons[5][4] = cell54;
+        buttons[5][5] = cell55;
+        buttons[5][6] = cell56;
+        buttons[5][7] = cell57;
+        buttons[5][8] = cell58;
+        buttons[6][0] = cell60;
+        buttons[6][1] = cell61;
+        buttons[6][2] = cell62;
+        buttons[6][3] = cell63;
+        buttons[6][4] = cell64;
+        buttons[6][5] = cell65;
+        buttons[6][6] = cell66;
+        buttons[6][7] = cell67;
+        buttons[6][8] = cell68;
+        buttons[7][0] = cell70;
+        buttons[7][1] = cell71;
+        buttons[7][2] = cell72;
+        buttons[7][3] = cell73;
+        buttons[7][4] = cell74;
+        buttons[7][5] = cell75;
+        buttons[7][6] = cell76;
+        buttons[7][7] = cell77;
+        buttons[7][8] = cell78;
+        buttons[8][0] = cell80;
+        buttons[8][1] = cell81;
+        buttons[8][2] = cell82;
+        buttons[8][3] = cell83;
+        buttons[8][4] = cell84;
+        buttons[8][5] = cell85;
+        buttons[8][6] = cell86;
+        buttons[8][7] = cell87;
+        buttons[8][8] = cell88;
     }
 
     @Override
