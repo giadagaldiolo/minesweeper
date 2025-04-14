@@ -19,6 +19,8 @@ import java.util.Date;
 import java.util.List;
 
 public class GameBoardViewFxml implements ControlledFxView {
+    private static final int ROWS = 9;
+    private static final int COLUMNS = 9;
 
     private Button[][] buttons = new Button[9][9];
 
@@ -273,7 +275,7 @@ public class GameBoardViewFxml implements ControlledFxView {
 
     @FXML
     private Button cell88;
-    
+
     private GameBoardViewFxml() {}
 
     public static GameBoardViewFxml getInstance() {
