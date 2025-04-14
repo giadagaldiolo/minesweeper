@@ -307,12 +307,26 @@ public class GameBoardViewFxml implements ControlledFxView {
     }
 
     private void createBehaviour() {
-        for (int i = 0; i<9; i++) {
-            for (int j = 0; j<9; j++) {
-                buttons[i][j].setOnAction(event-> this.playerEventHandler.move());
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                int finalI = i;
+                int finalJ = j;
+                buttons[i][j].setOnMouseClicked(event -> {
+                    switch (event.getButton()) {
+                        case PRIMARY: // Click sinistro
+                            playerEventHandler.move();
+                            break;
+                        case SECONDARY: // Click destro
+                            playerEventHandler.flag();
+                            break;
+                        default:
+                            break;
+                    }
+                });
             }
         }
     }
+
 
     private void createButtonsMatrix() {
         buttons[0][0] = cell00;
@@ -410,8 +424,16 @@ public class GameBoardViewFxml implements ControlledFxView {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         Date date = new Date(System.currentTimeMillis());
         System.out.println(this.getClass().getSimpleName() + " updated..." + dateFormat.format(date));
-        gameModel.incrementNumOfFlags();
 
+
+    }
+
+    @Override
+    public void updateFlags() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        Date date = new Date(System.currentTimeMillis());
+        System.out.println(this.getClass().getSimpleName() + " updated..." + dateFormat.format(date));
+        gameModel.incrementNumOfFlags();
     }
 
 }
