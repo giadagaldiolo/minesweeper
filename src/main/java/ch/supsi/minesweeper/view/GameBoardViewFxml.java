@@ -310,9 +310,6 @@ public class GameBoardViewFxml implements ControlledFxView {
                 buttons[i][j].setOnAction(event-> this.playerEventHandler.move());
             }
         }
-
-        // add event handlers for all necessary buttons
-        // ...
     }
 
     private void createButtonsMatrix() {
