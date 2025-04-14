@@ -410,6 +410,8 @@ public class GameBoardViewFxml implements ControlledFxView {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         Date date = new Date(System.currentTimeMillis());
         System.out.println(this.getClass().getSimpleName() + " updated..." + dateFormat.format(date));
+        gameModel.incrementNumOfFlags();
+
     }
 
 }

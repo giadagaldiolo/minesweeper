@@ -3,6 +3,7 @@ package ch.supsi.minesweeper.model;
 public class GameModel extends AbstractModel implements GameEventHandler, PlayerEventHandler{
 
     private static GameModel myself;
+    private static int numOfFlags = 0;
 
     private GameModel() {
         super();
@@ -33,5 +34,20 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
 
     // add all the relevant missing behaviours
     // ...
+
+    public int getNumOfFlags() {
+        return numOfFlags;
+    }
+
+    public void incrementNumOfFlags() {
+        numOfFlags++;
+    }
+
+    public void decrementNumOfFlags() {
+        if (numOfFlags>0)
+            numOfFlags--;
+    }
+
+
 
 }
