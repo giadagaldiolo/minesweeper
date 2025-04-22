@@ -309,13 +309,18 @@ public class GameBoardViewFxml implements ControlledFxView {
     private void createBehaviour() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                final int row = i;
-                final int col = j;
+                int finalI = i;
+                int finalJ = j;
                 buttons[i][j].setOnMouseClicked(event -> {
-                    if (event.isPrimaryButtonDown()) {
-                        playerEventHandler.move(row, col);
-                    } else if (event.isSecondaryButtonDown()) {
-                        playerEventHandler.toggleFlag(row, col);
+                    switch (event.getButton()) {
+                        case PRIMARY: // Click sinistro
+                            playerEventHandler.move(finalI, finalJ);
+                            break;
+                        case SECONDARY: // Click destro
+                            playerEventHandler.toggleFlag(finalI, finalJ);
+                            break;
+                        default:
+                            break;
                     }
                 });
             }
@@ -420,6 +425,11 @@ public class GameBoardViewFxml implements ControlledFxView {
         System.out.println(this.getClass().getSimpleName() + " updated..." + dateFormat.format(date));
         gameModel.incrementNumOfFlags();
 
+    }
+
+    @Override
+    public void updateFlags() {
+        System.out.println("Bandiera");
     }
 
 }

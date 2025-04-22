@@ -59,13 +59,8 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     @Override
     public void toggleFlag(int row, int col) {
         gameModel.toggleFlag(row, col);
-        views.forEach(DataView::update);
-    }
-
-    @Override
-    public void flag() {
-        this.gameModel.flag();
         views.forEach(DataView::updateFlags);
     }
+
 
 }

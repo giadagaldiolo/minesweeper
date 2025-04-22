@@ -6,7 +6,7 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
 
     private static GameModel myself;
     private static int numOfFlags = 0;
-    private static Cell[][] grid;
+    private static Grid grid = new Grid();
 
     private GameModel() {
         super();
@@ -32,12 +32,12 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
 
     public void move(int row, int col) {
         //Controlla se non ha la bandiera
-        if (!grid[row][col].isHasFlag()) {
+        if (!grid.getGrid()[row][col].isHasFlag()) {
             //Rivela il contenuto della cella
-            grid[row][col].reveal();
+            grid.getGrid()[row][col].reveal();
 
             // Se la cella è vuota, puoi fare un flood fill ricorsivo o iterativo
-            if (grid[row][col].getValue() == 0) {
+            if (grid.getGrid()[row][col].getValue() == 0) {
                 //revealNeighbors(row, col); // da implementare
             }
 
@@ -47,18 +47,13 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
 
     @Override
     public void toggleFlag(int row, int col) {
-        if(grid[row][col].isHasFlag()) {
-            grid[row][col].setHasFlag(false);
+        if(grid.getGrid()[row][col].isHasFlag()) {
+            grid.getGrid()[row][col].setHasFlag(false);
             System.out.println("Bandiera tolta");
         } else{
-            grid[row][col].setHasFlag(true);
+            grid.getGrid()[row][col].setHasFlag(true);
             System.out.println("Bandiera messa");
         }
-    }
-
-    @Override
-    public void flag() {
-
     }
 
     // add all the relevant missing behaviours
