@@ -100,4 +100,9 @@ public class MenuBarViewFxml implements ControlledFxView {
         System.out.println(this.getClass().getSimpleName() + " updated..." + System.currentTimeMillis());
     }
 
+    @Override
+    public void updateFlags() {
+
+    }
+
 }

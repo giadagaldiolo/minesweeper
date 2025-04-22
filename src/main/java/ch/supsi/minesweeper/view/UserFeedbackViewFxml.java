@@ -65,7 +65,15 @@ public class UserFeedbackViewFxml implements UncontrolledFxView {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         Date date = new Date(System.currentTimeMillis());
         //this.userFeedbackBar.setText(" updated..." + dateFormat.format(date));
-        this.userFeedbackBar.setText("Flag added! Num of flags: "+gameModel.getNumOfFlags());
+        this.userFeedbackBar.setText("left button clicked");
+    }
+
+    @Override
+    public void updateFlags() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        Date date = new Date(System.currentTimeMillis());
+        this.userFeedbackBar.setText("Flag added" + gameModel.getNumOfFlags());
+
     }
 
 }
