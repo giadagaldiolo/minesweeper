@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,7 +23,7 @@ public class GameBoardViewFxml implements ControlledFxView {
     private static final int ROWS = 9;
     private static final int COLUMNS = 9;
 
-    private Button[][] buttons = new Button[9][9];
+    private static Button[][] buttons = new Button[9][9];
 
     private static GameBoardViewFxml myself;
 
@@ -302,6 +303,7 @@ public class GameBoardViewFxml implements ControlledFxView {
     public void initialize(EventHandler eventHandler, AbstractModel model) {
         createButtonsMatrix();
         this.createBehaviour();
+        setMatrixTexts();
         this.playerEventHandler = (PlayerEventHandler) eventHandler;
         this.gameModel = (GameModel) model;
     }
@@ -409,6 +411,16 @@ public class GameBoardViewFxml implements ControlledFxView {
         buttons[8][6] = cell86;
         buttons[8][7] = cell87;
         buttons[8][8] = cell88;
+
+    }
+
+    private void setMatrixTexts(){
+        for(int i = 0; i < buttons.length; i++){
+            for(int j = 0; j < buttons[i].length; j++){
+                buttons[i][j].setFont(new Font(15));
+                buttons[i][j].setText("");
+            }
+        }
     }
 
     @Override
@@ -429,7 +441,9 @@ public class GameBoardViewFxml implements ControlledFxView {
 
     @Override
     public void updateFlags() {
-        System.out.println("Bandiera");
     }
 
+    public static Button[][] getButtons() {
+        return buttons;
+    }
 }

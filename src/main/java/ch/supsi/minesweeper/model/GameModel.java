@@ -1,6 +1,8 @@
 package ch.supsi.minesweeper.model;
 
+import ch.supsi.minesweeper.view.GameBoardViewFxml;
 import javafx.scene.control.Button;
+import javafx.scene.text.Font;
 
 public class GameModel extends AbstractModel implements GameEventHandler, PlayerEventHandler{
 
@@ -31,6 +33,11 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
     }
 
     public void move(int row, int col) {
+        if(grid.getGrid()[row][col].isHasMine()){
+            System.out.println("Mina trovata");
+            GameBoardViewFxml.getButtons()[row][col].setText("\uD83D\uDCA3");
+        }
+
         //Controlla se non ha la bandiera
         if (!grid.getGrid()[row][col].isHasFlag()) {
             //Rivela il contenuto della cella
@@ -50,9 +57,12 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
         if(grid.getGrid()[row][col].isHasFlag()) {
             grid.getGrid()[row][col].setHasFlag(false);
             System.out.println("Bandiera tolta");
+            GameBoardViewFxml.getButtons()[row][col].setText("");
         } else{
             grid.getGrid()[row][col].setHasFlag(true);
             System.out.println("Bandiera messa");
+            GameBoardViewFxml.getButtons()[row][col].setText("\uD83D\uDEA9");
+
         }
     }
 
