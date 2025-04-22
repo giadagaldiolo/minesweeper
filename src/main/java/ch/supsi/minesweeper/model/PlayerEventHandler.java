@@ -4,7 +4,8 @@ import ch.supsi.minesweeper.controller.EventHandler;
 
 public interface PlayerEventHandler extends EventHandler {
 
-    void move();
+    void move(int row, int col);
+    void toggleFlag(int row, int col);
 
     // add all the relevant missing behaviours
     // ...

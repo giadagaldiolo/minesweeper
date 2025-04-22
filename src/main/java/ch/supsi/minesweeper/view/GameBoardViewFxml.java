@@ -307,9 +307,17 @@ public class GameBoardViewFxml implements ControlledFxView {
     }
 
     private void createBehaviour() {
-        for (int i = 0; i<9; i++) {
-            for (int j = 0; j<9; j++) {
-                buttons[i][j].setOnAction(event-> this.playerEventHandler.move());
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                final int row = i;
+                final int col = j;
+                buttons[i][j].setOnMouseClicked(event -> {
+                    if (event.isPrimaryButtonDown()) {
+                        playerEventHandler.move(row, col);
+                    } else if (event.isSecondaryButtonDown()) {
+                        playerEventHandler.toggleFlag(row, col);
+                    }
+                });
             }
         }
     }
