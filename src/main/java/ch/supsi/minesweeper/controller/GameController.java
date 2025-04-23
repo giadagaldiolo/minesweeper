@@ -51,14 +51,14 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     // ...
 
     @Override
-    public void move() {
-        this.gameModel.move();
+    public void move(int row, int col) {
+        gameModel.move(row, col);
         views.forEach(DataView::update);
     }
 
     @Override
-    public void flag() {
-        this.gameModel.flag();
+    public void toggleFlag(int row, int col) {
+        gameModel.toggleFlag(row, col);
         views.forEach(DataView::updateFlags);
     }
 
