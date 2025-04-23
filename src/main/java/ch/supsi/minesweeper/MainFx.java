@@ -1,10 +1,9 @@
 package ch.supsi.minesweeper;
 
 import ch.supsi.minesweeper.controller.GameController;
-import ch.supsi.minesweeper.model.AbstractModel;
-import ch.supsi.minesweeper.model.GameEventHandler;
-import ch.supsi.minesweeper.model.GameModel;
-import ch.supsi.minesweeper.model.PlayerEventHandler;
+import ch.supsi.minesweeper.controller.PropertiesController;
+import ch.supsi.minesweeper.controller.PropertiesService;
+import ch.supsi.minesweeper.model.*;
 import ch.supsi.minesweeper.view.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -23,6 +22,12 @@ public class MainFx extends Application {
     private final UncontrolledFxView userFeedbackView;
     private final GameEventHandler gameEventHandler;
     private final PlayerEventHandler playerEventHandler;
+    // instantiate properties controller
+    PropertiesController propertiesController = new PropertiesController(
+            new PropertiesService(
+                    new PropertiesFileReader()
+            )
+    );
 
     public MainFx() {
         // GAME MODEL
