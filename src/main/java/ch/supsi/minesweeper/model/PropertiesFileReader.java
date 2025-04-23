@@ -6,11 +6,20 @@ import java.nio.file.Path;
 import java.util.Properties;
 
 public class PropertiesFileReader implements PropertiesReader {
+    private static PropertiesFileReader instance;
     private final String defaultPropertiesPath = "/default.properties";
     private final String userHomeDirectory = System.getProperty("user.home");
     private final String propertiesDirectory = ".minesweeper";
     private final String propertiesFile = "user.properties";
     private Properties userProperties;
+
+
+    public static PropertiesFileReader getInstance() {
+        if (instance == null) {
+            instance = new PropertiesFileReader();
+        }
+        return instance;
+    }
 
     private Path getUserPropertiesDirectoryPath() {
         return Path.of(userHomeDirectory, propertiesDirectory);

@@ -1,7 +1,7 @@
 package ch.supsi.minesweeper.controller;
 
-import ch.supsi.minesweeper.model.PropertiesFileReader;
 import ch.supsi.minesweeper.model.PropertiesProvider;
+import ch.supsi.minesweeper.model.PropertiesService;
 
 public class PropertiesController {
     private static PropertiesController instance;
@@ -9,7 +9,7 @@ public class PropertiesController {
     private final PropertiesProvider provider;
 
     private PropertiesController() {
-        this.provider = new PropertiesService(new PropertiesFileReader());
+        this.provider = PropertiesService.getInstance();
     }
 
     public static PropertiesController getInstance() {
@@ -19,12 +19,9 @@ public class PropertiesController {
         return instance;
     }
 
-    public String getMinesCount() {
-        return provider.getProperty("numMines","10");
-    }
 
-    public String getLanguage() {
-        return provider.getProperty("language","en");
+    public String getPreference(String key) {
+        return provider.getProperty(key);
     }
 
     public String getUserPreferencesFilePath() {

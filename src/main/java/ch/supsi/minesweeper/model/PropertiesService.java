@@ -1,17 +1,22 @@
-package ch.supsi.minesweeper.controller;
-
-import ch.supsi.minesweeper.model.PropertiesProvider;
-import ch.supsi.minesweeper.model.PropertiesReader;
+package ch.supsi.minesweeper.model;
 
 import java.util.Properties;
 
 public class PropertiesService implements PropertiesProvider {
+    private static PropertiesService instance;
     private final PropertiesReader reader;
     private final Properties properties;
 
-    public PropertiesService(PropertiesReader reader) {
-        this.reader = reader;
+    private PropertiesService() {
+        this.reader = PropertiesFileReader.getInstance();
         this.properties = reader.read();
+    }
+
+    public static PropertiesService getInstance() {
+        if (instance == null){
+            return new PropertiesService();
+        }
+        return instance;
     }
 
     @Override
@@ -20,8 +25,13 @@ public class PropertiesService implements PropertiesProvider {
     }
 
     @Override
-    public String getProperty(String key, String defaultValue) {
-        return properties.getProperty(key, defaultValue);
+    public String getProperty(String key) {
+        return properties.getProperty(key);
+    }
+
+    @Override
+    public String getCurrentLanguage() {
+        return properties.getProperty("language");
     }
 
 }

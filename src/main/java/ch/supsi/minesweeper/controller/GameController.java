@@ -62,4 +62,9 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         views.forEach(DataView::updateFlags);
     }
 
+    public void applyPreferences(int mines) {
+        //TODO: aggiungerle ai campi
+        System.out.println("Applying preferences: mines=" + mines);
+    }
+
 }

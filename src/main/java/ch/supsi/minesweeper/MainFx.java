@@ -2,7 +2,7 @@ package ch.supsi.minesweeper;
 
 import ch.supsi.minesweeper.controller.GameController;
 import ch.supsi.minesweeper.controller.PropertiesController;
-import ch.supsi.minesweeper.controller.PropertiesService;
+import ch.supsi.minesweeper.controller.TranslationsController;
 import ch.supsi.minesweeper.model.*;
 import ch.supsi.minesweeper.view.*;
 import javafx.application.Application;
@@ -22,13 +22,13 @@ public class MainFx extends Application {
     private final UncontrolledFxView userFeedbackView;
     private final GameEventHandler gameEventHandler;
     private final PlayerEventHandler playerEventHandler;
-    // instantiate properties controller
+
     private final PropertiesController propertiesController;
+    private final TranslationsController translationsController;
 
     public MainFx() {
         // GAME MODEL
         this.gameModel = GameModel.getInstance();
-        this.propertiesController = PropertiesController.getInstance();
 
         // VIEWS
         this.menuBarView = MenuBarViewFxml.getInstance();
@@ -38,16 +38,25 @@ public class MainFx extends Application {
         // CONTROLLERS
         this.gameEventHandler = GameController.getInstance();
         this.playerEventHandler = GameController.getInstance();
+        this.propertiesController = PropertiesController.getInstance();
+        this.translationsController = TranslationsController.getInstance();
 
         // SCAFFOLDING of M-V-C
         this.menuBarView.initialize(this.gameEventHandler, this.gameModel);
         this.gameBoardView.initialize(this.playerEventHandler, this.gameModel);
         this.userFeedbackView.initialize(this.gameModel);
         GameController.getInstance().initialize(List.of(this.menuBarView, this.gameBoardView, this.userFeedbackView));
+
+
+        int numMinesPref = Integer.parseInt(propertiesController.getPreference("numMines"));
+        System.out.println("Numero di mine preferito: " + numMinesPref);
+        GameController.getInstance().applyPreferences(numMinesPref);
     }
 
     @Override
     public void start(Stage primaryStage) {
+        //TODO: usa setText(this.translationsController.translate("label.language"))
+
         // handle the main window close request
         // in real life, this event should not be dealt with here!
         // it should actually be delegated to a suitable ExitController!
