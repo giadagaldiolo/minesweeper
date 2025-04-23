@@ -23,15 +23,12 @@ public class MainFx extends Application {
     private final GameEventHandler gameEventHandler;
     private final PlayerEventHandler playerEventHandler;
     // instantiate properties controller
-    PropertiesController propertiesController = new PropertiesController(
-            new PropertiesService(
-                    new PropertiesFileReader()
-            )
-    );
+    private final PropertiesController propertiesController;
 
     public MainFx() {
         // GAME MODEL
         this.gameModel = GameModel.getInstance();
+        this.propertiesController = PropertiesController.getInstance();
 
         // VIEWS
         this.menuBarView = MenuBarViewFxml.getInstance();

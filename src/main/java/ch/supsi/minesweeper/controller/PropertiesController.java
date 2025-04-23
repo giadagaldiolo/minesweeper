@@ -1,12 +1,22 @@
 package ch.supsi.minesweeper.controller;
 
+import ch.supsi.minesweeper.model.PropertiesFileReader;
 import ch.supsi.minesweeper.model.PropertiesProvider;
 
 public class PropertiesController {
+    private static PropertiesController instance;
+
     private final PropertiesProvider provider;
 
-    public PropertiesController(PropertiesService provider) {
-        this.provider = provider;
+    private PropertiesController() {
+        this.provider = new PropertiesService(new PropertiesFileReader());
+    }
+
+    public static PropertiesController getInstance() {
+        if (instance == null) {
+            instance = new PropertiesController();
+        }
+        return instance;
     }
 
     public String getMinesCount() {
