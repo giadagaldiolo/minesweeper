@@ -2,6 +2,7 @@ package ch.supsi.minesweeper.controller;
 
 import ch.supsi.minesweeper.model.GameEventHandler;
 import ch.supsi.minesweeper.model.GameModel;
+import ch.supsi.minesweeper.model.Grid;
 import ch.supsi.minesweeper.model.PlayerEventHandler;
 import ch.supsi.minesweeper.view.DataView;
 
@@ -63,7 +64,7 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     }
 
     public void applyPreferences(int mines) {
-        //TODO: aggiungerle ai campi
+        Grid.setMines(mines);
         System.out.println("Applying preferences: mines=" + mines);
     }
 

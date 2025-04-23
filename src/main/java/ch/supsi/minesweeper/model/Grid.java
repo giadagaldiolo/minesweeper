@@ -19,6 +19,10 @@ public class Grid {
         return grid;
     }
 
+    public static void setMines(int numMines) {
+        mines = numMines;  // Aggiorna il numero di mine
+    }
+
     //Metodo che inizializza la griglia
     private void initializeGrid(){
         for (int i = 0; i < size; i++) {
