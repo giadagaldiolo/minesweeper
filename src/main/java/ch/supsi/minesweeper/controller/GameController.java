@@ -67,5 +67,10 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         Grid.setMines(mines);
         System.out.println("Applying preferences: mines=" + mines);
     }
+    @Override
+    public void reveal(int row, int col) {
+        gameModel.reveal(row, col);
+        views.forEach(DataView::update);
+    }
 
 }
