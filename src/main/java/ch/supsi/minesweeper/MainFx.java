@@ -49,7 +49,6 @@ public class MainFx extends Application {
 
 
         int numMinesPref = Integer.parseInt(propertiesController.getPreference("numMines"));
-        System.out.println("Numero di mine preferito: " + numMinesPref);
         GameController.getInstance().applyPreferences(numMinesPref);
     }
 

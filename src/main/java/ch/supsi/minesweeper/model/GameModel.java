@@ -8,7 +8,7 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
 
     private static GameModel myself;
     private static int numOfFlags = 0;
-    private static Grid grid = new Grid();
+    private static Grid grid = new Grid(numOfFlags);
 
     private GameModel() {
         super();
@@ -80,6 +80,10 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
     public void decrementNumOfFlags() {
         if (numOfFlags>0)
             numOfFlags--;
+    }
+
+    public static void setMines(int numMines) {
+        numOfFlags = numMines;
     }
 
 
