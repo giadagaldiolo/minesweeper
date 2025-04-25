@@ -2,6 +2,7 @@ package ch.supsi.minesweeper.view;
 
 import ch.supsi.minesweeper.controller.EventHandler;
 import ch.supsi.minesweeper.model.AbstractModel;
+import ch.supsi.minesweeper.model.Cell;
 import ch.supsi.minesweeper.model.GameModel;
 import ch.supsi.minesweeper.model.PlayerEventHandler;
 import javafx.fxml.FXML;
@@ -316,7 +317,9 @@ public class GameBoardViewFxml implements ControlledFxView {
                 buttons[i][j].setOnMouseClicked(event -> {
                     switch (event.getButton()) {
                         case PRIMARY: // Click sinistro
+                            playerEventHandler.reveal(finalI, finalJ);
                             playerEventHandler.move(finalI, finalJ);
+
                             break;
                         case SECONDARY: // Click destro
                             playerEventHandler.toggleFlag(finalI, finalJ);
@@ -436,6 +439,36 @@ public class GameBoardViewFxml implements ControlledFxView {
         Date date = new Date(System.currentTimeMillis());
         System.out.println(this.getClass().getSimpleName() + " updated..." + dateFormat.format(date));
         gameModel.incrementNumOfFlags();
+        Cell[][] grid = gameModel.getGrid().getGrid();
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                Cell cell = grid[i][j];
+                Button btn = buttons[i][j];
+
+                if (cell.isRevealed()) {
+                    btn.setDisable(true); // non cliccabile
+                    if (!cell.isHasMine()) {
+                        // Se ha un numero > 0 lo mostri
+                        if (cell.getValue() > 0) {
+                            btn.setText(String.valueOf(cell.getValue()));
+                        } else {
+                            // Spazio vuoto
+                            btn.setText("");
+                        }
+                    }
+                    // Se ha una mina ma è stata rivelata per sbaglio, puoi decidere cosa fare
+                } else {
+                    // NON rivelata
+                    if (cell.isHasFlag()) {
+                        btn.setText("🚩");
+                    } else {
+                        btn.setText("");
+                    }
+                    btn.setDisable(false); // ancora cliccabile
+                }
+            }
+        }
 
     }
 

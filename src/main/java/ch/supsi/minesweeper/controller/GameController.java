@@ -73,5 +73,10 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
             }
         }
     }
+    @Override
+    public void reveal(int row, int col) {
+        gameModel.reveal(row, col);
+        views.forEach(DataView::update);
+    }
 
 }

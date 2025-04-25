@@ -33,11 +33,13 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
     }
 
     public void move(int row, int col) {
-        if(grid.getGrid()[row][col].isHasMine()){
-            System.out.println("Mina trovata");
-            GameBoardViewFxml.getButtons()[row][col].setText("\uD83D\uDCA3");
-        }
-
+                if(!grid.getGrid()[row][col].isRevealed()) return;
+                if(grid.getGrid()[row][col].isHasMine()){
+                    System.out.println("Mina trovata");
+                    GameBoardViewFxml.getButtons()[row][col].setText("\uD83D\uDCA3");
+                } else if (grid.getGrid()[row][col].getValue()>0) {
+                    GameBoardViewFxml.getButtons()[row][col].setText(String.valueOf(grid.getGrid()[row][col].getValue()));
+                }
         //Controlla se non ha la bandiera
         if (!grid.getGrid()[row][col].isHasFlag()) {
             //Rivela il contenuto della cella
@@ -66,6 +68,35 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
         }
     }
 
+    public void reveal(int row, int col) {
+        if (!isInBounds(row, col)) return;
+
+        Cell cell = grid.getGrid()[row][col];
+
+        if (cell.isRevealed() || cell.isHasFlag()) return;
+
+        cell.setRevealed(true);
+
+        if (cell.isHasMine()) {
+            // TODO: Gestisci Game Over
+            return;
+        }
+
+        // STOP: non ricorsione se ha un numero > 0
+        if (cell.getValue() > 0) {
+            return;
+        }
+
+        // Se value == 0, continua a rivelare intorno
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+                if (dx == 0 && dy == 0) continue;
+                reveal(row + dx, col + dy);
+            }
+        }
+    }
+
+
     // add all the relevant missing behaviours
     // ...
 
@@ -82,11 +113,16 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
             numOfFlags--;
     }
 
+    private boolean isInBounds(int row, int col) {
+        return row >= 0 && row < grid.getGrid().length && col >= 0 && col < grid.getGrid()[0].length;
+    }
     public static void setMines(int numMines) {
         numOfFlags = numMines;
         grid = new Grid(numMines);
     }
 
 
-
+    public static Grid getGrid() {
+        return grid;
+    }
 }
