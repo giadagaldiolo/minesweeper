@@ -8,7 +8,7 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
 
     private static GameModel myself;
     private static int numOfFlags = 0;
-    private static Grid grid = new Grid();
+    private static Grid grid = new Grid(numOfFlags);
 
     private GameModel() {
         super();
@@ -116,6 +116,10 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
     private boolean isInBounds(int row, int col) {
         return row >= 0 && row < grid.getGrid().length && col >= 0 && col < grid.getGrid()[0].length;
     }
+    public static void setMines(int numMines) {
+        numOfFlags = numMines;
+    }
+
 
     public static Grid getGrid() {
         return grid;

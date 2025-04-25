@@ -76,4 +76,8 @@ public class UserFeedbackViewFxml implements UncontrolledFxView {
 
     }
 
+
+    public void showMessage(String s) {
+        this.userFeedbackBar.setText(s);
+    }
 }

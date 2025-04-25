@@ -5,6 +5,7 @@ import ch.supsi.minesweeper.model.GameModel;
 import ch.supsi.minesweeper.model.Grid;
 import ch.supsi.minesweeper.model.PlayerEventHandler;
 import ch.supsi.minesweeper.view.DataView;
+import ch.supsi.minesweeper.view.UserFeedbackViewFxml;
 
 import java.util.List;
 
@@ -64,8 +65,13 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     }
 
     public void applyPreferences(int mines) {
-        Grid.setMines(mines);
-        System.out.println("Applying preferences: mines=" + mines);
+        GameModel.setMines(mines);
+        // Feedback testuale
+        for (DataView view : views) {
+            if (view instanceof UserFeedbackViewFxml) {
+                ((UserFeedbackViewFxml) view).showMessage("Preferences applied: " + mines + " mines set.");
+            }
+        }
     }
     @Override
     public void reveal(int row, int col) {
