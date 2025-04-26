@@ -28,4 +28,8 @@ public class TranslationsController {
         return model.translate(key);
     }
 
+    public void changeLanguage(String languageTag) {
+        model.changeLanguage(languageTag);
+    }
+
 }

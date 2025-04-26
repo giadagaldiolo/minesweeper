@@ -1,6 +1,7 @@
 package ch.supsi.minesweeper.view;
 
 import ch.supsi.minesweeper.controller.EventHandler;
+import ch.supsi.minesweeper.controller.TranslationsController;
 import ch.supsi.minesweeper.model.AbstractModel;
 import ch.supsi.minesweeper.model.GameEventHandler;
 import ch.supsi.minesweeper.model.GameModel;
@@ -71,7 +72,7 @@ public class MenuBarViewFxml implements ControlledFxView {
     }
 
     @Override
-    public void initialize(EventHandler eventHandler, AbstractModel model) {
+    public void initialize(EventHandler eventHandler, AbstractModel model,TranslationsController translationsController) {
         this.createBehaviour();
         this.gameEventHandler = (GameEventHandler) eventHandler;
         this.gameModel = (GameModel) model;
@@ -86,6 +87,21 @@ public class MenuBarViewFxml implements ControlledFxView {
 
         // add event handlers for all necessary menu items
         // ...
+    }
+
+    private void updateTexts() {
+        this.fileMenu.setText(this.translationsController.translate("label.file"));
+        this.editMenu.setText(this.translationsController.translate("label.edit"));
+        this.helpMenu.setText(this.translationsController.translate("label.help"));
+
+        this.newMenuItem.setText(this.translationsController.translate("label.new"));
+        this.openMenuItem.setText(this.translationsController.translate("label.open"));
+        this.saveMenuItem.setText(this.translationsController.translate("label.save"));
+        this.saveAsMenuItem.setText(this.translationsController.translate("label.saveAs"));
+        this.quitMenuItem.setText(this.translationsController.translate("label.quit"));
+        this.preferencesMenuItem.setText(this.translationsController.translate("label.preferences"));
+        this.aboutMenuItem.setText(this.translationsController.translate("label.about"));
+        this.helpMenuItem.setText(this.translationsController.translate("label.help"));
     }
 
     @Override

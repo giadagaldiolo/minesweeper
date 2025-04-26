@@ -42,8 +42,8 @@ public class MainFx extends Application {
         this.translationsController = TranslationsController.getInstance();
 
         // SCAFFOLDING of M-V-C
-        this.menuBarView.initialize(this.gameEventHandler, this.gameModel);
-        this.gameBoardView.initialize(this.playerEventHandler, this.gameModel);
+        this.menuBarView.initialize(this.gameEventHandler, this.gameModel, this.translationsController);
+        this.gameBoardView.initialize(this.playerEventHandler, this.gameModel, this.translationsController);
         this.userFeedbackView.initialize(this.gameModel);
         GameController.getInstance().initialize(List.of(this.menuBarView, this.gameBoardView, this.userFeedbackView));
 
@@ -54,7 +54,7 @@ public class MainFx extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        //TODO: usa setText(this.translationsController.translate("label.language"))
+
 
         // handle the main window close request
         // in real life, this event should not be dealt with here!
