@@ -37,7 +37,8 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     public void newGame() {
         System.out.println("New game started controller");
         PropertiesController.getInstance().loadPreferences();
-        // TODO: stampa label.startText e label.firstMove
+        gameModel.newGame();
+        // TODO: label.firstMove
         // do whatever you must do to start a new game
 
         // then update your views

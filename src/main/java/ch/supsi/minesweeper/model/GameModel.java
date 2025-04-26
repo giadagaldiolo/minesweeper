@@ -25,6 +25,7 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
     @Override
     public void newGame() {
         System.out.println("New game started model");
+        grid = new Grid(numOfFlags);
     }
 
     @Override
@@ -59,10 +60,12 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
         if(grid.getGrid()[row][col].isHasFlag()) {
             grid.getGrid()[row][col].setHasFlag(false);
             System.out.println("Bandiera tolta");
+            incrementNumOfFlags();
             GameBoardViewFxml.getButtons()[row][col].setText("");
         } else{
             grid.getGrid()[row][col].setHasFlag(true);
             System.out.println("Bandiera messa");
+            decrementNumOfFlags();
             GameBoardViewFxml.getButtons()[row][col].setText("\uD83D\uDEA9");
 
         }
@@ -119,7 +122,6 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
 
     public void setMines(int numMines) {
         numOfFlags = numMines;
-        grid = new Grid(numMines);
     }
 
 

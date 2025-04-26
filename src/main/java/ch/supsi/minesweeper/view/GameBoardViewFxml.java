@@ -437,7 +437,6 @@ public class GameBoardViewFxml implements ControlledFxView {
         // get your data from the model, if needed
         // then update this view here
 
-        gameModel.incrementNumOfFlags();
         Cell[][] grid = gameModel.getGrid().getGrid();
 
         for (int i = 0; i < 9; i++) {
