@@ -66,10 +66,10 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
 
     public void applyPreferences(int mines) {
         GameModel.setMines(mines);
-        // Feedback testuale
+
         for (DataView view : views) {
             if (view instanceof UserFeedbackViewFxml) {
-                ((UserFeedbackViewFxml) view).showMessage("Preferences applied: " + mines + " mines set.");
+                ((UserFeedbackViewFxml) view).showMessagePreferencesApplied();
             }
         }
     }

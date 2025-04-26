@@ -1,5 +1,6 @@
 package ch.supsi.minesweeper.view;
 
+import ch.supsi.minesweeper.controller.TranslationsController;
 import ch.supsi.minesweeper.model.AbstractModel;
 import ch.supsi.minesweeper.model.GameModel;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ public class UserFeedbackViewFxml implements UncontrolledFxView {
     private static UserFeedbackViewFxml myself;
 
     private GameModel gameModel;
+    private TranslationsController translationsController;
 
     @FXML
     private ScrollPane containerPane;
@@ -49,8 +51,9 @@ public class UserFeedbackViewFxml implements UncontrolledFxView {
     }
 
     @Override
-    public void initialize(AbstractModel model) {
+    public void initialize(AbstractModel model, TranslationsController translationsController) {
         this.gameModel = (GameModel) model;
+        this.translationsController = translationsController;
     }
 
     @Override
@@ -60,24 +63,25 @@ public class UserFeedbackViewFxml implements UncontrolledFxView {
 
     @Override
     public void update() {
-        // get your data from the model, if needed
-        // then update this view here
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        Date date = new Date(System.currentTimeMillis());
-        //this.userFeedbackBar.setText(" updated..." + dateFormat.format(date));
-        this.userFeedbackBar.setText("left button clicked");
+        this.userFeedbackBar.setText(
+                translationsController.translate("label.minesLeft") + " " + gameModel.getNumOfFlags()
+        );
     }
 
     @Override
-    public void updateFlags() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        Date date = new Date(System.currentTimeMillis());
-        this.userFeedbackBar.setText("Flag added" + gameModel.getNumOfFlags());
+    public void updateFlags() { //TODO togli
+        this.userFeedbackBar.setText(
+                translationsController.translate("label.minesLeft") + " " + gameModel.getNumOfFlags()
+        );
 
     }
 
 
-    public void showMessage(String s) {
-        this.userFeedbackBar.setText(s);
+    public void showMessagePreferencesApplied() {
+        this.userFeedbackBar.setText(
+                translationsController.translate("label.preferencesAplliedMines") + " " + gameModel.getNumOfFlags() + "\n" +
+                        translationsController.translate("label.preferencesAplliedLanguage") + " " +
+                        translationsController.translate("label.language")
+        );
     }
 }

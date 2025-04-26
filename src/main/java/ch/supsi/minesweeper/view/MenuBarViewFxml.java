@@ -21,6 +21,7 @@ public class MenuBarViewFxml implements ControlledFxView {
 
     private GameEventHandler gameEventHandler;
     private GameModel gameModel;
+    private TranslationsController translationsController;
 
     @FXML
     private MenuBar menuBar;
@@ -76,6 +77,8 @@ public class MenuBarViewFxml implements ControlledFxView {
         this.createBehaviour();
         this.gameEventHandler = (GameEventHandler) eventHandler;
         this.gameModel = (GameModel) model;
+        this.translationsController = translationsController;
+        this.updateTexts();
     }
 
     private void createBehaviour() {
