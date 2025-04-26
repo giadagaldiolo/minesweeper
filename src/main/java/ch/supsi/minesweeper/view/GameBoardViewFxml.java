@@ -281,7 +281,7 @@ public class GameBoardViewFxml implements ControlledFxView {
 
     private GameBoardViewFxml() {}
 
-    public static GameBoardViewFxml getInstance() {
+    public static ControlledFxView getInstance() {
         if (myself == null) {
             myself = new GameBoardViewFxml();
 
@@ -302,7 +302,7 @@ public class GameBoardViewFxml implements ControlledFxView {
     }
 
     @Override
-    public void initialize(EventHandler eventHandler, AbstractModel model, TranslationsController translationsController) {
+    public void initialize(EventHandler eventHandler, AbstractModel model) {
         createButtonsMatrix();
         this.createBehaviour();
         setMatrixTexts();

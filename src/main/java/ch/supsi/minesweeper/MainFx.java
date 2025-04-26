@@ -17,7 +17,7 @@ public class MainFx extends Application {
     public static final String APP_TITLE = "mine sweeper";
 
     private final AbstractModel gameModel;
-    private final ControlledFxView menuBarView;
+    private final ControlledTranslatableFxView menuBarView;
     private final ControlledFxView gameBoardView;
     private final UncontrolledFxView userFeedbackView;
     private final GameEventHandler gameEventHandler;
@@ -43,7 +43,7 @@ public class MainFx extends Application {
 
         // SCAFFOLDING of M-V-C
         this.menuBarView.initialize(this.gameEventHandler, this.gameModel, this.translationsController);
-        this.gameBoardView.initialize(this.playerEventHandler, this.gameModel, this.translationsController);
+        this.gameBoardView.initialize(this.playerEventHandler, this.gameModel);
         this.userFeedbackView.initialize(this.gameModel, this.translationsController);
         GameController.getInstance().initialize(List.of(this.menuBarView, this.gameBoardView, this.userFeedbackView));
 

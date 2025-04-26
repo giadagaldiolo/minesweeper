@@ -15,7 +15,7 @@ import javafx.scene.control.MenuItem;
 import java.io.IOException;
 import java.net.URL;
 
-public class MenuBarViewFxml implements ControlledFxView {
+public class MenuBarViewFxml implements ControlledTranslatableFxView {
 
     private static MenuBarViewFxml myself;
 
@@ -52,7 +52,7 @@ public class MenuBarViewFxml implements ControlledFxView {
 
     private MenuBarViewFxml() {}
 
-    public static MenuBarViewFxml getInstance() {
+    public static ControlledTranslatableFxView getInstance() {
         if (myself == null) {
             myself = new MenuBarViewFxml();
 

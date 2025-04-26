@@ -7,7 +7,6 @@ import ch.supsi.minesweeper.model.TranslationsBusinessInterface;
 
 public interface ControlledView extends DataView {
 
-    // Passiamo anche il controller per le traduzioni nelle view
-    void initialize(EventHandler eventHandler, AbstractModel model, TranslationsController translationsController );
+
 
 }
