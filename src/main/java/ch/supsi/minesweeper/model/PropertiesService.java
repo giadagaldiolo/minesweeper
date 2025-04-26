@@ -20,18 +20,9 @@ public class PropertiesService implements PropertiesProvider {
     }
 
     @Override
-    public String getUserPreferencesFilePath() {
-        return reader.getUserPreferencesFilePath();
-    }
-
-    @Override
     public String getProperty(String key) {
         return properties.getProperty(key);
     }
 
-    @Override
-    public String getCurrentLanguage() {
-        return properties.getProperty("language");
-    }
 
 }

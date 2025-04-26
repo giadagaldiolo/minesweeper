@@ -54,6 +54,9 @@ public class UserFeedbackViewFxml implements UncontrolledFxView {
     public void initialize(AbstractModel model, TranslationsController translationsController) {
         this.gameModel = (GameModel) model;
         this.translationsController = translationsController;
+        this.userFeedbackBar.setText(
+                translationsController.translate("label.startText")
+        );
     }
 
     @Override
@@ -63,13 +66,11 @@ public class UserFeedbackViewFxml implements UncontrolledFxView {
 
     @Override
     public void update() {
-        this.userFeedbackBar.setText(
-                translationsController.translate("label.minesLeft") + " " + gameModel.getNumOfFlags()
-        );
+
     }
 
     @Override
-    public void updateFlags() { //TODO togli
+    public void updateFlags() {
         this.userFeedbackBar.setText(
                 translationsController.translate("label.minesLeft") + " " + gameModel.getNumOfFlags()
         );
@@ -84,4 +85,5 @@ public class UserFeedbackViewFxml implements UncontrolledFxView {
                         translationsController.translate("label.language")
         );
     }
+
 }

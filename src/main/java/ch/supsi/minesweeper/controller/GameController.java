@@ -2,9 +2,9 @@ package ch.supsi.minesweeper.controller;
 
 import ch.supsi.minesweeper.model.GameEventHandler;
 import ch.supsi.minesweeper.model.GameModel;
-import ch.supsi.minesweeper.model.Grid;
 import ch.supsi.minesweeper.model.PlayerEventHandler;
 import ch.supsi.minesweeper.view.DataView;
+import ch.supsi.minesweeper.view.MenuBarViewFxml;
 import ch.supsi.minesweeper.view.UserFeedbackViewFxml;
 
 import java.util.List;
@@ -35,6 +35,9 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
 
     @Override
     public void newGame() {
+        System.out.println("New game started controller");
+        PropertiesController.getInstance().loadPreferences();
+        // TODO: stampa label.startText e label.firstMove
         // do whatever you must do to start a new game
 
         // then update your views
@@ -64,14 +67,16 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         views.forEach(DataView::updateFlags);
     }
 
-    public void applyPreferences(int mines) {
-        GameModel.setMines(mines);
+    public void applyPreferences(int mines, String language) {
+        gameModel.setMines(mines);
+        TranslationsController.getInstance().changeLanguage(language);
 
         for (DataView view : views) {
             if (view instanceof UserFeedbackViewFxml) {
                 ((UserFeedbackViewFxml) view).showMessagePreferencesApplied();
             }
         }
+
     }
     @Override
     public void reveal(int row, int col) {

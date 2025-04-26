@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
-public interface TranslationsBusinessInterface {
+public interface TranslationsInterface {
     // Restituisce la lista dei linguaggi supportati
     List<String> getSupportedLanguageTags();
 

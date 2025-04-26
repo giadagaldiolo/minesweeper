@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
-import static java.util.ResourceBundle.Control.FORMAT_DEFAULT;
-
-public class TranslationsModel implements TranslationsBusinessInterface {
+public class TranslationsModel extends AbstractModel implements TranslationsInterface {
     private static TranslationsModel instance;
     private Properties translations;
     private Locale currentLocale;

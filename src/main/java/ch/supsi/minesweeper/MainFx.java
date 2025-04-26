@@ -46,10 +46,7 @@ public class MainFx extends Application {
         this.gameBoardView.initialize(this.playerEventHandler, this.gameModel);
         this.userFeedbackView.initialize(this.gameModel, this.translationsController);
         GameController.getInstance().initialize(List.of(this.menuBarView, this.gameBoardView, this.userFeedbackView));
-
-
-        int numMinesPref = Integer.parseInt(propertiesController.getPreference("numMines"));
-        GameController.getInstance().applyPreferences(numMinesPref);
+        TranslationsController.getInstance().initialize(List.of(this.menuBarView, this.userFeedbackView));
     }
 
     @Override

@@ -78,7 +78,7 @@ public class MenuBarViewFxml implements ControlledTranslatableFxView {
         this.gameEventHandler = (GameEventHandler) eventHandler;
         this.gameModel = (GameModel) model;
         this.translationsController = translationsController;
-        this.updateTexts();
+        this.translateText();
     }
 
     private void createBehaviour() {
@@ -92,7 +92,7 @@ public class MenuBarViewFxml implements ControlledTranslatableFxView {
         // ...
     }
 
-    private void updateTexts() {
+    public void translateText() {
         this.fileMenu.setText(this.translationsController.translate("label.file"));
         this.editMenu.setText(this.translationsController.translate("label.edit"));
         this.helpMenu.setText(this.translationsController.translate("label.help"));

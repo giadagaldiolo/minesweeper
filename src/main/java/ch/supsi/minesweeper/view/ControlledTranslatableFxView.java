@@ -5,7 +5,7 @@ import ch.supsi.minesweeper.controller.TranslationsController;
 import ch.supsi.minesweeper.model.AbstractModel;
 import javafx.scene.Node;
 
-public interface ControlledTranslatableFxView extends ControlledView {
+public interface ControlledTranslatableFxView extends ControlledView{
 
     Node getNode();
     // Passiamo anche il controller per le traduzioni nella view

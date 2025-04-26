@@ -436,9 +436,7 @@ public class GameBoardViewFxml implements ControlledFxView {
     public void update() {
         // get your data from the model, if needed
         // then update this view here
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        Date date = new Date(System.currentTimeMillis());
-        System.out.println(this.getClass().getSimpleName() + " updated..." + dateFormat.format(date));
+
         gameModel.incrementNumOfFlags();
         Cell[][] grid = gameModel.getGrid().getGrid();
 

@@ -24,7 +24,7 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
 
     @Override
     public void newGame() {
-
+        System.out.println("New game started model");
     }
 
     @Override
@@ -116,7 +116,8 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
     private boolean isInBounds(int row, int col) {
         return row >= 0 && row < grid.getGrid().length && col >= 0 && col < grid.getGrid()[0].length;
     }
-    public static void setMines(int numMines) {
+
+    public void setMines(int numMines) {
         numOfFlags = numMines;
         grid = new Grid(numMines);
     }
