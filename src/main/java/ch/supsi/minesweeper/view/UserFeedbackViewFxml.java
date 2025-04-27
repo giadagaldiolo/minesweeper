@@ -81,7 +81,10 @@ public class UserFeedbackViewFxml implements UncontrolledFxView {
 
     }
 
+    @Override
+    public void updateReveal() {
 
+    }
 
 
 

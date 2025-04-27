@@ -125,4 +125,9 @@ public class MenuBarViewFxml implements ControlledTranslatableFxView {
 
     }
 
+    @Override
+    public void updateReveal() {
+
+    }
+
 }

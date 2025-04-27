@@ -319,8 +319,6 @@ public class GameBoardViewFxml implements ControlledFxView {
                     switch (event.getButton()) {
                         case PRIMARY: // Click sinistro
                             playerEventHandler.reveal(finalI, finalJ);
-                            playerEventHandler.move(finalI, finalJ);
-
                             break;
                         case SECONDARY: // Click destro
                             playerEventHandler.toggleFlag(finalI, finalJ);
@@ -438,36 +436,7 @@ public class GameBoardViewFxml implements ControlledFxView {
         // then update this view here
 
         //TODO: abilita le celle
-        Cell[][] grid = gameModel.getGrid().getGrid();
 
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                Cell cell = grid[i][j];
-                Button btn = buttons[i][j];
-
-                if (cell.isRevealed()) {
-                    btn.setDisable(true); // non cliccabile
-                    if (!cell.isHasMine()) {
-                        // Se ha un numero > 0 lo mostri
-                        if (cell.getValue() > 0) {
-                            btn.setText(String.valueOf(cell.getValue()));
-                        } else {
-                            // Spazio vuoto
-                            btn.setText("");
-                        }
-                    }
-                    // Se ha una mina ma è stata rivelata per sbaglio, puoi decidere cosa fare
-                } else {
-                    // NON rivelata
-                    if (cell.isHasFlag()) {
-                        btn.setText("🚩");
-                    } else {
-                        btn.setText("");
-                    }
-                    btn.setDisable(false); // ancora cliccabile
-                }
-            }
-        }
 
     }
 
@@ -477,6 +446,25 @@ public class GameBoardViewFxml implements ControlledFxView {
             getButtons()[row][col].setText("\uD83D\uDEA9");
         } else {
             getButtons()[row][col].setText("");
+        }
+    }
+
+    @Override
+    public void updateReveal() {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                Cell cell = gameModel.getGrid().getGrid()[i][j];
+                if (cell.isRevealed()) {
+                    if (cell.isHasMine()) {
+                        getButtons()[i][j].setText("\uD83D\uDCA3");
+                    } else if (cell.getValue() > 0) {
+                        getButtons()[i][j].setText(String.valueOf(cell.getValue()));
+                    } else {
+                        getButtons()[i][j].setText("");
+                    }
+                    getButtons()[i][j].setDisable(true); // disabilita sempre se è rivelata
+                }
+            }
         }
     }
 

@@ -33,27 +33,6 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
 
     }
 
-    public void move(int row, int col) {
-                if(!grid.getGrid()[row][col].isRevealed()) return;
-                if(grid.getGrid()[row][col].isHasMine()){
-                    System.out.println("Mina trovata");
-                    GameBoardViewFxml.getButtons()[row][col].setText("\uD83D\uDCA3");
-                } else if (grid.getGrid()[row][col].getValue()>0) {
-                    GameBoardViewFxml.getButtons()[row][col].setText(String.valueOf(grid.getGrid()[row][col].getValue()));
-                }
-        //Controlla se non ha la bandiera
-        if (!grid.getGrid()[row][col].isHasFlag()) {
-            //Rivela il contenuto della cella
-            grid.getGrid()[row][col].reveal();
-
-            // Se la cella è vuota, puoi fare un flood fill ricorsivo o iterativo
-            if (grid.getGrid()[row][col].getValue() == 0) {
-                //revealNeighbors(row, col); // da implementare
-            }
-
-            // Se è una mina: game over (aggiungerai la logica)
-        }
-    }
 
     @Override
     public void toggleFlag(int row, int col) {

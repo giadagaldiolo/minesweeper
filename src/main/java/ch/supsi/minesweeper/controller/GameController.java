@@ -53,11 +53,6 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     // add all the relevant methods to handle all those defined by the GameEventHandler interface
     // ...
 
-    @Override
-    public void move(int row, int col) {
-        gameModel.move(row, col);
-        views.forEach(DataView::updateForNewGame);
-    }
 
     @Override
     public void toggleFlag(int row, int col) {
@@ -70,10 +65,11 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         TranslationsController.getInstance().changeLanguage(language);
 
     }
+
     @Override
     public void reveal(int row, int col) {
         gameModel.reveal(row, col);
-        views.forEach(DataView::updateForNewGame);
+        views.forEach(DataView::updateReveal);
     }
 
 }
