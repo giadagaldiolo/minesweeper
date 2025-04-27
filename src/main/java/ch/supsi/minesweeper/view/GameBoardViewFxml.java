@@ -319,6 +319,7 @@ public class GameBoardViewFxml implements ControlledFxView {
                     switch (event.getButton()) {
                         case PRIMARY: // Click sinistro
                             playerEventHandler.reveal(finalI, finalJ);
+                            playerEventHandler.checkForWin();
                             break;
                         case SECONDARY: // Click destro
                             playerEventHandler.toggleFlag(finalI, finalJ);
@@ -433,8 +434,11 @@ public class GameBoardViewFxml implements ControlledFxView {
 
     @Override
     public void updateForNewGame() {
-        // get your data from the model, if needed
-        // then update this view here
+        for(int i = 0; i < buttons.length; i++){
+            for(int j = 0; j < buttons[i].length; j++){
+                buttons[i][j].setText("");
+            }
+        }
         enableButtons();
     }
 
@@ -467,8 +471,20 @@ public class GameBoardViewFxml implements ControlledFxView {
     }
 
     @Override
-    public void endGame() {
+    public void loseGame() {
         updateReveal();
+        disableButtons();
+    }
+
+    @Override
+    public void winGame() {
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                if(buttons[i][j].getText().equals("\uD83D\uDEA9")){
+                    buttons[i][j].setText("");
+                }
+            }
+        }
         disableButtons();
     }
 

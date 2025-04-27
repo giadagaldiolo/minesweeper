@@ -56,7 +56,7 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
         cell.setRevealed(true);
 
         if (cell.isHasMine()) {
-            GameController.getInstance().endGame();
+            GameController.getInstance().loseGame();
             return;
         }
 
@@ -64,7 +64,6 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
         if (cell.getValue() > 0) {
             return;
         }
-
         // Se value == 0, continua a rivelare intorno
         for (int dx = -1; dx <= 1; dx++) {
             for (int dy = -1; dy <= 1; dy++) {
@@ -75,11 +74,33 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
     }
 
     @Override
-    public void endGame() {
+    public void loseGame() {
         for (int i = 0; i < grid.getGrid().length; i++) {
             for (int j = 0; j < grid.getGrid()[i].length; j++) {
                 if ( grid.getGrid()[i][j].isHasMine()) {
                     grid.getGrid()[i][j].setRevealed(true);
+                }
+            }
+        }
+    }
+
+    public boolean checkForWin(){
+        for (int i = 0; i < grid.getGrid().length; i++) {
+            for (int j = 0; j < grid.getGrid()[i].length; j++) {
+                if (!grid.getGrid()[i][j].isRevealed() && !grid.getGrid()[i][j].isHasMine()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void winGame() {
+        for(int i = 0; i < grid.getGrid().length; i++) {
+            for(int j = 0; j < grid.getGrid()[i].length; j++) {
+                if (grid.getGrid()[i][j].isHasFlag()) {
+                    grid.getGrid()[i][j].setHasFlag(false);
                 }
             }
         }

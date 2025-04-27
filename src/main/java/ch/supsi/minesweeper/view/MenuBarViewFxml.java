@@ -131,7 +131,12 @@ public class MenuBarViewFxml implements ControlledTranslatableFxView {
     }
 
     @Override
-    public void endGame() {
+    public void loseGame() {
+        //nothing
+    }
+
+    @Override
+    public void winGame() {
         //nothing
     }
 

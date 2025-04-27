@@ -67,9 +67,25 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     }
 
     @Override
-    public void endGame() {
-        gameModel.endGame();
-        views.forEach(DataView::endGame);
+    public void loseGame() {
+        gameModel.loseGame();
+        views.forEach(DataView::loseGame);
+    }
+
+    @Override
+    public boolean checkForWin() {
+        if (gameModel.checkForWin()) {
+            winGame();
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public void winGame() {
+        gameModel.winGame();
+        views.forEach(DataView::winGame);
     }
 
     public void applyPreferences(int mines, String language) {
