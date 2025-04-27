@@ -1,7 +1,7 @@
 package ch.supsi.minesweeper.controller;
 
+import ch.supsi.minesweeper.model.PropertiesModel;
 import ch.supsi.minesweeper.model.PropertiesProvider;
-import ch.supsi.minesweeper.model.PropertiesService;
 
 public class PropertiesController implements PropertiesProvider {
     private static PropertiesController instance;
@@ -9,7 +9,7 @@ public class PropertiesController implements PropertiesProvider {
     private final PropertiesProvider provider;
 
     private PropertiesController() {
-        this.provider = PropertiesService.getInstance();
+        this.provider = PropertiesModel.getInstance();
     }
 
     public static PropertiesController getInstance() {
@@ -26,11 +26,4 @@ public class PropertiesController implements PropertiesProvider {
         return provider.getProperty(key);
     }
 
-
-
-    public void loadPreferences() {
-        int numMinesPref = Integer.parseInt(instance.getProperty("numMines"));
-        String language = instance.getProperty("language");
-        GameController.getInstance().applyPreferences(numMinesPref, language);
-    }
 }

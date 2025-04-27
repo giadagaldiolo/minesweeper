@@ -1,10 +1,11 @@
 package ch.supsi.minesweeper.controller;
 
+import ch.supsi.minesweeper.model.PropertiesModel;
+import ch.supsi.minesweeper.model.PropertiesProvider;
 import ch.supsi.minesweeper.model.GameEventHandler;
 import ch.supsi.minesweeper.model.GameModel;
 import ch.supsi.minesweeper.model.PlayerEventHandler;
 import ch.supsi.minesweeper.view.DataView;
-import ch.supsi.minesweeper.view.UserFeedbackViewFxml;
 
 import java.util.List;
 
@@ -13,11 +14,15 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     private static GameController myself;
 
     private GameModel gameModel;
+    private PropertiesProvider preferencesModel;
 
     private List<DataView> views;
 
     private GameController () {
         this.gameModel = GameModel.getInstance();
+        this.preferencesModel = PropertiesModel.getInstance();
+        int numMinesPref = Integer.parseInt(preferencesModel.getProperty("numMines"));
+        gameModel.setMines(numMinesPref);
     }
 
     public static GameController getInstance() {
@@ -34,11 +39,7 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
 
     @Override
     public void newGame() {
-        PropertiesController.getInstance().loadPreferences();
         gameModel.newGame();
-        // do whatever you must do to start a new game
-
-        // then update your views
         this.views.forEach(DataView::updateForNewGame);
     }
 
@@ -88,9 +89,8 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         views.forEach(DataView::winGame);
     }
 
-    public void applyPreferences(int mines, String language) {
+    public void applyPreferences(int mines) {
         gameModel.setMines(mines);
-        TranslationsController.getInstance().changeLanguage(language);
     }
 
 

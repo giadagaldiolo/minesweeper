@@ -1,7 +1,6 @@
 package ch.supsi.minesweeper.view;
 
 import ch.supsi.minesweeper.controller.EventHandler;
-import ch.supsi.minesweeper.controller.TranslationsController;
 import ch.supsi.minesweeper.model.AbstractModel;
 import ch.supsi.minesweeper.model.Cell;
 import ch.supsi.minesweeper.model.GameModel;
@@ -15,11 +14,6 @@ import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class GameBoardViewFxml implements ControlledFxView {
     private static final int ROWS = 9;

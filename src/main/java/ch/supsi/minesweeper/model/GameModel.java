@@ -25,7 +25,6 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
 
     @Override
     public void newGame() {
-        System.out.println("New game started model");
         grid = new Grid(numOfFlags);
     }
 

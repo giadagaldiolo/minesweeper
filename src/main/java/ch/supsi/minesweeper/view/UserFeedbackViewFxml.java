@@ -1,6 +1,5 @@
 package ch.supsi.minesweeper.view;
 
-import ch.supsi.minesweeper.controller.TranslationsController;
 import ch.supsi.minesweeper.model.AbstractModel;
 import ch.supsi.minesweeper.model.GameModel;
 import ch.supsi.minesweeper.model.TranslationsInterface;

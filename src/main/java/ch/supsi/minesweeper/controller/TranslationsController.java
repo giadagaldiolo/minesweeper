@@ -1,11 +1,9 @@
 package ch.supsi.minesweeper.controller;
 
-import ch.supsi.minesweeper.model.PropertiesProvider;
-import ch.supsi.minesweeper.model.PropertiesService;
 import ch.supsi.minesweeper.model.TranslationsInterface;
 import ch.supsi.minesweeper.model.TranslationsModel;
+import ch.supsi.minesweeper.model.PropertiesModel;
 import ch.supsi.minesweeper.view.DataView;
-import ch.supsi.minesweeper.view.MenuBarViewFxml;
 
 import java.util.List;
 import java.util.Locale;
@@ -13,13 +11,17 @@ import java.util.Properties;
 
 public class TranslationsController implements TranslationsInterface {
     private static TranslationsController instance;
-    private final TranslationsInterface model;
-    private final PropertiesProvider preferences;
+    private final TranslationsModel model;
+    private final PropertiesModel preferencesModel;
     private List<DataView> views;
 
     private TranslationsController() {
         this.model = TranslationsModel.getInstance();
-        this.preferences = PropertiesService.getInstance();
+        this.preferencesModel = PropertiesModel.getInstance();
+        String currentLanguage = preferencesModel.getProperty("language");
+        if (currentLanguage != null) {
+            this.model.changeLanguage(currentLanguage);
+        }
     }
 
     public static TranslationsController getInstance() {
@@ -48,6 +50,7 @@ public class TranslationsController implements TranslationsInterface {
 
     public void changeLanguage(String languageTag) {
         model.changeLanguage(languageTag);
+        preferencesModel.setProperty("language", languageTag);
     }
 
 }
