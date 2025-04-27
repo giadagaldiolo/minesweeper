@@ -59,15 +59,10 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
     public void toggleFlag(int row, int col) {
         if(grid.getGrid()[row][col].isHasFlag()) {
             grid.getGrid()[row][col].setHasFlag(false);
-            System.out.println("Bandiera tolta");
             incrementNumOfFlags();
-            GameBoardViewFxml.getButtons()[row][col].setText("");
         } else{
             grid.getGrid()[row][col].setHasFlag(true);
-            System.out.println("Bandiera messa");
             decrementNumOfFlags();
-            GameBoardViewFxml.getButtons()[row][col].setText("\uD83D\uDEA9");
-
         }
     }
 
@@ -125,7 +120,7 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
     }
 
 
-    public static Grid getGrid() {
+    public Grid getGrid() {
         return grid;
     }
 }

@@ -8,8 +8,10 @@ import ch.supsi.minesweeper.view.DataView;
 import ch.supsi.minesweeper.view.MenuBarViewFxml;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.Properties;
 
-public class TranslationsController {
+public class TranslationsController implements TranslationsInterface {
     private static TranslationsController instance;
     private final TranslationsInterface model;
     private final PropertiesProvider preferences;
@@ -34,14 +36,18 @@ public class TranslationsController {
         return model.translate(key);
     }
 
+    @Override
+    public List<String> getSupportedLanguageTags() {
+        return model.getSupportedLanguageTags();
+    }
+
+    @Override
+    public Properties getTranslations(Locale locale) {
+        return model.getTranslations(locale);
+    }
+
     public void changeLanguage(String languageTag) {
         model.changeLanguage(languageTag);
-        
-        for (DataView view : views) {
-            if(view instanceof MenuBarViewFxml) {
-                ((MenuBarViewFxml) view).translateText();
-            }
-        }
     }
 
 }

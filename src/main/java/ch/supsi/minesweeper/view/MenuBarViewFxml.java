@@ -5,6 +5,7 @@ import ch.supsi.minesweeper.controller.TranslationsController;
 import ch.supsi.minesweeper.model.AbstractModel;
 import ch.supsi.minesweeper.model.GameEventHandler;
 import ch.supsi.minesweeper.model.GameModel;
+import ch.supsi.minesweeper.model.TranslationsInterface;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -21,7 +22,7 @@ public class MenuBarViewFxml implements ControlledTranslatableFxView {
 
     private GameEventHandler gameEventHandler;
     private GameModel gameModel;
-    private TranslationsController translationsController;
+    private TranslationsInterface translationsController;
 
     @FXML
     private MenuBar menuBar;
@@ -73,7 +74,7 @@ public class MenuBarViewFxml implements ControlledTranslatableFxView {
     }
 
     @Override
-    public void initialize(EventHandler eventHandler, AbstractModel model,TranslationsController translationsController) {
+    public void initialize(EventHandler eventHandler, AbstractModel model,TranslationsInterface translationsController) {
         this.createBehaviour();
         this.gameEventHandler = (GameEventHandler) eventHandler;
         this.gameModel = (GameModel) model;
@@ -113,14 +114,14 @@ public class MenuBarViewFxml implements ControlledTranslatableFxView {
     }
 
     @Override
-    public void update() {
+    public void updateForNewGame() {
         // get your data from the model, if needed
         // then update this view here
-        System.out.println(this.getClass().getSimpleName() + " updated..." + System.currentTimeMillis());
+        translateText();
     }
 
     @Override
-    public void updateFlags() {
+    public void updateFlags(int row, int col) {
 
     }
 

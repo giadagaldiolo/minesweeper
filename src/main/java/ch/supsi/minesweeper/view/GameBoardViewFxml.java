@@ -433,10 +433,11 @@ public class GameBoardViewFxml implements ControlledFxView {
     }
 
     @Override
-    public void update() {
+    public void updateForNewGame() {
         // get your data from the model, if needed
         // then update this view here
 
+        //TODO: abilita le celle
         Cell[][] grid = gameModel.getGrid().getGrid();
 
         for (int i = 0; i < 9; i++) {
@@ -471,7 +472,12 @@ public class GameBoardViewFxml implements ControlledFxView {
     }
 
     @Override
-    public void updateFlags() {
+    public void updateFlags(int row, int col) {
+        if (gameModel.getGrid().getGrid()[row][col].isHasFlag()) {
+            getButtons()[row][col].setText("\uD83D\uDEA9");
+        } else {
+            getButtons()[row][col].setText("");
+        }
     }
 
     public static Button[][] getButtons() {

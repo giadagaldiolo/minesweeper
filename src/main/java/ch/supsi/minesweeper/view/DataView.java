@@ -2,7 +2,7 @@ package ch.supsi.minesweeper.view;
 
 public interface DataView {
 
-    void update();
-    void updateFlags();
+    void updateForNewGame();
+    void updateFlags(int row, int col);
 
 }

@@ -39,7 +39,18 @@ public class TranslationsModel extends AbstractModel implements TranslationsInte
 
     @Override
     public List<String> getSupportedLanguageTags() {
-        return loadSupportedLanguageTags();
+        Properties supportedLanguageTags = new Properties();
+        try {
+            InputStream supportedLanguageTagsStream = this.getClass().getResourceAsStream(SUPPORTED_LANGUAGES_FILE);
+            supportedLanguageTags.load(supportedLanguageTagsStream);
+        } catch (IOException ignored) {
+        }
+
+        List<String> languageTags = new ArrayList<>();
+        for (Object key : supportedLanguageTags.keySet()) {
+            languageTags.add(supportedLanguageTags.getProperty((String) key));
+        }
+        return languageTags;
     }
 
     @Override
@@ -65,7 +76,7 @@ public class TranslationsModel extends AbstractModel implements TranslationsInte
             );
         } catch (MissingResourceException mrex) {
             System.err.println("Lingua non supportata..." + locale.toLanguageTag());
-            List<String> supportedLanguageTags = loadSupportedLanguageTags();
+            List<String> supportedLanguageTags = getSupportedLanguageTags();
             String fallbackLanguageTag = supportedLanguageTags.get(0);
             System.err.println("Ripristino a..." + fallbackLanguageTag);
             bundle = ResourceBundle.getBundle(
@@ -82,19 +93,5 @@ public class TranslationsModel extends AbstractModel implements TranslationsInte
         return translations;
     }
 
-    private List<String> loadSupportedLanguageTags() {
-        Properties supportedLanguageTags = new Properties();
-        try {
-            InputStream supportedLanguageTagsStream = this.getClass().getResourceAsStream(SUPPORTED_LANGUAGES_FILE);
-            supportedLanguageTags.load(supportedLanguageTagsStream);
-        } catch (IOException ignored) {
-        }
-
-        List<String> languageTags = new ArrayList<>();
-        for (Object key : supportedLanguageTags.keySet()) {
-            languageTags.add(supportedLanguageTags.getProperty((String) key));
-        }
-        return languageTags;
-    }
 }
 

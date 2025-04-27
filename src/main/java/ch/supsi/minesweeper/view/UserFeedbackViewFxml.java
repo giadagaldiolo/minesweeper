@@ -3,6 +3,7 @@ package ch.supsi.minesweeper.view;
 import ch.supsi.minesweeper.controller.TranslationsController;
 import ch.supsi.minesweeper.model.AbstractModel;
 import ch.supsi.minesweeper.model.GameModel;
+import ch.supsi.minesweeper.model.TranslationsInterface;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -11,16 +12,13 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class UserFeedbackViewFxml implements UncontrolledFxView {
 
     private static UserFeedbackViewFxml myself;
 
     private GameModel gameModel;
-    private TranslationsController translationsController;
+    private TranslationsInterface translationsController;
 
     @FXML
     private ScrollPane containerPane;
@@ -51,7 +49,7 @@ public class UserFeedbackViewFxml implements UncontrolledFxView {
     }
 
     @Override
-    public void initialize(AbstractModel model, TranslationsController translationsController) {
+    public void initialize(AbstractModel model, TranslationsInterface translationsController) {
         this.gameModel = (GameModel) model;
         this.translationsController = translationsController;
         this.userFeedbackBar.setText(
@@ -65,12 +63,18 @@ public class UserFeedbackViewFxml implements UncontrolledFxView {
     }
 
     @Override
-    public void update() {
-
+    public void updateForNewGame() {
+        this.userFeedbackBar.setText(
+                translationsController.translate("label.preferencesAplliedMines") + " " + gameModel.getNumOfFlags() + "\n" +
+                        translationsController.translate("label.preferencesAplliedLanguage") + " " +
+                        translationsController.translate("label.language") + "\n" +
+                        translationsController.translate("label.firstMove")
+        );
     }
 
+
     @Override
-    public void updateFlags() {
+    public void updateFlags(int row, int col) {
         this.userFeedbackBar.setText(
                 translationsController.translate("label.minesLeft") + " " + gameModel.getNumOfFlags()
         );
@@ -78,12 +82,7 @@ public class UserFeedbackViewFxml implements UncontrolledFxView {
     }
 
 
-    public void showMessagePreferencesApplied() {
-        this.userFeedbackBar.setText(
-                translationsController.translate("label.preferencesAplliedMines") + " " + gameModel.getNumOfFlags() + "\n" +
-                        translationsController.translate("label.preferencesAplliedLanguage") + " " +
-                        translationsController.translate("label.language")
-        );
-    }
+
+
 
 }

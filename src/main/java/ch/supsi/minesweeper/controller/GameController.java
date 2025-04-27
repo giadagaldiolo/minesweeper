@@ -4,7 +4,6 @@ import ch.supsi.minesweeper.model.GameEventHandler;
 import ch.supsi.minesweeper.model.GameModel;
 import ch.supsi.minesweeper.model.PlayerEventHandler;
 import ch.supsi.minesweeper.view.DataView;
-import ch.supsi.minesweeper.view.MenuBarViewFxml;
 import ch.supsi.minesweeper.view.UserFeedbackViewFxml;
 
 import java.util.List;
@@ -35,14 +34,12 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
 
     @Override
     public void newGame() {
-        System.out.println("New game started controller");
         PropertiesController.getInstance().loadPreferences();
         gameModel.newGame();
-        // TODO: label.firstMove
         // do whatever you must do to start a new game
 
         // then update your views
-        this.views.forEach(DataView::update);
+        this.views.forEach(DataView::updateForNewGame);
     }
 
     @Override
@@ -50,7 +47,7 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         // do whatever you must do to start a new game
 
         // then update your views
-        this.views.forEach(DataView::update);
+        this.views.forEach(DataView::updateForNewGame);
     }
 
     // add all the relevant methods to handle all those defined by the GameEventHandler interface
@@ -59,30 +56,24 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     @Override
     public void move(int row, int col) {
         gameModel.move(row, col);
-        views.forEach(DataView::update);
+        views.forEach(DataView::updateForNewGame);
     }
 
     @Override
     public void toggleFlag(int row, int col) {
         gameModel.toggleFlag(row, col);
-        views.forEach(DataView::updateFlags);
+        views.forEach(view -> view.updateFlags(row, col));
     }
 
     public void applyPreferences(int mines, String language) {
         gameModel.setMines(mines);
         TranslationsController.getInstance().changeLanguage(language);
 
-        for (DataView view : views) {
-            if (view instanceof UserFeedbackViewFxml) {
-                ((UserFeedbackViewFxml) view).showMessagePreferencesApplied();
-            }
-        }
-
     }
     @Override
     public void reveal(int row, int col) {
         gameModel.reveal(row, col);
-        views.forEach(DataView::update);
+        views.forEach(DataView::updateForNewGame);
     }
 
 }

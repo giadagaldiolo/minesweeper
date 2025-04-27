@@ -24,7 +24,7 @@ public class MainFx extends Application {
     private final PlayerEventHandler playerEventHandler;
 
     private final PropertiesController propertiesController;
-    private final TranslationsController translationsController;
+    private final TranslationsInterface translationsInterface;
 
     public MainFx() {
         // GAME MODEL
@@ -39,12 +39,12 @@ public class MainFx extends Application {
         this.gameEventHandler = GameController.getInstance();
         this.playerEventHandler = GameController.getInstance();
         this.propertiesController = PropertiesController.getInstance();
-        this.translationsController = TranslationsController.getInstance();
+        this.translationsInterface = TranslationsController.getInstance();
 
         // SCAFFOLDING of M-V-C
-        this.menuBarView.initialize(this.gameEventHandler, this.gameModel, this.translationsController);
+        this.menuBarView.initialize(this.gameEventHandler, this.gameModel, this.translationsInterface);
         this.gameBoardView.initialize(this.playerEventHandler, this.gameModel);
-        this.userFeedbackView.initialize(this.gameModel, this.translationsController);
+        this.userFeedbackView.initialize(this.gameModel, this.translationsInterface);
         GameController.getInstance().initialize(List.of(this.menuBarView, this.gameBoardView, this.userFeedbackView));
         TranslationsController.getInstance().initialize(List.of(this.menuBarView, this.userFeedbackView));
     }
