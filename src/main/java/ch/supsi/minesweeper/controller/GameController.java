@@ -47,7 +47,7 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         // do whatever you must do to start a new game
 
         // then update your views
-        this.views.forEach(DataView::updateForNewGame);
+        //this.views.forEach(DataView::updateForNewGame);
     }
 
     // add all the relevant methods to handle all those defined by the GameEventHandler interface
@@ -60,16 +60,16 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         views.forEach(view -> view.updateFlags(row, col));
     }
 
-    public void applyPreferences(int mines, String language) {
-        gameModel.setMines(mines);
-        TranslationsController.getInstance().changeLanguage(language);
-
-    }
-
     @Override
     public void reveal(int row, int col) {
         gameModel.reveal(row, col);
         views.forEach(DataView::updateReveal);
+    }
+
+    public void applyPreferences(int mines, String language) {
+        gameModel.setMines(mines);
+        TranslationsController.getInstance().changeLanguage(language);
+
     }
 
 }

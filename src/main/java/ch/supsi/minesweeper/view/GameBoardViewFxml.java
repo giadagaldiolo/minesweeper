@@ -417,10 +417,11 @@ public class GameBoardViewFxml implements ControlledFxView {
     }
 
     private void setMatrixTexts(){
-        for(int i = 0; i < buttons.length; i++){
+        for (int i = 0; i < buttons.length; i++){
             for(int j = 0; j < buttons[i].length; j++){
                 buttons[i][j].setFont(new Font(15));
                 buttons[i][j].setText("");
+                buttons[i][j].setDisable(true);
             }
         }
     }
@@ -435,17 +436,19 @@ public class GameBoardViewFxml implements ControlledFxView {
         // get your data from the model, if needed
         // then update this view here
 
-        //TODO: abilita le celle
-
-
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                buttons[i][j].setDisable(false);
+            }
+        }
     }
 
     @Override
     public void updateFlags(int row, int col) {
         if (gameModel.getGrid().getGrid()[row][col].isHasFlag()) {
-            getButtons()[row][col].setText("\uD83D\uDEA9");
+            buttons[row][col].setText("\uD83D\uDEA9");
         } else {
-            getButtons()[row][col].setText("");
+            buttons[row][col].setText("");
         }
     }
 
@@ -456,13 +459,13 @@ public class GameBoardViewFxml implements ControlledFxView {
                 Cell cell = gameModel.getGrid().getGrid()[i][j];
                 if (cell.isRevealed()) {
                     if (cell.isHasMine()) {
-                        getButtons()[i][j].setText("\uD83D\uDCA3");
+                        buttons[i][j].setText("\uD83D\uDCA3");
                     } else if (cell.getValue() > 0) {
-                        getButtons()[i][j].setText(String.valueOf(cell.getValue()));
+                        buttons[i][j].setText(String.valueOf(cell.getValue()));
                     } else {
-                        getButtons()[i][j].setText("");
+                        buttons[i][j].setText("");
                     }
-                    getButtons()[i][j].setDisable(true); // disabilita sempre se è rivelata
+                    buttons[i][j].setDisable(true); // disabilita sempre se è rivelata
                 }
             }
         }
