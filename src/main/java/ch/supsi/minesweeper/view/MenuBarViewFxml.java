@@ -122,12 +122,17 @@ public class MenuBarViewFxml implements ControlledTranslatableFxView {
 
     @Override
     public void updateFlags(int row, int col) {
-
+        //nothing
     }
 
     @Override
     public void updateReveal() {
+        //nothing
+    }
 
+    @Override
+    public void endGame() {
+        //nothing
     }
 
 }

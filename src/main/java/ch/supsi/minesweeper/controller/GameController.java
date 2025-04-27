@@ -66,10 +66,17 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         views.forEach(DataView::updateReveal);
     }
 
+    @Override
+    public void endGame() {
+        gameModel.endGame();
+        views.forEach(DataView::endGame);
+    }
+
     public void applyPreferences(int mines, String language) {
         gameModel.setMines(mines);
         TranslationsController.getInstance().changeLanguage(language);
-
     }
+
+
 
 }

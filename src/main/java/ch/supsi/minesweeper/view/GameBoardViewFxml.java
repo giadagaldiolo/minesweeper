@@ -311,8 +311,8 @@ public class GameBoardViewFxml implements ControlledFxView {
     }
 
     private void createBehaviour() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
                 int finalI = i;
                 int finalJ = j;
                 buttons[i][j].setOnMouseClicked(event -> {
@@ -421,9 +421,9 @@ public class GameBoardViewFxml implements ControlledFxView {
             for(int j = 0; j < buttons[i].length; j++){
                 buttons[i][j].setFont(new Font(15));
                 buttons[i][j].setText("");
-                buttons[i][j].setDisable(true);
             }
         }
+        disableButtons();
     }
 
     @Override
@@ -435,12 +435,7 @@ public class GameBoardViewFxml implements ControlledFxView {
     public void updateForNewGame() {
         // get your data from the model, if needed
         // then update this view here
-
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                buttons[i][j].setDisable(false);
-            }
-        }
+        enableButtons();
     }
 
     @Override
@@ -454,8 +449,8 @@ public class GameBoardViewFxml implements ControlledFxView {
 
     @Override
     public void updateReveal() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
                 Cell cell = gameModel.getGrid().getGrid()[i][j];
                 if (cell.isRevealed()) {
                     if (cell.isHasMine()) {
@@ -467,6 +462,30 @@ public class GameBoardViewFxml implements ControlledFxView {
                     }
                     buttons[i][j].setDisable(true); // disabilita sempre se è rivelata
                 }
+            }
+        }
+    }
+
+    @Override
+    public void endGame() {
+        updateReveal();
+        disableButtons();
+    }
+
+    public void disableButtons(){
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                //disabilita i bottoni
+                buttons[i][j].setDisable(true);
+            }
+        }
+    }
+
+    public void enableButtons(){
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                //abilita i bottoni
+                buttons[i][j].setDisable(false);
             }
         }
     }

@@ -1,5 +1,6 @@
 package ch.supsi.minesweeper.model;
 
+import ch.supsi.minesweeper.controller.GameController;
 import ch.supsi.minesweeper.view.GameBoardViewFxml;
 import javafx.scene.control.Button;
 import javafx.scene.text.Font;
@@ -55,7 +56,7 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
         cell.setRevealed(true);
 
         if (cell.isHasMine()) {
-            // TODO: Gestisci Game Over
+            GameController.getInstance().endGame();
             return;
         }
 
@@ -69,6 +70,17 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
             for (int dy = -1; dy <= 1; dy++) {
                 if (dx == 0 && dy == 0) continue;
                 reveal(row + dx, col + dy);
+            }
+        }
+    }
+
+    @Override
+    public void endGame() {
+        for (int i = 0; i < grid.getGrid().length; i++) {
+            for (int j = 0; j < grid.getGrid()[i].length; j++) {
+                if ( grid.getGrid()[i][j].isHasMine()) {
+                    grid.getGrid()[i][j].setRevealed(true);
+                }
             }
         }
     }
