@@ -5,19 +5,29 @@ import java.io.InputStream;
 import java.util.*;
 
 public class TranslationsModel extends AbstractModel implements TranslationsInterface {
+    // Istanza singleton della classe
     private static TranslationsModel instance;
+
+    // Proprietà contenente le traduzioni correnti
     private Properties translations;
+
+    // Locale corrente dell'applicazione
     private Locale currentLocale;
 
+    // Percorso del bundle di traduzioni (base name)
     private static final String BUNDLE_PATH = "i18n.labels";
+
+    // Percorso del file con le lingue supportate
     private static final String SUPPORTED_LANGUAGES_FILE = "/supported-languages.properties";
 
-
     private TranslationsModel() {
+        // Imposta il locale corrente come quello di default del sistema
         this.currentLocale = Locale.getDefault();
+        // Carica le traduzioni per il locale corrente
         this.translations = loadTranslations(currentLocale);
     }
 
+    // Ritorna il Singelton
     public static TranslationsModel getInstance() {
         if (instance == null) {
             instance = new TranslationsModel();
@@ -25,16 +35,17 @@ public class TranslationsModel extends AbstractModel implements TranslationsInte
         return instance;
     }
 
-
+    // Cambia la lingua dell'applicazione
     @Override
     public void changeLanguage(String languageTag) {
         Locale locale = Locale.forLanguageTag(languageTag);
         this.getTranslations(locale);
     }
 
+    // Restituisce la traduzione associata a una chiave, o la chiave stessa se mancante
     @Override
     public String translate(String key) {
-        return translations.getProperty(key, key); // Ritorna la chiave se la traduzione non è trovata
+        return translations.getProperty(key, key);
     }
 
     @Override
@@ -43,8 +54,7 @@ public class TranslationsModel extends AbstractModel implements TranslationsInte
         try {
             InputStream supportedLanguageTagsStream = this.getClass().getResourceAsStream(SUPPORTED_LANGUAGES_FILE);
             supportedLanguageTags.load(supportedLanguageTagsStream);
-        } catch (IOException ignored) {
-        }
+        } catch (IOException ignored) {} // Ignora eventuali errori di caricamento
 
         List<String> languageTags = new ArrayList<>();
         for (Object key : supportedLanguageTags.keySet()) {
@@ -53,6 +63,7 @@ public class TranslationsModel extends AbstractModel implements TranslationsInte
         return languageTags;
     }
 
+    // Restituisce le traduzioni per un dato locale
     @Override
     public Properties getTranslations(Locale locale) {
         if (!locale.equals(currentLocale)) {
@@ -62,13 +73,12 @@ public class TranslationsModel extends AbstractModel implements TranslationsInte
         return translations;
     }
 
-
-
     private Properties loadTranslations(Locale locale) {
         Properties translations = new Properties();
         ResourceBundle bundle;
 
         try {
+            // Carica il bundle di risorse senza fallback
             bundle = ResourceBundle.getBundle(
                     BUNDLE_PATH,
                     locale,
@@ -86,12 +96,11 @@ public class TranslationsModel extends AbstractModel implements TranslationsInte
             );
         }
 
+        // Copia tutte le chiavi e i valori dal bundle nelle properties
         for (String key : bundle.keySet()) {
             translations.put(key, bundle.getString(key));
         }
 
         return translations;
     }
-
 }
-
