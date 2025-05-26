@@ -1,9 +1,6 @@
 package ch.supsi.minesweeper.model;
 
 import ch.supsi.minesweeper.controller.GameController;
-import ch.supsi.minesweeper.view.GameBoardViewFxml;
-import javafx.scene.control.Button;
-import javafx.scene.text.Font;
 
 public class GameModel extends AbstractModel implements GameEventHandler, PlayerEventHandler{
 

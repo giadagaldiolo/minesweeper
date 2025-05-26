@@ -16,8 +16,6 @@ public class Grid {
         return grid;
     }
 
-
-
     //Metodo che inizializza la griglia
     private void initializeGrid(int numOfMines){
         for (int i = 0; i < size; i++) {
@@ -41,7 +39,6 @@ public class Grid {
                 System.out.println(row + " " + col);
                 minesPlaced++;
             }
-
         }
     }
 
@@ -62,12 +59,9 @@ public class Grid {
                             }
                         }
                     }
-
                     grid[i][j].setValue(minesAround);
                 }
             }
         }
     }
-
-
 }

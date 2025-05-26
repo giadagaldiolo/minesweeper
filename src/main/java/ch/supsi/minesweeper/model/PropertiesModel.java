@@ -27,6 +27,4 @@ public class PropertiesModel implements PropertiesProvider {
     public void setProperty(String key, String value) {
         properties.setProperty(key, value);
     }
-
-
 }

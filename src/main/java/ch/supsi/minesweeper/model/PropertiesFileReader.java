@@ -13,7 +13,6 @@ public class PropertiesFileReader implements PropertiesReader {
     private final String propertiesFile = "user.properties";
     private Properties userProperties;
 
-
     public static PropertiesFileReader getInstance() {
         if (instance == null) {
             instance = new PropertiesFileReader();
@@ -54,9 +53,7 @@ public class PropertiesFileReader implements PropertiesReader {
             InputStream defaultPropertiesStream = this.getClass().getResourceAsStream(defaultPropertiesPath);
             defaultProperties.load(defaultPropertiesStream);
 
-        } catch (IOException ignored) {
-            ;
-        }
+        } catch (IOException ignored) {;}
         return defaultProperties;
     }
 
@@ -70,8 +67,6 @@ public class PropertiesFileReader implements PropertiesReader {
         }
         return preferences;
     }
-
-
 
     private boolean createUserPropertiesFile(Properties defaultProperties) {
         if (defaultProperties == null) {
@@ -113,7 +108,5 @@ public class PropertiesFileReader implements PropertiesReader {
         userProperties = loadDefaultProperties();
         createUserPropertiesFile(userProperties);
         return userProperties;
-
-
     }
 }
