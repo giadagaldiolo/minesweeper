@@ -15,8 +15,6 @@ import ch.supsi.minesweeper.backend.business.toggle_cell.IToggleCell;
 import ch.supsi.minesweeper.backend.business.toggle_cell.ToggleCell;
 import ch.supsi.minesweeper.backend.business.win_game.IWinGame;
 import ch.supsi.minesweeper.backend.business.win_game.WinGame;
-import ch.supsi.minesweeper.frontend.controller.GameController;
-import com.sun.scenario.effect.impl.prism.PrRenderInfo;
 
 public class GameLogic{
 

@@ -18,7 +18,7 @@ public class TranslationsModel implements TranslationsInterface {
     private static final String BUNDLE_PATH = "i18n.labels";
 
     // Percorso del file con le lingue supportate
-    private static final String SUPPORTED_LANGUAGES_FILE = "/supported-languages.properties";
+    private static final String SUPPORTED_LANGUAGES_FILE = "/resources/supported-languages.properties";
 
     private TranslationsModel() {
         // Imposta il locale corrente come quello di default del sistema
@@ -54,7 +54,8 @@ public class TranslationsModel implements TranslationsInterface {
         try {
             InputStream supportedLanguageTagsStream = this.getClass().getResourceAsStream(SUPPORTED_LANGUAGES_FILE);
             supportedLanguageTags.load(supportedLanguageTagsStream);
-        } catch (IOException ignored) {} // Ignora eventuali errori di caricamento
+        } catch (IOException ignored) {
+        } // Ignora eventuali errori di caricamento
 
         List<String> languageTags = new ArrayList<>();
         for (Object key : supportedLanguageTags.keySet()) {

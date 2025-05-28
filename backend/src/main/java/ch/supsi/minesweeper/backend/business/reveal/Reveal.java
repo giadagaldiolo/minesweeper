@@ -2,11 +2,14 @@ package ch.supsi.minesweeper.backend.business.reveal;
 
 import ch.supsi.minesweeper.backend.business.Cell;
 import ch.supsi.minesweeper.backend.business.Grid;
-import ch.supsi.minesweeper.frontend.controller.GameController;
+import ch.supsi.minesweeper.backend.business.lose_game.ILoseGame;
+import ch.supsi.minesweeper.backend.business.lose_game.LoseGame;
+
 
 public class Reveal implements IReveal{
 
     private static Reveal mySelf;
+    private static ILoseGame loseGame = LoseGame.getInstance();
 
     private Reveal(){}
 
@@ -27,7 +30,7 @@ public class Reveal implements IReveal{
         cell.setRevealed(true);
 
         if (cell.isHasMine()) {
-            GameController.getInstance().loseGame();
+            loseGame.loseGame(grid);
             return;
         }
 
