@@ -1,7 +1,8 @@
 package ch.supsi.minesweeper.frontend.controller;
 
-import ch.supsi.minesweeper.frontend.model.PropertiesModel;
-import ch.supsi.minesweeper.frontend.model.PropertiesProvider;
+
+import ch.supsi.minesweeper.backend.business.PropertiesModel;
+import ch.supsi.minesweeper.backend.data_access.PropertiesProvider;
 
 public class PropertiesController implements PropertiesProvider {
     private static PropertiesController instance;

@@ -1,6 +1,4 @@
-package ch.supsi.minesweeper.backend.business;
-
-import ch.supsi.minesweeper.frontend.controller.EventHandler;
+package ch.supsi.minesweeper.frontend.controller;
 
 public interface GameEventHandler extends EventHandler {
 

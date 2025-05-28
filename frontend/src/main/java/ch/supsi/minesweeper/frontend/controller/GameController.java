@@ -1,10 +1,10 @@
 package ch.supsi.minesweeper.frontend.controller;
 
-import ch.supsi.minesweeper.frontend.model.GameEventHandler;
+import ch.supsi.minesweeper.backend.business.PropertiesModel;
+import ch.supsi.minesweeper.backend.data_access.PropertiesProvider;
 import ch.supsi.minesweeper.frontend.model.GameModel;
-import ch.supsi.minesweeper.frontend.model.PlayerEventHandler;
-import ch.supsi.minesweeper.frontend.model.PropertiesModel;
-import ch.supsi.minesweeper.frontend.model.PropertiesProvider;
+
+
 import ch.supsi.minesweeper.frontend.view.DataView;
 
 import java.util.List;
@@ -76,7 +76,7 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     @Override
     public boolean checkForWin() {
         if (gameModel.checkForWin()) {
-            winGame();
+            gameModel.winGame();
             return true;
         }
 

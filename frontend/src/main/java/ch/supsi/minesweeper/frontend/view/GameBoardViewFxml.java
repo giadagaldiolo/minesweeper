@@ -1,10 +1,10 @@
 package ch.supsi.minesweeper.frontend.view;
 
+import ch.supsi.minesweeper.backend.business.Cell;
 import ch.supsi.minesweeper.frontend.controller.EventHandler;
+import ch.supsi.minesweeper.frontend.controller.PlayerEventHandler;
 import ch.supsi.minesweeper.frontend.model.AbstractModel;
-import ch.supsi.minesweeper.frontend.model.Cell;
 import ch.supsi.minesweeper.frontend.model.GameModel;
-import ch.supsi.minesweeper.frontend.model.PlayerEventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -24,6 +24,7 @@ public class GameBoardViewFxml implements ControlledFxView {
     private static GameBoardViewFxml myself;
 
     private PlayerEventHandler playerEventHandler;
+
 
     private GameModel gameModel;
 

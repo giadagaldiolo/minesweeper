@@ -1,104 +1,100 @@
 package ch.supsi.minesweeper.backend.business;
 
-public class GameLogic implements GameEventHandler, PlayerEventHandler {
+import ch.supsi.minesweeper.backend.application.GameApplication;
+import ch.supsi.minesweeper.backend.business.check_win.CheckWin;
+import ch.supsi.minesweeper.backend.business.check_win.ICheckWin;
+import ch.supsi.minesweeper.backend.business.flags_handler.FlagsHandler;
+import ch.supsi.minesweeper.backend.business.flags_handler.IFlagsHandler;
+import ch.supsi.minesweeper.backend.business.lose_game.ILoseGame;
+import ch.supsi.minesweeper.backend.business.lose_game.LoseGame;
+import ch.supsi.minesweeper.backend.business.new_game.INewGame;
+import ch.supsi.minesweeper.backend.business.new_game.NewGame;
+import ch.supsi.minesweeper.backend.business.reveal.IReveal;
+import ch.supsi.minesweeper.backend.business.reveal.Reveal;
+import ch.supsi.minesweeper.backend.business.toggle_cell.IToggleCell;
+import ch.supsi.minesweeper.backend.business.toggle_cell.ToggleCell;
+import ch.supsi.minesweeper.backend.business.win_game.IWinGame;
+import ch.supsi.minesweeper.backend.business.win_game.WinGame;
+import ch.supsi.minesweeper.frontend.controller.GameController;
+import com.sun.scenario.effect.impl.prism.PrRenderInfo;
+
+public class GameLogic{
+
+    private static IToggleCell toggleCell = ToggleCell.getInstance();
+    private static IReveal reveal = Reveal.getInstance();
+    private static ILoseGame loseGame = LoseGame.getInstance();
+    private static ICheckWin checkWin = CheckWin.getInstance();
+    private static IWinGame winGame = WinGame.getInstance();
+    private static INewGame newGame = NewGame.getInstance();
+    private static IFlagsHandler flagsHandler = new FlagsHandler();
+
     private static GameLogic myself;
     private static int numOfFlags = 0;
     private static Grid grid;
 
-    @Override
+
+
+    public static GameLogic getInstance() {
+        if (myself == null) {
+            myself = new GameLogic();
+        }
+        return myself;
+    }
     public void newGame() {
-        grid = new Grid(numOfFlags);
+        newGame.newGame(grid,numOfFlags);
     }
 
-    @Override
+
     public void save() {
 
     }
 
-    @Override
-    public void toggleFlag(int row, int col) {
-        if(grid.getGrid()[row][col].isHasFlag()) {
-            grid.getGrid()[row][col].setHasFlag(false);
-            incrementNumOfFlags();
+
+    public void toggleCell(int row, int col) {
+        //se torna true va decrementato il numero di bandiere di 1(prima l'aveva)
+        if(toggleCell.toggleCell(grid, row, col)){
+            flagsHandler.decrementNumOfFlags(numOfFlags);
         } else{
-            grid.getGrid()[row][col].setHasFlag(true);
-            decrementNumOfFlags();
+            //se torna false va incrementato di 1(prima non l'aveva)
+            flagsHandler.incrementNumOfFlags(numOfFlags);
         }
     }
 
-    @Override
+
+
+
     public void reveal(int row, int col) {
         if (!isInBounds(row, col)) return;
-
-        Cell cell = grid.getGrid()[row][col];
-
-        if (cell.isRevealed() || cell.isHasFlag()) return;
-
-        cell.setRevealed(true);
-
-        if (cell.isHasMine()) {
-            GameController.getInstance().loseGame();
-            return;
-        }
-
-        // STOP: non ricorsione se ha un numero > 0
-        if (cell.getValue() > 0) {
-            return;
-        }
-        // Se value == 0, continua a rivelare intorno
-        for (int dx = -1; dx <= 1; dx++) {
-            for (int dy = -1; dy <= 1; dy++) {
-                if (dx == 0 && dy == 0) continue;
-                reveal(row + dx, col + dy);
-            }
-        }
+        reveal.reveal(grid, row, col);
     }
 
-    @Override
     public void loseGame() {
-        for (int i = 0; i < grid.getGrid().length; i++) {
-            for (int j = 0; j < grid.getGrid()[i].length; j++) {
-                if ( grid.getGrid()[i][j].isHasMine()) {
-                    grid.getGrid()[i][j].setRevealed(true);
-                }
-            }
-        }
+       loseGame.loseGame(grid);
     }
 
-    @Override
     public boolean checkForWin() {
-        for (int i = 0; i < grid.getGrid().length; i++) {
-            for (int j = 0; j < grid.getGrid()[i].length; j++) {
-                if (!grid.getGrid()[i][j].isRevealed() && !grid.getGrid()[i][j].isHasMine()) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return checkWin.checkWin(grid);
     }
 
-    @Override
     public void winGame() {
-        for(int i = 0; i < grid.getGrid().length; i++) {
-            for(int j = 0; j < grid.getGrid()[i].length; j++) {
-                if (grid.getGrid()[i][j].isHasFlag()) {
-                    grid.getGrid()[i][j].setHasFlag(false);
-                }
-            }
-        }
+        winGame.winGame(grid);
     }
 
     public int getNumOfFlags() {
-        return numOfFlags;
+        return flagsHandler.getNumOfFlags(numOfFlags);
     }
 
     public void incrementNumOfFlags() {
-        numOfFlags++;
+        flagsHandler.incrementNumOfFlags(numOfFlags);
     }
 
     public void decrementNumOfFlags() {
-        if (numOfFlags>0)
-            numOfFlags--;
+        if (flagsHandler.getNumOfFlags(numOfFlags)>0)
+            flagsHandler.decrementNumOfFlags(numOfFlags);
+    }
+
+    public void setNumOfFlags(int num) {
+        flagsHandler.setNumOfFlags(numOfFlags, num);
     }
 
     private boolean isInBounds(int row, int col) {
@@ -112,4 +108,5 @@ public class GameLogic implements GameEventHandler, PlayerEventHandler {
     public Grid getGrid() {
         return grid;
     }
+
 }

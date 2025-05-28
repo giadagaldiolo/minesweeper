@@ -1,8 +1,7 @@
 package ch.supsi.minesweeper.frontend;
 
-import ch.supsi.minesweeper.frontend.controller.GameController;
-import ch.supsi.minesweeper.frontend.controller.PropertiesController;
-import ch.supsi.minesweeper.frontend.controller.TranslationsController;
+import ch.supsi.minesweeper.backend.data_access.TranslationsInterface;
+import ch.supsi.minesweeper.frontend.controller.*;
 import ch.supsi.minesweeper.frontend.model.*;
 import ch.supsi.minesweeper.frontend.view.*;
 import javafx.application.Application;

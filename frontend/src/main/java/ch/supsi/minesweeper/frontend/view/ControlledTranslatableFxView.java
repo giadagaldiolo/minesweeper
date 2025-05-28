@@ -1,8 +1,9 @@
 package ch.supsi.minesweeper.frontend.view;
 
+import ch.supsi.minesweeper.backend.data_access.TranslationsInterface;
 import ch.supsi.minesweeper.frontend.controller.EventHandler;
 import ch.supsi.minesweeper.frontend.model.AbstractModel;
-import ch.supsi.minesweeper.frontend.model.TranslationsInterface;
+
 import javafx.scene.Node;
 
 public interface ControlledTranslatableFxView extends ControlledView{

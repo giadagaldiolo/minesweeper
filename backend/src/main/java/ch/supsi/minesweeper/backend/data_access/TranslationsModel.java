@@ -1,10 +1,10 @@
-package ch.supsi.minesweeper.backend.business;
+package ch.supsi.minesweeper.backend.data_access;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
-public class TranslationsModel extends AbstractModel implements TranslationsInterface {
+public class TranslationsModel implements TranslationsInterface {
     // Istanza singleton della classe
     private static TranslationsModel instance;
 

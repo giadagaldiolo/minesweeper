@@ -1,5 +1,9 @@
 package ch.supsi.minesweeper.backend.business;
 
+import ch.supsi.minesweeper.backend.data_access.PropertiesFileReader;
+import ch.supsi.minesweeper.backend.data_access.PropertiesProvider;
+import ch.supsi.minesweeper.backend.data_access.PropertiesReader;
+
 import java.util.Properties;
 
 public class PropertiesModel implements PropertiesProvider {

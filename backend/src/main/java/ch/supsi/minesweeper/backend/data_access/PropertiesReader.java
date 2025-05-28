@@ -1,4 +1,4 @@
-package ch.supsi.minesweeper.backend.business;
+package ch.supsi.minesweeper.backend.data_access;
 
 import java.util.Properties;
 

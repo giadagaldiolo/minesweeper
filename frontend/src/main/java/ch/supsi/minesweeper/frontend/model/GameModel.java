@@ -1,14 +1,19 @@
 package ch.supsi.minesweeper.frontend.model;
 
+import ch.supsi.minesweeper.backend.application.GameApplication;
+import ch.supsi.minesweeper.backend.business.GameLogic;
+import ch.supsi.minesweeper.backend.business.Grid;
 import ch.supsi.minesweeper.frontend.controller.GameController;
 
-public class GameModel extends AbstractModel implements GameEventHandler, PlayerEventHandler{
+public class GameModel extends AbstractModel{
+    private static GameApplication gameApplication = GameApplication.getInstance();
     private static GameModel myself;
-    private static int numOfFlags = 0;
-    private static Grid grid;
+
+
 
     private GameModel() {
         super();
+
     }
 
     public static GameModel getInstance() {
@@ -19,86 +24,37 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
         return myself;
     }
 
-    @Override
+
     public void newGame() {
-        grid = new Grid(numOfFlags);
+        gameApplication.newGame();
     }
 
-    @Override
+
     public void save() {
 
     }
 
 
-    @Override
+
     public void toggleFlag(int row, int col) {
-        if(grid.getGrid()[row][col].isHasFlag()) {
-            grid.getGrid()[row][col].setHasFlag(false);
-            incrementNumOfFlags();
-        } else{
-            grid.getGrid()[row][col].setHasFlag(true);
-            decrementNumOfFlags();
-        }
+        gameApplication.toggleCell(row, col);
     }
 
     public void reveal(int row, int col) {
         if (!isInBounds(row, col)) return;
-
-        Cell cell = grid.getGrid()[row][col];
-
-        if (cell.isRevealed() || cell.isHasFlag()) return;
-
-        cell.setRevealed(true);
-
-        if (cell.isHasMine()) {
-            GameController.getInstance().loseGame();
-            return;
-        }
-
-        // STOP: non ricorsione se ha un numero > 0
-        if (cell.getValue() > 0) {
-            return;
-        }
-        // Se value == 0, continua a rivelare intorno
-        for (int dx = -1; dx <= 1; dx++) {
-            for (int dy = -1; dy <= 1; dy++) {
-                if (dx == 0 && dy == 0) continue;
-                reveal(row + dx, col + dy);
-            }
-        }
+        gameApplication.reveal(row, col);
     }
 
-    @Override
     public void loseGame() {
-        for (int i = 0; i < grid.getGrid().length; i++) {
-            for (int j = 0; j < grid.getGrid()[i].length; j++) {
-                if ( grid.getGrid()[i][j].isHasMine()) {
-                    grid.getGrid()[i][j].setRevealed(true);
-                }
-            }
-        }
+        gameApplication.loseGame();
     }
 
     public boolean checkForWin(){
-        for (int i = 0; i < grid.getGrid().length; i++) {
-            for (int j = 0; j < grid.getGrid()[i].length; j++) {
-                if (!grid.getGrid()[i][j].isRevealed() && !grid.getGrid()[i][j].isHasMine()) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return gameApplication.checkForWin();
     }
 
-    @Override
     public void winGame() {
-        for(int i = 0; i < grid.getGrid().length; i++) {
-            for(int j = 0; j < grid.getGrid()[i].length; j++) {
-                if (grid.getGrid()[i][j].isHasFlag()) {
-                    grid.getGrid()[i][j].setHasFlag(false);
-                }
-            }
-        }
+        gameApplication.winGame();
     }
 
 
@@ -106,27 +62,27 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
     // ...
 
     public int getNumOfFlags() {
-        return numOfFlags;
+        return gameApplication.getNumOfFlags();
     }
 
     public void incrementNumOfFlags() {
-        numOfFlags++;
+        gameApplication.incrementNumOfFlags();
     }
 
     public void decrementNumOfFlags() {
-        if (numOfFlags>0)
-            numOfFlags--;
+        if (gameApplication.getNumOfFlags()>0)
+            gameApplication.decrementNumOfFlags();
     }
 
     private boolean isInBounds(int row, int col) {
-        return row >= 0 && row < grid.getGrid().length && col >= 0 && col < grid.getGrid()[0].length;
+        return row >= 0 && row < gameApplication.getGrid().getGrid().length && col >= 0 && col < gameApplication.getGrid().getGrid()[0].length;
     }
 
     public void setMines(int numMines) {
-        numOfFlags = numMines;
+        gameApplication.setNumOfFlags(numMines);
     }
 
     public Grid getGrid() {
-        return grid;
+        return gameApplication.getGrid();
     }
 }
