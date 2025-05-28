@@ -5,7 +5,6 @@ import ch.supsi.minesweeper.frontend.model.PropertiesProvider;
 
 public class PropertiesController implements PropertiesProvider {
     private static PropertiesController instance;
-
     private final PropertiesProvider provider;
 
     private PropertiesController() {
@@ -19,11 +18,8 @@ public class PropertiesController implements PropertiesProvider {
         return instance;
     }
 
-
-
     @Override
     public String getProperty(String key) {
         return provider.getProperty(key);
     }
-
 }

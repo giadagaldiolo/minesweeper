@@ -1,4 +1,4 @@
-package ch.supsi.minesweeper.frontend.model;
+package ch.supsi.minesweeper.backend.business;
 
 import ch.supsi.minesweeper.frontend.controller.EventHandler;
 

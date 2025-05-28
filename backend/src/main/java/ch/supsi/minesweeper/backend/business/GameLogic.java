@@ -1,23 +1,9 @@
-package ch.supsi.minesweeper.frontend.model;
+package ch.supsi.minesweeper.backend.business;
 
-import ch.supsi.minesweeper.frontend.controller.GameController;
-
-public class GameModel extends AbstractModel implements GameEventHandler, PlayerEventHandler{
-    private static GameModel myself;
+public class GameLogic implements GameEventHandler, PlayerEventHandler {
+    private static GameLogic myself;
     private static int numOfFlags = 0;
     private static Grid grid;
-
-    private GameModel() {
-        super();
-    }
-
-    public static GameModel getInstance() {
-        if (myself == null) {
-            myself = new GameModel();
-        }
-
-        return myself;
-    }
 
     @Override
     public void newGame() {
@@ -28,7 +14,6 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
     public void save() {
 
     }
-
 
     @Override
     public void toggleFlag(int row, int col) {
@@ -41,6 +26,7 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
         }
     }
 
+    @Override
     public void reveal(int row, int col) {
         if (!isInBounds(row, col)) return;
 
@@ -79,7 +65,8 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
         }
     }
 
-    public boolean checkForWin(){
+    @Override
+    public boolean checkForWin() {
         for (int i = 0; i < grid.getGrid().length; i++) {
             for (int j = 0; j < grid.getGrid()[i].length; j++) {
                 if (!grid.getGrid()[i][j].isRevealed() && !grid.getGrid()[i][j].isHasMine()) {
@@ -100,10 +87,6 @@ public class GameModel extends AbstractModel implements GameEventHandler, Player
             }
         }
     }
-
-
-    // add all the relevant missing behaviours
-    // ...
 
     public int getNumOfFlags() {
         return numOfFlags;

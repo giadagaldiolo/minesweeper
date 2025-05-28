@@ -1,4 +1,4 @@
-package ch.supsi.minesweeper.frontend.model;
+package ch.supsi.minesweeper.backend.business;
 
 import java.io.IOException;
 import java.io.InputStream;

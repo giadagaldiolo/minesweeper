@@ -1,4 +1,4 @@
-package ch.supsi.minesweeper.frontend.model;
+package ch.supsi.minesweeper.backend.business;
 
 import java.util.List;
 import java.util.Locale;
