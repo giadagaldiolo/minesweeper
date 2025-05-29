@@ -3,8 +3,9 @@ package ch.supsi.minesweeper.backend.business;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Grid {
-    private static final int size = 9;
-    private static final int maxMines = size * size -1; // TODO: controlla che le preferenze siano < di maxMines
+    @JsonProperty("size")
+    private int size = 9;
+    private final int maxMines = size * size -1; // TODO: controlla che le preferenze siano < di maxMines
     private static Grid myself;
 
     @JsonProperty("grid")
@@ -50,5 +51,9 @@ public class Grid {
 
     public void incrementNumOfMines() {
         numOfMines++;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }

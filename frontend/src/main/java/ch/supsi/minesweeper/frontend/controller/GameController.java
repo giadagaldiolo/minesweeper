@@ -74,6 +74,24 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     }
 
     @Override
+    public void open(Stage stage) {
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(translationsController.translate("label.titleOfFileChooserLoader"));
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("File JSON", "*.json")
+        );
+        fileChooser.setInitialFileName("game.json");
+
+        File file = fileChooser.showOpenDialog(stage);
+
+        if (file != null) {
+            gameModel.open(file.toPath());
+            //this.views.forEach(DataView::updateForSavedGame);
+        }
+    }
+
+    @Override
     public void toggleFlag(int row, int col) {
         gameModel.toggleFlag(row, col);
         views.forEach(view -> view.updateFlags(row, col));

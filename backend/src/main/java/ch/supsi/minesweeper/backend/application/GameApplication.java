@@ -64,4 +64,8 @@ public class GameApplication {
     public void saveAs(Path path) {
         gameLogic.saveAs(path);
     }
+
+    public void open(Path path) {
+        gameLogic.open(path);
+    }
 }

@@ -10,5 +10,5 @@ public interface GameEventHandler extends EventHandler {
 
     void saveAs(Stage stage);
 
-
+    void open(Stage stage);
 }
