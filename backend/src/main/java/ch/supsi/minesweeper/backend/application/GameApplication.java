@@ -1,0 +1,62 @@
+package ch.supsi.minesweeper.backend.application;
+
+import ch.supsi.minesweeper.backend.business.GameLogic;
+import ch.supsi.minesweeper.backend.business.Grid;
+
+public class GameApplication {
+    private static GameApplication instance;
+    private GameLogic gameLogic = GameLogic.getInstance();
+
+    public static GameApplication getInstance() {
+        if (instance == null) {
+            instance = new GameApplication();
+        }
+        return instance;
+    }
+
+    public void newGame() {
+        gameLogic.newGame();
+    }
+
+    public void save(){
+        gameLogic.save();
+    }
+
+    public void toggleCell(int row, int col){
+        gameLogic.toggleCell(row, col);
+    }
+
+    public boolean reveal(int row, int col){
+        return gameLogic.reveal(row, col);
+    }
+
+    public void loseGame(){
+        gameLogic.loseGame();
+    }
+
+    public void winGame(){
+        gameLogic.winGame();
+    }
+
+    public boolean checkForWin(){
+        return gameLogic.checkForWin();
+    }
+
+    public int getNumOfMines(){
+        return gameLogic.getNumOfMines();
+    }
+
+    public void setMines(int numOfMines){
+        gameLogic.setMines(numOfMines);
+    }
+
+    public boolean isInBounds(int row, int col) {
+        return gameLogic.isInBounds(row, col);
+    }
+
+    public Grid getGrid(){
+        return gameLogic.getGrid();
+    }
+
+
+}
