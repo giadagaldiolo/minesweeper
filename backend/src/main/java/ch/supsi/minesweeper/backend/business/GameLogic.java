@@ -45,15 +45,6 @@ public class GameLogic {
         return myself;
     }
 
-    public void newGame() {
-        newGame.newGame(grid);
-    }
-
-
-    public void save() {
-        saveGame.save();
-    }
-
 
     public void toggleCell(int row, int col) {
         System.out.println("sono stato chiamato");
@@ -92,8 +83,6 @@ public class GameLogic {
         return grid.getNumOfMines();
     }
 
-
-
     public boolean isInBounds(int row, int col) {
         return row >= 0 && row < grid.getSize() && col >= 0 && col < grid.getSize();
     }
@@ -112,5 +101,13 @@ public class GameLogic {
 
     public void open(Path path) {
         openGame.open(path);
+    }
+
+    public void newGame() {
+        newGame.newGame(grid);
+    }
+
+    public void save() {
+        saveGame.save();
     }
 }

@@ -1,4 +1,4 @@
-package ch.supsi.minesweeper.backend.application;
+package ch.supsi.minesweeper.frontend.controller;
 
 public interface PropertiesBusinessInterface {
     String getProperty(String key);

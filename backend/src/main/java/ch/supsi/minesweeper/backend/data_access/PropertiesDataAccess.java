@@ -15,7 +15,7 @@ public class PropertiesDataAccess implements PropertiesDataAccessInterface {
     private final String propertiesFile = "user.properties";
     private Properties userProperties;
 
-    public static PropertiesDataAccess getMyself() {
+    public static PropertiesDataAccess getInstance() {
         if (myself == null) {
             myself = new PropertiesDataAccess();
         }

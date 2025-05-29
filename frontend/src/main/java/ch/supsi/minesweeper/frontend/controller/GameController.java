@@ -1,7 +1,6 @@
 package ch.supsi.minesweeper.frontend.controller;
 
-import ch.supsi.minesweeper.backend.application.PropertiesBusinessInterface;
-import ch.supsi.minesweeper.backend.business.properties.PropertiesModel;
+import ch.supsi.minesweeper.frontend.model.PropertiesModel;
 import ch.supsi.minesweeper.frontend.model.GameModel;
 
 
@@ -10,7 +9,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.util.List;
 
 public class GameController implements GameEventHandler, PlayerEventHandler {

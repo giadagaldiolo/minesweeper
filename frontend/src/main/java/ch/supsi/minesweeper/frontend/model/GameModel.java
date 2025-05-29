@@ -30,7 +30,6 @@ public class GameModel extends AbstractModel{
         gameApplication.newGame();
     }
 
-
     public void save() {
         gameApplication.save();
     }
@@ -38,8 +37,6 @@ public class GameModel extends AbstractModel{
     public void saveAs(Path path) {
         gameApplication.saveAs(path);
     }
-
-
 
     public void toggleFlag(int row, int col) {
         gameApplication.toggleCell(row, col);
