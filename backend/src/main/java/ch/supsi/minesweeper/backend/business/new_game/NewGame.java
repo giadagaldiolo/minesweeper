@@ -2,7 +2,6 @@ package ch.supsi.minesweeper.backend.business.new_game;
 
 import ch.supsi.minesweeper.backend.business.Cell;
 import ch.supsi.minesweeper.backend.business.Grid;
-import ch.supsi.minesweeper.backend.business.check_win.CheckWin;
 
 import java.util.Random;
 
@@ -21,13 +20,15 @@ public class NewGame implements INewGame{
     }
 
     @Override
-    public void newGame(Grid grid, int numOfFlags) {
-        initializeGrid(grid, numOfFlags);
+    public void newGame(Grid grid) {
+        initializeGrid(grid);
     }
 
     //Metodo che inizializza la griglia
-    public void initializeGrid(Grid grid, int numOfMines){
+    public void initializeGrid(Grid grid){
         int size = grid.getSize();
+        int numOfMines = grid.getNumOfMines();
+        System.out.println(grid.getNumOfMines()+"!!!!!!");
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 grid.getGrid()[i][j] = new Cell();

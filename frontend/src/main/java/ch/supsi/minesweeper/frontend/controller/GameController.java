@@ -22,6 +22,7 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         this.gameModel = GameModel.getInstance();
         this.preferencesModel = PropertiesModel.getInstance();
         int numMinesPref = Integer.parseInt(preferencesModel.getProperty("numMines"));
+        System.out.println("numero di bombe"+numMinesPref);
         gameModel.setMines(numMinesPref);
     }
 

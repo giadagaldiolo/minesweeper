@@ -2,11 +2,10 @@ package ch.supsi.minesweeper.backend.business.flags_handler;
 
 public interface IFlagsHandler {
 
-    int getNumOfFlags(int numOfFlags);
+    int getNumOfFlags();
 
-    void incrementNumOfFlags(int numOfFlags);
+    void incrementNumOfFlags();
 
-    void decrementNumOfFlags(int numOfFlags);
+    void decrementNumOfFlags();
 
-    void setNumOfFlags(int numOfFlags, int num);
 }

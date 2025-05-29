@@ -4,7 +4,7 @@ import ch.supsi.minesweeper.backend.application.GameApplication;
 import ch.supsi.minesweeper.backend.business.Grid;
 
 public class GameModel extends AbstractModel{
-    private static GameApplication gameApplication = GameApplication.getInstance();
+    private static final GameApplication gameApplication = GameApplication.getInstance();
     private static GameModel myself;
 
 

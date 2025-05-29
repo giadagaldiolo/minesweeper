@@ -27,8 +27,9 @@ public class Grid {
         return numOfMines;
     }
 
-    public void setNumOfMines(int numOfMines) {
-        this.numOfMines = numOfMines;
+    public void setNumOfMines(int numOfMine) {
+        numOfMines = numOfMine;
+        System.out.println("numero di mine:"+numOfMines);
     }
 
     public int getSize() {

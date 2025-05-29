@@ -1,6 +1,5 @@
 package ch.supsi.minesweeper.backend.business;
 
-import ch.supsi.minesweeper.backend.application.GameApplication;
 import ch.supsi.minesweeper.backend.business.check_win.CheckWin;
 import ch.supsi.minesweeper.backend.business.check_win.ICheckWin;
 import ch.supsi.minesweeper.backend.business.flags_handler.FlagsHandler;
@@ -27,8 +26,8 @@ public class GameLogic {
     private static IFlagsHandler flagsHandler = FlagsHandler.getInstance();
 
     private static GameLogic myself;
-    private static int numOfFlags = 0;
-    private static final Grid grid = Grid.getInstance();
+
+    private static Grid grid = Grid.getInstance();
 
 
     public static GameLogic getInstance() {
@@ -39,7 +38,7 @@ public class GameLogic {
     }
 
     public void newGame() {
-        newGame.newGame(grid,numOfFlags);
+        newGame.newGame(grid);
     }
 
 
@@ -51,10 +50,10 @@ public class GameLogic {
     public void toggleCell(int row, int col) {
         //se torna true va decrementato il numero di bandiere di 1(prima l'aveva)
         if(toggleCell.toggleCell(grid, row, col)){
-            flagsHandler.decrementNumOfFlags(numOfFlags);
+            flagsHandler.decrementNumOfFlags();
         } else{
             //se torna false va incrementato di 1(prima non l'aveva)
-            flagsHandler.incrementNumOfFlags(numOfFlags);
+            flagsHandler.incrementNumOfFlags();
         }
     }
 
@@ -77,21 +76,18 @@ public class GameLogic {
     }
 
     public int getNumOfFlags() {
-        return flagsHandler.getNumOfFlags(numOfFlags);
+        return flagsHandler.getNumOfFlags();
     }
 
     public void incrementNumOfFlags() {
-        flagsHandler.incrementNumOfFlags(numOfFlags);
+        flagsHandler.incrementNumOfFlags();
     }
 
     public void decrementNumOfFlags() {
-        if (flagsHandler.getNumOfFlags(numOfFlags)>0)
-            flagsHandler.decrementNumOfFlags(numOfFlags);
+        if (flagsHandler.getNumOfFlags()>0)
+            flagsHandler.decrementNumOfFlags();
     }
 
-    public void setNumOfFlags(int num) {
-        flagsHandler.setNumOfFlags(numOfFlags, num);
-    }
 
     public boolean isInBounds(int row, int col) {
         return row >= 0 && row < grid.getSize() && col >= 0 && col < grid.getSize();

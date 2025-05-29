@@ -1,11 +1,9 @@
 package ch.supsi.minesweeper.backend.business.flags_handler;
-
-import ch.supsi.minesweeper.backend.business.new_game.NewGame;
-
 public class FlagsHandler implements IFlagsHandler{
 
 
     private static FlagsHandler mySelf;
+    private static int numOfFlags = 0;
 
     private FlagsHandler(){}
 
@@ -18,22 +16,20 @@ public class FlagsHandler implements IFlagsHandler{
     }
 
     @Override
-    public int getNumOfFlags(int numOfFlags) {
+    public int getNumOfFlags() {
         return numOfFlags;
     }
 
     @Override
-    public void incrementNumOfFlags(int numOfFlags) {
+    public void incrementNumOfFlags() {
         numOfFlags++;
+
     }
 
     @Override
-    public void decrementNumOfFlags(int numOfFlags) {
+    public void decrementNumOfFlags() {
         numOfFlags--;
     }
 
-    @Override
-    public void setNumOfFlags(int numOfFlags, int num) {
-        numOfFlags = num;
-    }
+
 }
