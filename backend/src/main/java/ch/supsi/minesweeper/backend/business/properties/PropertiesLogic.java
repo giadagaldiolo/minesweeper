@@ -9,10 +9,12 @@ public class PropertiesLogic {
     private static PropertiesLogic myself;
     private final PropertiesDataAccessInterface propertiesDao;
     private final Properties userProperties;
+    private Properties defaultProperties;
 
     private PropertiesLogic() {
         this.propertiesDao = PropertiesDataAccess.getInstance();
         this.userProperties = propertiesDao.getProperties();
+        this.defaultProperties = propertiesDao.getProperties();
     }
 
     public static PropertiesLogic getInstance() {

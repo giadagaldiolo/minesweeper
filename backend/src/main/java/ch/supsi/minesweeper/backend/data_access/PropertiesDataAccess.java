@@ -14,6 +14,7 @@ public class PropertiesDataAccess implements PropertiesDataAccessInterface {
     private final String propertiesDirectory = ".minesweeper";
     private final String propertiesFile = "user.properties";
     private Properties userProperties;
+    private Properties defaultProperties;
 
     public static PropertiesDataAccess getInstance() {
         if (myself == null) {
@@ -107,4 +108,29 @@ public class PropertiesDataAccess implements PropertiesDataAccessInterface {
         createUserPropertiesFile(userProperties);
         return userProperties;
     }
+
+    @Override
+    public Properties getProperties() {
+        if (userProperties != null && defaultProperties != null) {
+            return userProperties;
+        }
+
+        defaultProperties = loadDefaultProperties();
+
+        if (userPropertiesFileExists()) {
+            userProperties = loadProperties(getUserPropertiesFilePath());
+        } else {
+            userProperties = new Properties(defaultProperties); // eredita fallback
+            createUserPropertiesFile(userProperties); // crea file con default
+        }
+
+        // Se userProperties esiste ma non eredita dai default, lo sistemiamo
+        if (userProperties.getDefaults() == null) {
+            userProperties = new Properties(defaultProperties);
+            userProperties.putAll(loadProperties(getUserPropertiesFilePath()));
+        }
+
+        return userProperties;
+    }
+
 }

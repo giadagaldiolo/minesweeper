@@ -14,7 +14,7 @@ import java.util.List;
 public class GameController implements GameEventHandler, PlayerEventHandler {
 
     private static GameController myself;
-    TranslationsController translationsController;
+    private TranslationsController translationsController;
 
     private GameModel gameModel;
     private PropertiesBusinessInterface preferencesModel;
@@ -43,7 +43,19 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
 
     @Override
     public void newGame() {
-        gameModel.setMines(Integer.parseInt(preferencesModel.getProperty("numMines")));
+        int numMinesPref;
+        try {
+            numMinesPref = Integer.parseInt(preferencesModel.getProperty("numMines"));
+        } catch (NumberFormatException e) {
+            numMinesPref = 10; // fallback se il valore non è numerico
+        }
+
+        int maxMines = gameModel.getGridSize() * gameModel.getGridSize() - 1;
+        if (numMinesPref > maxMines) {
+            numMinesPref = 10; // fallback se il valore è troppo grande
+        }
+
+        gameModel.setMines(numMinesPref);
         gameModel.newGame();
         this.views.forEach(DataView::updateForNewGame);
     }
