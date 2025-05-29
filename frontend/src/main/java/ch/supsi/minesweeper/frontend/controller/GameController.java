@@ -16,6 +16,7 @@ import java.util.List;
 public class GameController implements GameEventHandler, PlayerEventHandler {
 
     private static GameController myself;
+    TranslationsController translationsController;
 
     private GameModel gameModel;
     private PropertiesBusinessInterface preferencesModel;
@@ -25,6 +26,7 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     private GameController () {
         this.gameModel = GameModel.getInstance();
         this.preferencesModel = PropertiesModel.getInstance();
+        this.translationsController = TranslationsController.getInstance();
         int numMinesPref = Integer.parseInt(preferencesModel.getProperty("numMines"));
         gameModel.setMines(numMinesPref);
     }
@@ -57,11 +59,11 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     @Override
     public void saveAs(Stage stage) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Salva partita come...");
+        fileChooser.setTitle(translationsController.translate("label.titleOfFileChooser"));
         fileChooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("File JSON", "*.json")
         );
-        fileChooser.setInitialFileName("partita.json");
+        fileChooser.setInitialFileName("game.json");
 
         File file = fileChooser.showSaveDialog(stage);  // <-- CORRETTO: finestra di salvataggio
 
