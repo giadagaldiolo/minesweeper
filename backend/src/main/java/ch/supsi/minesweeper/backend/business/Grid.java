@@ -1,14 +1,11 @@
 package ch.supsi.minesweeper.backend.business;
 
-import java.util.Random;
-
 public class Grid {
-    private static final int size = 9;
+    private static int size = 9; // si
     private static final int maxMines = size * size -1; // TODO: controlla che le preferenze siano < di maxMines
     private static Grid myself;
-    private static Cell[][] grid;
-    private static int numOfMines;
-
+    private static Cell[][] grid; // si
+    private static int numOfMines; // si
 
     private Grid(){
         grid = new Cell[size][size];
@@ -21,22 +18,27 @@ public class Grid {
         return myself;
     }
 
+    public static Cell[][] getGrid() {
+        return grid;
+    }
+
+    public static void setGrid(Cell[][] grid) {
+        Grid.grid = grid;
+    }
+
     public int getNumOfMines() {
         return numOfMines;
     }
 
     public void setNumOfMines(int numOfMine) {
         numOfMines = numOfMine;
-        System.out.println("numero di mine:"+numOfMines);
     }
 
     public int getSize() {
         return size;
     }
 
-    public static Cell[][] getGrid() {
-        return grid;
-    }
+    public void setSize(int size) { Grid.size = size; }
 
     public void decrementNumOfMines() {
         numOfMines--;
@@ -45,5 +47,4 @@ public class Grid {
     public void incrementNumOfMines() {
         numOfMines++;
     }
-
 }

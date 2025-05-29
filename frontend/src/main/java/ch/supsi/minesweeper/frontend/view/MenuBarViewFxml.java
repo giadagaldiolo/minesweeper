@@ -116,6 +116,8 @@ public class MenuBarViewFxml implements ControlledTranslatableFxView {
     public void updateForNewGame() {
         // get your data from the model, if needed
         // then update this view here
+        saveMenuItem.setDisable(false);
+        saveAsMenuItem.setDisable(false);
         translateText();
     }
 
