@@ -19,11 +19,12 @@ public class WinGame implements IWinGame{
 
     @Override
     public void winGame(Grid grid) {
-        for(int i = 0; i < grid.getInstance().getSize(); i++) {
-            for(int j = 0; j < grid.getInstance().getGrid()[i].length; j++) {
-                if (grid.getInstance().getGrid()[i][j].isHasFlag()) {
-                    grid.getInstance().getGrid()[i][j].setHasFlag(false);
+        for(int i = 0; i < grid.getSize(); i++) {
+            for(int j = 0; j < grid.getGrid()[i].length; j++) {
+                if (grid.getGrid()[i][j].isHasFlag()) {
+                    grid.getGrid()[i][j].setHasFlag(false);
                 }
+
             }
         }
     }

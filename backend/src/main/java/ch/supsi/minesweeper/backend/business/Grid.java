@@ -37,4 +37,13 @@ public class Grid {
     public static Cell[][] getGrid() {
         return grid;
     }
+
+    public void decrementNumOfMines() {
+        numOfMines--;
+    }
+
+    public void incrementNumOfMines() {
+        numOfMines++;
+    }
+
 }

@@ -4,5 +4,5 @@ import ch.supsi.minesweeper.backend.business.Grid;
 
 public interface IReveal {
 
-    void reveal(Grid grid, int row, int col);
+    boolean reveal(Grid grid, int row, int col);
 }

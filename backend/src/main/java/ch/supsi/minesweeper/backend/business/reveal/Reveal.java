@@ -9,7 +9,6 @@ import ch.supsi.minesweeper.backend.business.lose_game.LoseGame;
 public class Reveal implements IReveal{
 
     private static Reveal mySelf;
-    private static ILoseGame loseGame = LoseGame.getInstance();
 
     private Reveal(){}
 
@@ -21,29 +20,41 @@ public class Reveal implements IReveal{
         return mySelf;
     }
     @Override
-    public void reveal(Grid grid, int row, int col) {
+    public boolean reveal(Grid grid, int row, int col) {
+
+        if (row < 0 || row >= grid.getSize() || col < 0 || col >= grid.getSize()) {
+            return true;
+        }
 
         Cell cell = grid.getGrid()[row][col];
 
-        if (cell.isRevealed() || cell.isHasFlag()) return;
+        if (cell.isRevealed() || cell.isHasFlag()) return true;
 
         cell.setRevealed(true);
 
         if (cell.isHasMine()) {
-            loseGame.loseGame(grid);
-            return;
+            // Hai perso
+            return false;
         }
 
-        // STOP: non ricorsione se ha un numero > 0
         if (cell.getValue() > 0) {
-            return;
+            return true;
         }
-        // Se value == 0, continua a rivelare intorno
+
         for (int dx = -1; dx <= 1; dx++) {
             for (int dy = -1; dy <= 1; dy++) {
                 if (dx == 0 && dy == 0) continue;
-                reveal(grid,row + dx, col + dy);
+
+                int newRow = row + dx;
+                int newCol = col + dy;
+                
+                if (newRow >= 0 && newRow < grid.getSize() && newCol >= 0 && newCol < grid.getSize()) {
+                    reveal(grid, newRow, newCol);
+                }
             }
         }
+
+        return true;
     }
+
 }

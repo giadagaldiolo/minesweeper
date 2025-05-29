@@ -28,7 +28,6 @@ public class NewGame implements INewGame{
     public void initializeGrid(Grid grid){
         int size = grid.getSize();
         int numOfMines = grid.getNumOfMines();
-        System.out.println(grid.getNumOfMines()+"!!!!!!");
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 grid.getGrid()[i][j] = new Cell();

@@ -37,9 +37,9 @@ public class GameModel extends AbstractModel{
         gameApplication.toggleCell(row, col);
     }
 
-    public void reveal(int row, int col) {
-        if (!isInBounds(row, col)) return;
-        gameApplication.reveal(row, col);
+    public boolean reveal(int row, int col) {
+        if (!isInBounds(row, col)) return true;
+        return gameApplication.reveal(row, col);
     }
 
     public void loseGame() {
@@ -56,15 +56,6 @@ public class GameModel extends AbstractModel{
 
     public int getNumOfMines() {
         return gameApplication.getNumOfMines();
-    }
-
-    public void incrementNumOfFlags() {
-        gameApplication.incrementNumOfFlags();
-    }
-
-    public void decrementNumOfFlags() {
-        if (gameApplication.getNumOfMines()>0)
-            gameApplication.decrementNumOfFlags();
     }
 
     private boolean isInBounds(int row, int col) {

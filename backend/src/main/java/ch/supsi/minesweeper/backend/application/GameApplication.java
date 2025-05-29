@@ -26,8 +26,8 @@ public class GameApplication {
         gameLogic.toggleCell(row, col);
     }
 
-    public void reveal(int row, int col){
-        gameLogic.reveal(row, col);
+    public boolean reveal(int row, int col){
+        return gameLogic.reveal(row, col);
     }
 
     public void loseGame(){
@@ -44,14 +44,6 @@ public class GameApplication {
 
     public int getNumOfMines(){
         return gameLogic.getNumOfMines();
-    }
-
-    public void incrementNumOfFlags(){
-        gameLogic.incrementNumOfFlags();
-    }
-
-    public void decrementNumOfFlags(){
-        gameLogic.decrementNumOfFlags();
     }
 
     public void setMines(int numOfMines){

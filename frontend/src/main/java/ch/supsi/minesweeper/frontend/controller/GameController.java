@@ -22,7 +22,6 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         this.gameModel = GameModel.getInstance();
         this.preferencesModel = PropertiesModel.getInstance();
         int numMinesPref = Integer.parseInt(preferencesModel.getProperty("numMines"));
-        System.out.println("numero di bombe"+numMinesPref);
         gameModel.setMines(numMinesPref);
     }
 
@@ -40,6 +39,7 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
 
     @Override
     public void newGame() {
+        gameModel.setMines(Integer.parseInt(preferencesModel.getProperty("numMines")));
         gameModel.newGame();
         this.views.forEach(DataView::updateForNewGame);
     }
@@ -64,7 +64,10 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
 
     @Override
     public void reveal(int row, int col) {
-        gameModel.reveal(row, col);
+        if(!gameModel.reveal(row, col)){
+            loseGame();
+            views.forEach(DataView::updateReveal);
+        };
         views.forEach(DataView::updateReveal);
     }
 
@@ -77,7 +80,7 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     @Override
     public boolean checkForWin() {
         if (gameModel.checkForWin()) {
-            gameModel.winGame();
+            winGame();
             return true;
         }
 

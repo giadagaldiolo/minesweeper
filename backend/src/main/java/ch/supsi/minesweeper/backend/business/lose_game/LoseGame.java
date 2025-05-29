@@ -20,6 +20,7 @@ public class LoseGame implements ILoseGame{
     public void loseGame(Grid grid) {
         for (int i = 0; i < grid.getGrid().length; i++) {
             for (int j = 0; j < grid.getGrid()[i].length; j++) {
+                //alla perdita rivela solo dove sono le bombe
                 if ( grid.getGrid()[i][j].isHasMine()) {
                     grid.getGrid()[i][j].setRevealed(true);
                 }

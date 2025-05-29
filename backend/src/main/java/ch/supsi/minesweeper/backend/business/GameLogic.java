@@ -48,19 +48,24 @@ public class GameLogic {
 
 
     public void toggleCell(int row, int col) {
+        System.out.println("sono stato chiamato");
         //se torna true va decrementato il numero di bandiere di 1(prima l'aveva)
         if(toggleCell.toggleCell(grid, row, col)){
             flagsHandler.decrementNumOfFlags();
+            grid.incrementNumOfMines();
+            System.out.println("sono nell if");
         } else{
             //se torna false va incrementato di 1(prima non l'aveva)
             flagsHandler.incrementNumOfFlags();
+            grid.decrementNumOfMines();
+            System.out.println("sono nell else");
         }
+
     }
 
 
-    public void reveal(int row, int col) {
-        if (!isInBounds(row, col)) return;
-        reveal.reveal(grid, row, col);
+    public boolean reveal(int row, int col) {
+        return reveal.reveal(grid, row, col);
     }
 
     public void loseGame() {
@@ -79,14 +84,6 @@ public class GameLogic {
         return grid.getNumOfMines();
     }
 
-    public void incrementNumOfFlags() {
-        flagsHandler.incrementNumOfFlags();
-    }
-
-    public void decrementNumOfFlags() {
-        if (flagsHandler.getNumOfFlags()>0)
-            flagsHandler.decrementNumOfFlags();
-    }
 
 
     public boolean isInBounds(int row, int col) {
