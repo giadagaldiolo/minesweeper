@@ -91,6 +91,11 @@ public class UserFeedbackViewFxml implements UncontrolledFxView {
     }
 
     @Override
+    public void updateForSavedGame() {
+        this.userFeedbackBar.setText(translationsController.translate("label.savedGame"));
+    }
+
+    @Override
     public void loseGame() {
         this.userFeedbackBar.setText(translationsController.translate("label.gameOver"));
     }

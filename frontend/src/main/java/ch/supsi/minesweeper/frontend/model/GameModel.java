@@ -2,6 +2,10 @@ package ch.supsi.minesweeper.frontend.model;
 
 import ch.supsi.minesweeper.backend.application.GameApplication;
 import ch.supsi.minesweeper.backend.business.Grid;
+import javafx.stage.Stage;
+
+import java.io.File;
+import java.nio.file.Path;
 
 public class GameModel extends AbstractModel{
     private static final GameApplication gameApplication = GameApplication.getInstance();
@@ -29,6 +33,10 @@ public class GameModel extends AbstractModel{
 
     public void save() {
         gameApplication.save();
+    }
+
+    public void saveAs(Path path) {
+        gameApplication.saveAs(path);
     }
 
 

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -40,7 +41,17 @@ public class SaveGame implements ISaveGame{
             Grid grid = Grid.getInstance();
             ObjectMapper mapper = new ObjectMapper();
             mapper.writerWithDefaultPrettyPrinter().writeValue(file, grid);
-            System.out.println("salvato");
+        } catch (IOException e) {
+            System.err.println("Errore durante il salvataggio: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void saveAs(Path path) {
+        try {
+            Grid grid = Grid.getInstance();
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.writerWithDefaultPrettyPrinter().writeValue(path.toFile(), grid);
         } catch (IOException e) {
             System.err.println("Errore durante il salvataggio: " + e.getMessage());
         }

@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -88,8 +89,11 @@ public class MenuBarViewFxml implements ControlledTranslatableFxView {
         // save
         this.saveMenuItem.setOnAction(event -> this.gameEventHandler.save());
 
-        // add event handlers for all necessary menu items
-        // ...
+        // save as
+        this.saveAsMenuItem.setOnAction(event -> {
+            Stage stage = (Stage) menuBar.getScene().getWindow();
+            this.gameEventHandler.saveAs(stage);
+        });
     }
 
     public void translateText() {
@@ -138,6 +142,11 @@ public class MenuBarViewFxml implements ControlledTranslatableFxView {
 
     @Override
     public void winGame() {
+        //nothing
+    }
+
+    @Override
+    public void updateForSavedGame() {
         //nothing
     }
 

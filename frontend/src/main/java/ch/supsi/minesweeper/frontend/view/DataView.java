@@ -7,5 +7,6 @@ public interface DataView {
     void updateReveal();
     void loseGame();
     void winGame();
+    void updateForSavedGame();
 
 }

@@ -3,6 +3,8 @@ package ch.supsi.minesweeper.backend.application;
 import ch.supsi.minesweeper.backend.business.GameLogic;
 import ch.supsi.minesweeper.backend.business.Grid;
 
+import java.nio.file.Path;
+
 public class GameApplication {
     private static GameApplication instance;
     private GameLogic gameLogic = GameLogic.getInstance();
@@ -59,4 +61,7 @@ public class GameApplication {
     }
 
 
+    public void saveAs(Path path) {
+        gameLogic.saveAs(path);
+    }
 }

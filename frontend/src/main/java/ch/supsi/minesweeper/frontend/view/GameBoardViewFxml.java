@@ -483,6 +483,11 @@ public class GameBoardViewFxml implements ControlledFxView {
         disableButtons();
     }
 
+    @Override
+    public void updateForSavedGame() {
+        //nothing
+    }
+
     public void disableButtons(){
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {

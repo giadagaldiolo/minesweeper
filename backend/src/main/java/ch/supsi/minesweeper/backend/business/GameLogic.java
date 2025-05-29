@@ -17,6 +17,8 @@ import ch.supsi.minesweeper.backend.business.toggle_cell.ToggleCell;
 import ch.supsi.minesweeper.backend.business.win_game.IWinGame;
 import ch.supsi.minesweeper.backend.business.win_game.WinGame;
 
+import java.nio.file.Path;
+
 public class GameLogic {
 
     private static IToggleCell toggleCell = ToggleCell.getInstance();
@@ -101,4 +103,7 @@ public class GameLogic {
         return grid;
     }
 
+    public void saveAs(Path path) {
+        saveGame.saveAs(path);
+    }
 }

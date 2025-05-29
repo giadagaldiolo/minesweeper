@@ -6,7 +6,11 @@ import ch.supsi.minesweeper.frontend.model.GameModel;
 
 
 import ch.supsi.minesweeper.frontend.view.DataView;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
+import java.nio.file.Path;
 import java.util.List;
 
 public class GameController implements GameEventHandler, PlayerEventHandler {
@@ -47,14 +51,25 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     @Override
     public void save() {
         gameModel.save();
-
-        // then update your views
-        //this.views.forEach(DataView::updateForNewGame);
+        this.views.forEach(DataView::updateForSavedGame);
     }
 
-    // add all the relevant methods to handle all those defined by the GameEventHandler interface
-    // ...
+    @Override
+    public void saveAs(Stage stage) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Salva partita come...");
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("File JSON", "*.json")
+        );
+        fileChooser.setInitialFileName("partita.json");
 
+        File file = fileChooser.showSaveDialog(stage);  // <-- CORRETTO: finestra di salvataggio
+
+        if (file != null) {
+            gameModel.saveAs(file.toPath());
+            this.views.forEach(DataView::updateForSavedGame);
+        }
+    }
 
     @Override
     public void toggleFlag(int row, int col) {
@@ -92,11 +107,6 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         gameModel.winGame();
         views.forEach(DataView::winGame);
     }
-
-    public void applyPreferences(int mines) {
-        gameModel.setMines(mines);
-    }
-
 
 
 }
