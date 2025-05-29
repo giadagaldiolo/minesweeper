@@ -64,7 +64,7 @@ public class UserFeedbackViewFxml implements UncontrolledFxView {
     @Override
     public void updateForNewGame() {
         this.userFeedbackBar.setText(
-                translationsController.translate("label.preferencesAplliedMines") + " " + gameModel.getNumOfFlags() + "\n" +
+                translationsController.translate("label.preferencesAplliedMines") + " " + gameModel.getNumOfMines() + "\n" +
                         translationsController.translate("label.preferencesAplliedLanguage") + " " +
                         translationsController.translate("label.language") + "\n" +
                         translationsController.translate("label.firstMove")
@@ -75,7 +75,7 @@ public class UserFeedbackViewFxml implements UncontrolledFxView {
     @Override
     public void updateFlags(int row, int col) {
         this.userFeedbackBar.setText(
-                translationsController.translate("label.minesLeft") + " " + gameModel.getNumOfFlags()
+                translationsController.translate("label.minesLeft") + " " + gameModel.getNumOfMines()
         );
 
     }

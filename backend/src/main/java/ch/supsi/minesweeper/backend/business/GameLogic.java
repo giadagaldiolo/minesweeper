@@ -75,8 +75,8 @@ public class GameLogic {
         winGame.winGame(grid);
     }
 
-    public int getNumOfFlags() {
-        return flagsHandler.getNumOfFlags();
+    public int getNumOfMines() {
+        return grid.getNumOfMines();
     }
 
     public void incrementNumOfFlags() {

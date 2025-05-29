@@ -54,8 +54,8 @@ public class GameModel extends AbstractModel{
         gameApplication.winGame();
     }
 
-    public int getNumOfFlags() {
-        return gameApplication.getNumOfFlags();
+    public int getNumOfMines() {
+        return gameApplication.getNumOfMines();
     }
 
     public void incrementNumOfFlags() {
@@ -63,7 +63,7 @@ public class GameModel extends AbstractModel{
     }
 
     public void decrementNumOfFlags() {
-        if (gameApplication.getNumOfFlags()>0)
+        if (gameApplication.getNumOfMines()>0)
             gameApplication.decrementNumOfFlags();
     }
 

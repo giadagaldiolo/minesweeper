@@ -21,8 +21,6 @@ public class Grid {
         return myself;
     }
 
-
-
     public int getNumOfMines() {
         return numOfMines;
     }

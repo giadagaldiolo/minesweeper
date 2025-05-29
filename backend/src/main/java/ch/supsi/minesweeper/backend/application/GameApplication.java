@@ -42,8 +42,8 @@ public class GameApplication {
         return gameLogic.checkForWin();
     }
 
-    public int getNumOfFlags(){
-        return gameLogic.getNumOfFlags();
+    public int getNumOfMines(){
+        return gameLogic.getNumOfMines();
     }
 
     public void incrementNumOfFlags(){
