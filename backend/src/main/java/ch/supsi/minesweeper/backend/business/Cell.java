@@ -1,11 +1,18 @@
 package ch.supsi.minesweeper.backend.business;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Cell {
     private int row;
     private int col;
+
+    @JsonProperty("value")
     private int value; //Number of near mines
+    @JsonProperty("revealed")
     private boolean revealed;
+    @JsonProperty("hasMine")
     private boolean hasMine;
+    @JsonProperty("hasFlag")
     private boolean hasFlag;
 
     public boolean isRevealed() {

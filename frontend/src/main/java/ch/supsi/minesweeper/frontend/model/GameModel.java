@@ -28,7 +28,7 @@ public class GameModel extends AbstractModel{
 
 
     public void save() {
-
+        gameApplication.save();
     }
 
 

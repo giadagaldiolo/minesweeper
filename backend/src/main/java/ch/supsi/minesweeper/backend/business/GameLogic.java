@@ -10,6 +10,8 @@ import ch.supsi.minesweeper.backend.business.new_game.INewGame;
 import ch.supsi.minesweeper.backend.business.new_game.NewGame;
 import ch.supsi.minesweeper.backend.business.reveal.IReveal;
 import ch.supsi.minesweeper.backend.business.reveal.Reveal;
+import ch.supsi.minesweeper.backend.business.save_game.ISaveGame;
+import ch.supsi.minesweeper.backend.business.save_game.SaveGame;
 import ch.supsi.minesweeper.backend.business.toggle_cell.IToggleCell;
 import ch.supsi.minesweeper.backend.business.toggle_cell.ToggleCell;
 import ch.supsi.minesweeper.backend.business.win_game.IWinGame;
@@ -24,6 +26,7 @@ public class GameLogic {
     private static IWinGame winGame = WinGame.getInstance();
     private static INewGame newGame = NewGame.getInstance();
     private static IFlagsHandler flagsHandler = FlagsHandler.getInstance();
+    private static ISaveGame saveGame = SaveGame.getInstance();
 
     private static GameLogic myself;
 
@@ -43,7 +46,7 @@ public class GameLogic {
 
 
     public void save() {
-
+        saveGame.save();
     }
 
 
