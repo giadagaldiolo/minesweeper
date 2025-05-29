@@ -1,10 +1,14 @@
 package ch.supsi.minesweeper.backend.business.new_game;
 
+import ch.supsi.minesweeper.backend.business.Cell;
 import ch.supsi.minesweeper.backend.business.Grid;
 import ch.supsi.minesweeper.backend.business.check_win.CheckWin;
 
+import java.util.Random;
+
 public class NewGame implements INewGame{
     private static NewGame mySelf;
+
 
     private NewGame(){}
 
@@ -15,8 +19,61 @@ public class NewGame implements INewGame{
         }
         return mySelf;
     }
+
     @Override
     public void newGame(Grid grid, int numOfFlags) {
-        grid = new Grid(numOfFlags);
+        initializeGrid(grid, numOfFlags);
+    }
+
+    //Metodo che inizializza la griglia
+    public void initializeGrid(Grid grid, int numOfMines){
+        int size = grid.getSize();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                grid.getGrid()[i][j] = new Cell();
+            }
+        }
+        placeMines(grid,numOfMines);
+        setValueOnCell(grid);
+    }
+
+    //Metodo che piazza le mine a random nella griglia
+    private void placeMines(Grid grid,int numOfMines){
+        int size = grid.getSize();
+        Random random = new Random();
+        int minesPlaced = 0;
+        while(minesPlaced<numOfMines){
+            int row = random.nextInt(size);
+            int col = random.nextInt(size);
+            if(!grid.getGrid()[row][col].isHasMine()){
+                grid.getGrid()[row][col].setHasMine(true);
+                System.out.println(row + " " + col);
+                minesPlaced++;
+            }
+        }
+    }
+
+    private void setValueOnCell(Grid grid) {
+        int size = grid.getSize();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (!grid.getGrid()[i][j].isHasMine()) {
+                    int minesAround = 0;
+
+                    for (int k = i - 1; k <= i + 1; k++) {
+                        for (int l = j - 1; l <= j + 1; l++) {
+                            if (k == i && l == j) continue;
+
+                            if (k >= 0 && k < size && l >= 0 && l < size) {
+                                if (grid.getGrid()[k][l].isHasMine()) {
+                                    minesAround++;
+                                }
+                            }
+                        }
+                    }
+                    grid.getGrid()[i][j].setValue(minesAround);
+                }
+            }
+        }
     }
 }

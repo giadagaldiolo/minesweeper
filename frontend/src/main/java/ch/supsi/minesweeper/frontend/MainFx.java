@@ -1,6 +1,5 @@
 package ch.supsi.minesweeper.frontend;
 
-import ch.supsi.minesweeper.backend.data_access.TranslationsInterface;
 import ch.supsi.minesweeper.frontend.controller.*;
 import ch.supsi.minesweeper.frontend.model.*;
 import ch.supsi.minesweeper.frontend.view.*;
@@ -23,7 +22,7 @@ public class MainFx extends Application {
     private final PlayerEventHandler playerEventHandler;
 
     private final PropertiesController propertiesController;
-    private final TranslationsInterface translationsInterface;
+    private final TranslationsController translationsController;
 
     public MainFx() {
         // GAME MODEL
@@ -38,14 +37,14 @@ public class MainFx extends Application {
         this.gameEventHandler = GameController.getInstance();
         this.playerEventHandler = GameController.getInstance();
         this.propertiesController = PropertiesController.getInstance();
-        this.translationsInterface = TranslationsController.getInstance();
+        this.translationsController = TranslationsController.getInstance();
 
         // SCAFFOLDING of M-V-C
-        this.menuBarView.initialize(this.gameEventHandler, this.gameModel, this.translationsInterface);
+        this.menuBarView.initialize(this.gameEventHandler, this.gameModel, this.translationsController);
         this.gameBoardView.initialize(this.playerEventHandler, this.gameModel);
-        this.userFeedbackView.initialize(this.gameModel, this.translationsInterface);
+        this.userFeedbackView.initialize(this.gameModel, this.translationsController);
         GameController.getInstance().initialize(List.of(this.menuBarView, this.gameBoardView, this.userFeedbackView));
-        TranslationsController.getInstance().initialize(List.of(this.menuBarView, this.userFeedbackView));
+        //TranslationsController.getInstance().initialize(List.of(this.menuBarView, this.userFeedbackView));
     }
 
     @Override

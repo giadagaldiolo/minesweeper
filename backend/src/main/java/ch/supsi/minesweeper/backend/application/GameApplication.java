@@ -54,8 +54,12 @@ public class GameApplication {
         gameLogic.decrementNumOfFlags();
     }
 
-    public void setNumOfFlags(int numOfFlags){
-        gameLogic.setNumOfFlags(numOfFlags);
+    public void setMines(int numOfMines){
+        gameLogic.setMines(numOfMines);
+    }
+
+    public boolean isInBounds(int row, int col) {
+        return gameLogic.isInBounds(row, col);
     }
 
     public Grid getGrid(){

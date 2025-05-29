@@ -1,57 +1,37 @@
 package ch.supsi.minesweeper.frontend.controller;
 
 
-import ch.supsi.minesweeper.backend.business.PropertiesModel;
-import ch.supsi.minesweeper.backend.data_access.TranslationsInterface;
-import ch.supsi.minesweeper.backend.data_access.TranslationsModel;
-import ch.supsi.minesweeper.frontend.view.DataView;
+import ch.supsi.minesweeper.backend.application.PropertiesBusinessInterface;
+import ch.supsi.minesweeper.backend.application.TranslationsBusinessInterface;
+import ch.supsi.minesweeper.backend.business.properties.PropertiesModel;
+import ch.supsi.minesweeper.backend.business.translations.TranslationsModel;
 
-import java.util.List;
-import java.util.Locale;
-import java.util.Properties;
+public class TranslationsController {
+    private static TranslationsController myself;
+    private final TranslationsBusinessInterface translationsModel;
+    private final PropertiesBusinessInterface propertiesModel;
 
-public class TranslationsController implements TranslationsInterface {
-    private static TranslationsController instance;
-    private final TranslationsModel model;
-    private final PropertiesModel preferencesModel;
-    private List<DataView> views;
 
     private TranslationsController() {
-        this.model = TranslationsModel.getInstance();
-        this.preferencesModel = PropertiesModel.getInstance();
-        String currentLanguage = preferencesModel.getProperty("language");
+        this.translationsModel = TranslationsModel.getInstance();
+        this.propertiesModel = PropertiesModel.getInstance();
+
+        String currentLanguage = propertiesModel.getProperty("language");
         if (currentLanguage != null) {
-            this.model.changeLanguage(currentLanguage);
+            this.translationsModel.changeLanguage(currentLanguage);
         }
     }
 
     public static TranslationsController getInstance() {
-        if (instance == null) {
-            instance = new TranslationsController();
+        if (myself == null) {
+            myself = new TranslationsController();
         }
-        return instance;
-    }
-    public void initialize(List<DataView> views){
-        this.views = views;
+        return myself;
     }
 
     public String translate(String key) {
-        return model.translate(key);
+        return this.translationsModel.translate(key);
     }
 
-    @Override
-    public List<String> getSupportedLanguageTags() {
-        return model.getSupportedLanguageTags();
-    }
-
-    @Override
-    public Properties getTranslations(Locale locale) {
-        return model.getTranslations(locale);
-    }
-
-    public void changeLanguage(String languageTag) {
-        model.changeLanguage(languageTag);
-        preferencesModel.setProperty("language", languageTag);
-    }
 
 }

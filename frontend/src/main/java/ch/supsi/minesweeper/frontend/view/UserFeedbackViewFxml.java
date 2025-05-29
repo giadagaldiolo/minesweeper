@@ -1,6 +1,6 @@
 package ch.supsi.minesweeper.frontend.view;
 
-import ch.supsi.minesweeper.backend.data_access.TranslationsInterface;
+import ch.supsi.minesweeper.frontend.controller.TranslationsController;
 import ch.supsi.minesweeper.frontend.model.AbstractModel;
 import ch.supsi.minesweeper.frontend.model.GameModel;
 import javafx.fxml.FXML;
@@ -17,7 +17,7 @@ public class UserFeedbackViewFxml implements UncontrolledFxView {
     private static UserFeedbackViewFxml myself;
 
     private GameModel gameModel;
-    private TranslationsInterface translationsController;
+    private TranslationsController translationsController;
 
     @FXML
     private ScrollPane containerPane;
@@ -48,7 +48,7 @@ public class UserFeedbackViewFxml implements UncontrolledFxView {
     }
 
     @Override
-    public void initialize(AbstractModel model, TranslationsInterface translationsController) {
+    public void initialize(AbstractModel model, TranslationsController translationsController) {
         this.gameModel = (GameModel) model;
         this.translationsController = translationsController;
         this.userFeedbackBar.setText(

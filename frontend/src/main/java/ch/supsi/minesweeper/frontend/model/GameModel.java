@@ -1,14 +1,11 @@
 package ch.supsi.minesweeper.frontend.model;
 
 import ch.supsi.minesweeper.backend.application.GameApplication;
-import ch.supsi.minesweeper.backend.business.GameLogic;
 import ch.supsi.minesweeper.backend.business.Grid;
-import ch.supsi.minesweeper.frontend.controller.GameController;
 
 public class GameModel extends AbstractModel{
     private static GameApplication gameApplication = GameApplication.getInstance();
     private static GameModel myself;
-
 
 
     private GameModel() {
@@ -57,10 +54,6 @@ public class GameModel extends AbstractModel{
         gameApplication.winGame();
     }
 
-
-    // add all the relevant missing behaviours
-    // ...
-
     public int getNumOfFlags() {
         return gameApplication.getNumOfFlags();
     }
@@ -75,11 +68,11 @@ public class GameModel extends AbstractModel{
     }
 
     private boolean isInBounds(int row, int col) {
-        return row >= 0 && row < gameApplication.getGrid().getGrid().length && col >= 0 && col < gameApplication.getGrid().getGrid()[0].length;
+        return gameApplication.isInBounds(row, col);
     }
 
     public void setMines(int numMines) {
-        gameApplication.setNumOfFlags(numMines);
+        gameApplication.setMines(numMines);
     }
 
     public Grid getGrid() {

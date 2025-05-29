@@ -1,8 +1,8 @@
 package ch.supsi.minesweeper.frontend.view;
 
-import ch.supsi.minesweeper.backend.data_access.TranslationsInterface;
 import ch.supsi.minesweeper.frontend.controller.EventHandler;
 import ch.supsi.minesweeper.frontend.controller.GameEventHandler;
+import ch.supsi.minesweeper.frontend.controller.TranslationsController;
 import ch.supsi.minesweeper.frontend.model.AbstractModel;
 import ch.supsi.minesweeper.frontend.model.GameModel;
 import javafx.fxml.FXML;
@@ -21,7 +21,7 @@ public class MenuBarViewFxml implements ControlledTranslatableFxView {
 
     private GameEventHandler gameEventHandler;
     private GameModel gameModel;
-    private TranslationsInterface translationsController;
+    private TranslationsController translationsController;
 
     @FXML
     private MenuBar menuBar;
@@ -73,7 +73,7 @@ public class MenuBarViewFxml implements ControlledTranslatableFxView {
     }
 
     @Override
-    public void initialize(EventHandler eventHandler, AbstractModel model,TranslationsInterface translationsController) {
+    public void initialize(EventHandler eventHandler, AbstractModel model, TranslationsController translationsController) {
         this.createBehaviour();
         this.gameEventHandler = (GameEventHandler) eventHandler;
         this.gameModel = (GameModel) model;

@@ -1,23 +1,25 @@
 package ch.supsi.minesweeper.backend.data_access;
 
+import ch.supsi.minesweeper.backend.business.properties.PropertiesDataAccessInterface;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Properties;
 
-public class PropertiesFileReader implements PropertiesReader {
-    private static PropertiesFileReader instance;
+public class PropertiesDataAccess implements PropertiesDataAccessInterface {
+    private static PropertiesDataAccess myself;
     private final String defaultPropertiesPath = "/default.properties";
     private final String userHomeDirectory = System.getProperty("user.home");
     private final String propertiesDirectory = ".minesweeper";
     private final String propertiesFile = "user.properties";
     private Properties userProperties;
 
-    public static PropertiesFileReader getInstance() {
-        if (instance == null) {
-            instance = new PropertiesFileReader();
+    public static PropertiesDataAccess getMyself() {
+        if (myself == null) {
+            myself = new PropertiesDataAccess();
         }
-        return instance;
+        return myself;
     }
 
     private Path getUserPropertiesDirectoryPath() {
@@ -40,8 +42,9 @@ public class PropertiesFileReader implements PropertiesReader {
         try {
             return Files.createDirectories(this.getUserPropertiesDirectoryPath());
 
-        } catch (IOException ignoredForDemoPurposes) {
-            ignoredForDemoPurposes.printStackTrace();
+        } catch (IOException e) {
+            System.err.println("Errore nella creazione della directory: " + e.getMessage());
+            e.printStackTrace(); // Almeno stampiamo lo stack trace per debug
         }
 
         return null;
@@ -62,7 +65,7 @@ public class PropertiesFileReader implements PropertiesReader {
         try {
             preferences.load(new FileInputStream(String.valueOf(path)));
 
-        } catch (IOException ignoredForDemoPurposes) {
+        } catch (IOException ignoredForDemoPurposes) { //TODO: sistemare exception
             return null;
         }
         return preferences;
@@ -82,7 +85,7 @@ public class PropertiesFileReader implements PropertiesReader {
                 FileOutputStream outputStream = new FileOutputStream(String.valueOf(this.getUserPropertiesFilePath()));
                 defaultProperties.store(outputStream, null);
                 return true;
-            } catch (IOException ignoredForDemoPurposes) {
+            } catch (IOException ignoredForDemoPurposes) { //TODO: sistemare exception
                 return false;
             }
         }
@@ -91,12 +94,7 @@ public class PropertiesFileReader implements PropertiesReader {
     }
 
     @Override
-    public String getUserPreferencesFilePath() {
-        return getUserPropertiesFilePath().toString();
-    }
-
-    @Override
-    public Properties read() {
+    public Properties getProperties() {
         if (userProperties != null) {
             return userProperties;
         }

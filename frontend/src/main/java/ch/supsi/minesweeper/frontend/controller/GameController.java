@@ -1,7 +1,7 @@
 package ch.supsi.minesweeper.frontend.controller;
 
-import ch.supsi.minesweeper.backend.business.PropertiesModel;
-import ch.supsi.minesweeper.backend.data_access.PropertiesProvider;
+import ch.supsi.minesweeper.backend.application.PropertiesBusinessInterface;
+import ch.supsi.minesweeper.backend.business.properties.PropertiesModel;
 import ch.supsi.minesweeper.frontend.model.GameModel;
 
 
@@ -14,7 +14,7 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     private static GameController myself;
 
     private GameModel gameModel;
-    private PropertiesProvider preferencesModel;
+    private PropertiesBusinessInterface preferencesModel;
 
     private List<DataView> views;
 

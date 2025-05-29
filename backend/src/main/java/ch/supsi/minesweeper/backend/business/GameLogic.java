@@ -16,7 +16,7 @@ import ch.supsi.minesweeper.backend.business.toggle_cell.ToggleCell;
 import ch.supsi.minesweeper.backend.business.win_game.IWinGame;
 import ch.supsi.minesweeper.backend.business.win_game.WinGame;
 
-public class GameLogic{
+public class GameLogic {
 
     private static IToggleCell toggleCell = ToggleCell.getInstance();
     private static IReveal reveal = Reveal.getInstance();
@@ -24,12 +24,11 @@ public class GameLogic{
     private static ICheckWin checkWin = CheckWin.getInstance();
     private static IWinGame winGame = WinGame.getInstance();
     private static INewGame newGame = NewGame.getInstance();
-    private static IFlagsHandler flagsHandler = new FlagsHandler();
+    private static IFlagsHandler flagsHandler = FlagsHandler.getInstance();
 
     private static GameLogic myself;
     private static int numOfFlags = 0;
-    private static Grid grid;
-
+    private static final Grid grid = Grid.getInstance();
 
 
     public static GameLogic getInstance() {
@@ -38,6 +37,7 @@ public class GameLogic{
         }
         return myself;
     }
+
     public void newGame() {
         newGame.newGame(grid,numOfFlags);
     }
@@ -57,8 +57,6 @@ public class GameLogic{
             flagsHandler.incrementNumOfFlags(numOfFlags);
         }
     }
-
-
 
 
     public void reveal(int row, int col) {
@@ -95,12 +93,12 @@ public class GameLogic{
         flagsHandler.setNumOfFlags(numOfFlags, num);
     }
 
-    private boolean isInBounds(int row, int col) {
-        return row >= 0 && row < grid.getGrid().length && col >= 0 && col < grid.getGrid()[0].length;
+    public boolean isInBounds(int row, int col) {
+        return row >= 0 && row < grid.getSize() && col >= 0 && col < grid.getSize();
     }
 
     public void setMines(int numMines) {
-        numOfFlags = numMines;
+        grid.setNumOfMines(numMines);
     }
 
     public Grid getGrid() {
