@@ -24,8 +24,6 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         this.gameModel = GameModel.getInstance();
         this.preferencesModel = PropertiesModel.getInstance();
         this.translationsController = TranslationsController.getInstance();
-        int numMinesPref = Integer.parseInt(preferencesModel.getProperty("numMines"));
-        gameModel.setMines(numMinesPref);
     }
 
     public static GameController getInstance() {
@@ -68,7 +66,7 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         );
         fileChooser.setInitialFileName("game.json");
 
-        File file = fileChooser.showSaveDialog(stage);  // <-- CORRETTO: finestra di salvataggio
+        File file = fileChooser.showSaveDialog(stage);
 
         if (file != null) {
             gameModel.saveAs(file.toPath());
@@ -88,8 +86,12 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         File file = fileChooser.showOpenDialog(stage);
 
         if (file != null) {
-            gameModel.open(file.toPath());
-            //this.views.forEach(DataView::updateForSavedGame);
+            if (gameModel.open(file.toPath())) {
+                this.views.forEach(DataView::updateForOpen);
+
+            }
+            this.views.forEach(DataView::updateForNotOpen);
+
         }
     }
 

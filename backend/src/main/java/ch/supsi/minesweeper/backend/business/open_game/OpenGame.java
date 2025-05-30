@@ -21,7 +21,7 @@ public class OpenGame implements IOpenGame{
     }
 
     @Override
-    public void open(Path path) {
+    public Grid open(Path path) {
         ObjectMapper mapper = new ObjectMapper();
         try {
             Grid loadedGrid = mapper.readValue(path.toFile(), Grid.class);
@@ -31,9 +31,10 @@ public class OpenGame implements IOpenGame{
             current.setSize(loadedGrid.getSize());
             current.setNumOfMines(loadedGrid.getNumOfMines());
             current.setGrid(loadedGrid.getGrid());
-
+            return current;
         } catch (IOException e) {
             System.err.println("Errore durante il caricamento: " + e.getMessage());
         }
+        return null;
     }
 }

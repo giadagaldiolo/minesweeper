@@ -23,15 +23,15 @@ import java.nio.file.Path;
 
 public class GameLogic {
 
-    private static IToggleCell toggleCell = ToggleCell.getInstance();
-    private static IReveal reveal = Reveal.getInstance();
-    private static ILoseGame loseGame = LoseGame.getInstance();
-    private static ICheckWin checkWin = CheckWin.getInstance();
-    private static IWinGame winGame = WinGame.getInstance();
-    private static INewGame newGame = NewGame.getInstance();
-    private static IFlagsHandler flagsHandler = FlagsHandler.getInstance();
-    private static ISaveGame saveGame = SaveGame.getInstance();
-    private static IOpenGame openGame = OpenGame.getInstance();
+    private static final IToggleCell toggleCell = ToggleCell.getInstance();
+    private static final IReveal reveal = Reveal.getInstance();
+    private static final ILoseGame loseGame = LoseGame.getInstance();
+    private static final ICheckWin checkWin = CheckWin.getInstance();
+    private static final IWinGame winGame = WinGame.getInstance();
+    private static final INewGame newGame = NewGame.getInstance();
+    private static final IFlagsHandler flagsHandler = FlagsHandler.getInstance();
+    private static final ISaveGame saveGame = SaveGame.getInstance();
+    private static final IOpenGame openGame = OpenGame.getInstance();
 
     private static GameLogic myself;
 
@@ -47,21 +47,17 @@ public class GameLogic {
 
 
     public void toggleCell(int row, int col) {
-        System.out.println("sono stato chiamato");
-        //se torna true va decrementato il numero di bandiere di 1(prima l'aveva)
-        if(toggleCell.toggleCell(grid, row, col)){
+        //se torna true la cella aveva una bandiera e ora bisogna toglierla -> va decrementato il numero di bandiere di 1
+        if (toggleCell.toggleCell(grid, row, col)){
             flagsHandler.decrementNumOfFlags();
             grid.incrementNumOfMines();
-            System.out.println("sono nell if");
         } else{
             //se torna false va incrementato di 1(prima non l'aveva)
             flagsHandler.incrementNumOfFlags();
             grid.decrementNumOfMines();
-            System.out.println("sono nell else");
         }
 
     }
-
 
     public boolean reveal(int row, int col) {
         return reveal.reveal(grid, row, col);
@@ -104,8 +100,13 @@ public class GameLogic {
         saveGame.saveAs(path);
     }
 
-    public void open(Path path) {
-        openGame.open(path);
+    public boolean open(Path path) {
+        Grid grid = openGame.open(path);
+        if (grid != null) {
+            GameLogic.grid = grid;
+            return true;
+        }
+        return false;
     }
 
     public void newGame() {

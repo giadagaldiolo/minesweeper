@@ -45,6 +45,10 @@ public class Grid {
         return size;
     }
 
+    public void setSize(int size) {
+        this.size = size;
+    }
+
     public void decrementNumOfMines() {
         numOfMines--;
     }
@@ -53,7 +57,4 @@ public class Grid {
         numOfMines++;
     }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
 }

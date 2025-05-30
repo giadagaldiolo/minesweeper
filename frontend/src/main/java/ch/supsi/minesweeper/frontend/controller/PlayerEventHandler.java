@@ -8,6 +8,4 @@ public interface PlayerEventHandler extends EventHandler {
     void loseGame();
     boolean checkForWin();
     void winGame();
-    // add all the relevant missing behaviours
-    // TODO
 }

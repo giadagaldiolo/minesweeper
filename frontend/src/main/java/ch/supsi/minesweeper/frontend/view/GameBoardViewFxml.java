@@ -475,7 +475,7 @@ public class GameBoardViewFxml implements ControlledFxView {
     public void winGame() {
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
-                if(buttons[i][j].getText().equals("\uD83D\uDEA9")){
+                if (buttons[i][j].getText().equals("\uD83D\uDEA9")) {
                     buttons[i][j].setText("");
                 }
             }
@@ -485,6 +485,22 @@ public class GameBoardViewFxml implements ControlledFxView {
 
     @Override
     public void updateForSavedGame() {
+        //nothing
+    }
+
+    @Override
+    public void updateForOpen() {
+        enableButtons();
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                updateFlags(i,j);
+            }
+        }
+        updateReveal();
+    }
+
+    @Override
+    public void updateForNotOpen() {
         //nothing
     }
 
@@ -506,7 +522,4 @@ public class GameBoardViewFxml implements ControlledFxView {
         }
     }
 
-    public static Button[][] getButtons() {
-        return buttons;
-    }
 }

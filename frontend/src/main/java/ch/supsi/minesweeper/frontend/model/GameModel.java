@@ -75,7 +75,7 @@ public class GameModel extends AbstractModel{
         return gameApplication.getGrid();
     }
 
-    public void open(Path path) {
-        gameApplication.open(path);
+    public boolean open(Path path) {
+        return gameApplication.open(path);
     }
 }

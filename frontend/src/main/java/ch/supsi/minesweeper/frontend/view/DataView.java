@@ -8,5 +8,7 @@ public interface DataView {
     void loseGame();
     void winGame();
     void updateForSavedGame();
+    void updateForOpen();
 
+    void updateForNotOpen();
 }

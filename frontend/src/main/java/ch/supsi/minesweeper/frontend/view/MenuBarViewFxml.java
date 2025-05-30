@@ -156,4 +156,16 @@ public class MenuBarViewFxml implements ControlledTranslatableFxView {
         //nothing
     }
 
+    @Override
+    public void updateForOpen() {
+        saveMenuItem.setDisable(false);
+        saveAsMenuItem.setDisable(false);
+        //translateText();
+    }
+
+    @Override
+    public void updateForNotOpen() {
+        //nothing
+    }
+
 }

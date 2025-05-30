@@ -18,11 +18,11 @@ public class ToggleCell implements IToggleCell{
 
     @Override
     public boolean toggleCell(Grid grid, int row, int col) {
-        if(grid.getGrid()[row][col].isHasFlag()) {
-            grid.getGrid()[row][col].setHasFlag(false);
+        if (grid.getGrid()[row][col].isHasFlag()) {
             //aveva la bandiera
+            grid.getGrid()[row][col].setHasFlag(false);
             return true;
-        } else{
+        } else {
             //non aveva la bandiera
             grid.getGrid()[row][col].setHasFlag(true);
             return false;

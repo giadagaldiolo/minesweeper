@@ -1,7 +1,9 @@
 package ch.supsi.minesweeper.backend.business.open_game;
 
+import ch.supsi.minesweeper.backend.business.Grid;
+
 import java.nio.file.Path;
 
 public interface IOpenGame {
-    void open(Path path);
+    Grid open(Path path);
 }
