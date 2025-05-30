@@ -14,10 +14,9 @@ import java.util.List;
 public class GameController implements GameEventHandler, PlayerEventHandler {
 
     private static GameController myself;
-    private TranslationsController translationsController;
-
-    private GameModel gameModel;
-    private PropertiesBusinessInterface preferencesModel;
+    private final TranslationsController translationsController;
+    private final GameModel gameModel;
+    private final PropertiesBusinessInterface preferencesModel;
 
     private List<DataView> views;
 
@@ -43,18 +42,12 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
 
     @Override
     public void newGame() {
-        int numMinesPref;
-        try {
-            numMinesPref = Integer.parseInt(preferencesModel.getProperty("numMines"));
-        } catch (NumberFormatException e) {
-            numMinesPref = 10; // fallback se il valore non è numerico
-        }
+        int numMinesPref = Integer.parseInt(preferencesModel.getProperty("numMines"));
 
-        int maxMines = gameModel.getGridSize() * gameModel.getGridSize() - 1;
-        if (numMinesPref > maxMines) {
-            numMinesPref = 10; // fallback se il valore è troppo grande
+        if (!gameModel.setMines(numMinesPref)) {
+            numMinesPref = Integer.parseInt(preferencesModel.getDefaultProperty("numMines"));
+            // TODO: avvisa che hai usato default properties
         }
-
         gameModel.setMines(numMinesPref);
         gameModel.newGame();
         this.views.forEach(DataView::updateForNewGame);
@@ -84,8 +77,7 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     }
 
     @Override
-    public void open(Stage stage) {
-
+    public void open(Stage stage) { //TODO: continuare
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(translationsController.translate("label.titleOfFileChooserLoader"));
         fileChooser.getExtensionFilters().add(
@@ -128,7 +120,6 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
             winGame();
             return true;
         }
-
         return false;
     }
 

@@ -67,8 +67,8 @@ public class GameModel extends AbstractModel{
         return gameApplication.isInBounds(row, col);
     }
 
-    public void setMines(int numMines) {
-        gameApplication.setMines(numMines);
+    public boolean setMines(int numMines) {
+        return gameApplication.setMines(numMines);
     }
 
     public Grid getGrid() {

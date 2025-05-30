@@ -2,11 +2,6 @@ package ch.supsi.minesweeper.frontend.model;
 
 import ch.supsi.minesweeper.backend.application.PropertiesApplication;
 import ch.supsi.minesweeper.frontend.controller.PropertiesBusinessInterface;
-import ch.supsi.minesweeper.backend.business.properties.PropertiesDataAccessInterface;
-import ch.supsi.minesweeper.backend.data_access.PropertiesDataAccess;
-
-
-import java.util.Properties;
 
 public class PropertiesModel implements PropertiesBusinessInterface {
     private static PropertiesModel myself;
@@ -23,6 +18,11 @@ public class PropertiesModel implements PropertiesBusinessInterface {
     @Override
     public String getProperty(String key) {
         return application.getProperty(key);
+    }
+
+    @Override
+    public String getDefaultProperty(String key) {
+        return application.getDefaultProperty(key);
     }
 
     public void setProperty(String key, String value) {

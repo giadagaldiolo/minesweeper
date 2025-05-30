@@ -48,8 +48,8 @@ public class GameApplication {
         return gameLogic.getNumOfMines();
     }
 
-    public void setMines(int numOfMines){
-        gameLogic.setMines(numOfMines);
+    public boolean setMines(int numOfMines){
+        return gameLogic.setMines(numOfMines);
     }
 
     public boolean isInBounds(int row, int col) {

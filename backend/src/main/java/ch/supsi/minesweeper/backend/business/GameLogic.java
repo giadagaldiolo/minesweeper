@@ -87,8 +87,13 @@ public class GameLogic {
         return row >= 0 && row < grid.getSize() && col >= 0 && col < grid.getSize();
     }
 
-    public void setMines(int numMines) {
+    public boolean setMines(int numMines) {
+        int maxMines = grid.getSize() * grid.getSize() - 1;
+        if (numMines <= 0 || numMines > maxMines) {
+            return false;
+        }
         grid.setNumOfMines(numMines);
+        return true;
     }
 
     public Grid getGrid() {

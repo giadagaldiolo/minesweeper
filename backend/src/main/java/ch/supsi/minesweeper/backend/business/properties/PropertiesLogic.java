@@ -9,12 +9,12 @@ public class PropertiesLogic {
     private static PropertiesLogic myself;
     private final PropertiesDataAccessInterface propertiesDao;
     private final Properties userProperties;
-    private Properties defaultProperties;
+    private final Properties defaultUserProperties;
 
     private PropertiesLogic() {
         this.propertiesDao = PropertiesDataAccess.getInstance();
         this.userProperties = propertiesDao.getProperties();
-        this.defaultProperties = propertiesDao.getProperties();
+        this.defaultUserProperties = propertiesDao.getDefaultProperties();
     }
 
     public static PropertiesLogic getInstance() {
@@ -36,5 +36,15 @@ public class PropertiesLogic {
 
     public void setProperty(String key, String value) {
         userProperties.setProperty(key, value);
+    }
+
+    public String getDefaultProperty(String key) {
+        if (key == null || key.isEmpty()) {
+            return null;
+        }
+        if (defaultUserProperties == null) {
+            return null;
+        }
+        return defaultUserProperties.getProperty(key);
     }
 }

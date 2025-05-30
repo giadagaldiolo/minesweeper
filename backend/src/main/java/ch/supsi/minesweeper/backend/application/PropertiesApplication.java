@@ -2,8 +2,6 @@ package ch.supsi.minesweeper.backend.application;
 
 import ch.supsi.minesweeper.backend.business.properties.PropertiesLogic;
 
-import java.util.Properties;
-
 public class PropertiesApplication {
     private static PropertiesApplication myself;
     private PropertiesLogic propertiesLogic = PropertiesLogic.getInstance();
@@ -21,5 +19,9 @@ public class PropertiesApplication {
 
     public void setProperty(String key, String value) {
         propertiesLogic.setProperty(key, value);
+    }
+
+    public String getDefaultProperty(String key) {
+        return propertiesLogic.getDefaultProperty(key);
     }
 }

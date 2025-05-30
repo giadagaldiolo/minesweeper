@@ -22,4 +22,9 @@ public class PropertiesController implements PropertiesBusinessInterface {
     public String getProperty(String key) {
         return propertiesModel.getProperty(key);
     }
+
+    @Override
+    public String getDefaultProperty(String key) {
+        return propertiesModel.getDefaultProperty(key);
+    }
 }
