@@ -103,14 +103,18 @@ public class MenuBarViewFxml implements ControlledTranslatableFxView {
         });
 
         //quit
-        this.quitMenuItem.setOnAction(event -> {
-           this.gameEventHandler.quit();
-        });
+        this.quitMenuItem.setOnAction(event -> this.gameEventHandler.quit());
 
-        //preferences
+        //edit
         this.preferencesMenuItem.setOnAction(event -> {
             Stage stage = (Stage) menuBar.getScene().getWindow();
             this.gameEventHandler.editPreferences(stage);
+        });
+
+        //help
+        this.helpMenuItem.setOnAction(event -> {
+            Stage stage = (Stage) menuBar.getScene().getWindow();
+            this.gameEventHandler.help(stage);
         });
     }
 

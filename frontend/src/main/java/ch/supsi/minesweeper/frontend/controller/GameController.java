@@ -5,6 +5,7 @@ import ch.supsi.minesweeper.frontend.model.GameModel;
 
 
 import ch.supsi.minesweeper.frontend.view.DataView;
+import ch.supsi.minesweeper.frontend.view.HelpView;
 import ch.supsi.minesweeper.frontend.view.PreferencesView;
 import javafx.application.Platform;
 import javafx.stage.FileChooser;
@@ -108,6 +109,12 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     public void editPreferences(Stage stage) {
         PreferencesView preferencesView = new PreferencesView(stage, propertiesController);
         preferencesView.show();
+    }
+
+    @Override
+    public void help(Stage stage) {
+        HelpView helpView = new HelpView(stage);
+        helpView.show();
     }
 
     @Override
