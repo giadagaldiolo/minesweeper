@@ -88,9 +88,9 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         if (file != null) {
             if (gameModel.open(file.toPath())) {
                 this.views.forEach(DataView::updateForOpen);
-
+            } else {
+                this.views.forEach(DataView::updateForNotOpen);
             }
-            this.views.forEach(DataView::updateForNotOpen);
 
         }
     }
