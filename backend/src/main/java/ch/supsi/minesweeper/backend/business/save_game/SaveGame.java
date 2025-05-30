@@ -17,7 +17,6 @@ public class SaveGame implements ISaveGame{
     private final String userHomeDirectory = System.getProperty("user.home");
     private final String projectDirectory = ".minesweeper";
     private final String savedDirectory = "saved";
-    private String currentFileName = "";
 
     private SaveGame() {}
 
@@ -29,18 +28,14 @@ public class SaveGame implements ISaveGame{
     }
 
     @Override
-    public void save() { //TODO: non sovrascrive un file già salvato, forse il problema è nel nome del file che non viene modificato quando si carica una partita
+    public String save(String fileName) { //TODO: non sovrascrive un file già salvato, forse il problema è nel nome del file che non viene modificato quando si carica una partita
         try {
             File dir = new File(userHomeDirectory, projectDirectory + File.separator + savedDirectory);
             if (!dir.exists()) {
                 Files.createDirectories(dir.toPath());
             }
-            String fileName;
-            if (currentFileName.isEmpty()) {
+            if (fileName.isEmpty()) {
                 fileName = LocalDateTime.now().toString().replace(":", "-") + ".json";
-                currentFileName = fileName;
-            } else {
-                fileName = currentFileName;
             }
             File file = new File(dir, fileName);
 
@@ -50,6 +45,7 @@ public class SaveGame implements ISaveGame{
         } catch (IOException e) {
             System.err.println("Errore durante il salvataggio: " + e.getMessage());
         }
+        return fileName;
     }
 
     @Override

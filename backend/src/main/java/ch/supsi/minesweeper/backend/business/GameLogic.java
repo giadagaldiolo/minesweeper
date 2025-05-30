@@ -34,6 +34,7 @@ public class GameLogic {
     private static final IOpenGame openGame = OpenGame.getInstance();
 
     private static GameLogic myself;
+    private String fileName = "";
 
     private static Grid grid = Grid.getInstance();
 
@@ -100,8 +101,9 @@ public class GameLogic {
         saveGame.saveAs(path);
     }
 
-    public boolean open(Path path) {
+    public boolean open(Path path, String fileName) {
         Grid grid = openGame.open(path);
+        this.fileName = fileName;
         if (grid != null) {
             GameLogic.grid = grid;
             return true;
@@ -114,6 +116,6 @@ public class GameLogic {
     }
 
     public void save() {
-        saveGame.save();
+        this.fileName = saveGame.save(this.fileName);
     }
 }

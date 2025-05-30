@@ -86,7 +86,7 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         File file = fileChooser.showOpenDialog(stage);
 
         if (file != null) {
-            if (gameModel.open(file.toPath())) {
+            if (gameModel.open(file.toPath(), file.getName())) {
                 this.views.forEach(DataView::updateForOpen);
             } else {
                 this.views.forEach(DataView::updateForNotOpen);

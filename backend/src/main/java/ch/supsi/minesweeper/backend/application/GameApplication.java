@@ -65,7 +65,7 @@ public class GameApplication {
         gameLogic.saveAs(path);
     }
 
-    public boolean open(Path path) {
-        return gameLogic.open(path);
+    public boolean open(Path path, String fileName) {
+        return gameLogic.open(path, fileName);
     }
 }
