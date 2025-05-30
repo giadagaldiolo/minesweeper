@@ -1,6 +1,7 @@
 package ch.supsi.minesweeper.frontend.view;
 
 import ch.supsi.minesweeper.frontend.controller.PropertiesController;
+import ch.supsi.minesweeper.frontend.controller.TranslationsController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,12 +17,14 @@ import javafx.stage.Stage;
 public class PreferencesView {
     private final Stage dialogStage;
     private final PropertiesController preferencesController;
+    private final TranslationsController translationsController;
 
     public PreferencesView(Stage owner, PropertiesController controller) {
         this.preferencesController = controller;
+        this.translationsController = TranslationsController.getInstance();
 
         dialogStage = new Stage();
-        dialogStage.setTitle("Modifica Preferenze");
+        dialogStage.setTitle(translationsController.translate("label.editPreferences"));
         dialogStage.initOwner(owner);
         dialogStage.initModality(Modality.APPLICATION_MODAL);
 
@@ -42,28 +45,26 @@ public class PreferencesView {
         bombSlider.setMinorTickCount(1);
         bombSlider.setSnapToTicks(true);
 
-        Label bombLabel = new Label("Numero di bombe: " + (int) bombSlider.getValue());
+        Label bombLabel = new Label(translationsController.translate("label.numberOfMines") + " " + (int) bombSlider.getValue());
         bombSlider.valueProperty().addListener((obs, oldVal, newVal) ->
-                bombLabel.setText("Numero di bombe: " + newVal.intValue()));
+                bombLabel.setText(translationsController.translate("label.numberOfMines") + " " + newVal.intValue()));
 
         // Pulsanti
-        Button saveButton = new Button("Salva");
+        Button saveButton = new Button(translationsController.translate("label.save"));
         saveButton.setOnAction(e -> {
-            //preferencesController.setProperty("language", languageComboBox.getValue());
-            //preferencesController.setProperty("numMines",String.valueOf((int)bombSlider.getValue()));
             preferencesController.savePropertyToFile("language", languageComboBox.getValue());
             preferencesController.savePropertyToFile("numMines", String.valueOf((int) bombSlider.getValue()));
             dialogStage.close();
         });
 
-        Button cancelButton = new Button("Annulla");
+        Button cancelButton = new Button(translationsController.translate("label.cancel"));
         cancelButton.setOnAction(e -> dialogStage.close());
 
         HBox buttons = new HBox(10, saveButton, cancelButton);
         buttons.setAlignment(Pos.CENTER_RIGHT);
 
         root.getChildren().addAll(
-                new Label("Lingua:"), languageComboBox,
+                new Label(translationsController.translate("label.languageLabel")), languageComboBox,
                 bombLabel, bombSlider,
                 buttons
         );
