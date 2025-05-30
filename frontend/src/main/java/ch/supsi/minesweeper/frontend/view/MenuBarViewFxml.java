@@ -5,6 +5,7 @@ import ch.supsi.minesweeper.frontend.controller.GameEventHandler;
 import ch.supsi.minesweeper.frontend.controller.TranslationsController;
 import ch.supsi.minesweeper.frontend.model.AbstractModel;
 import ch.supsi.minesweeper.frontend.model.GameModel;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -99,6 +100,11 @@ public class MenuBarViewFxml implements ControlledTranslatableFxView {
         this.openMenuItem.setOnAction(event -> {
             Stage stage = (Stage) menuBar.getScene().getWindow();
             this.gameEventHandler.open(stage);
+        });
+
+        //quit
+        this.quitMenuItem.setOnAction(event -> {
+           this.gameEventHandler.quit();
         });
     }
 

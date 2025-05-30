@@ -5,6 +5,7 @@ import ch.supsi.minesweeper.frontend.model.GameModel;
 
 
 import ch.supsi.minesweeper.frontend.view.DataView;
+import javafx.application.Platform;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -75,7 +76,7 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     }
 
     @Override
-    public void open(Stage stage) { //TODO: continuare
+    public void open(Stage stage) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(translationsController.translate("label.titleOfFileChooserLoader"));
         fileChooser.getExtensionFilters().add(
@@ -93,6 +94,11 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
             }
 
         }
+    }
+
+    @Override
+    public void quit() {
+        Platform.exit();
     }
 
     @Override
