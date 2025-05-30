@@ -47,4 +47,8 @@ public class PropertiesLogic {
         }
         return defaultUserProperties.getProperty(key);
     }
+
+    public void savePropertyToFile(String key, String value) {
+        propertiesDao.savePropertyToFile(key, value);
+    }
 }

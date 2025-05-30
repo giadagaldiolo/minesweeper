@@ -120,6 +120,26 @@ public class PropertiesDataAccess implements PropertiesDataAccessInterface {
         return deafultUserProperties;
     }
 
+    @Override
+    public void savePropertyToFile(String key, String value) {
+        Properties props = new Properties();
+        // Carica le proprietà esistenti
+        try (FileInputStream in = new FileInputStream(getUserPropertiesFilePath().toFile())) {
+            props.load(in);
+        } catch (IOException e) {
+            System.err.println("Errore nel caricamento delle preferenze esistenti: " + e.getMessage());
+        }
+
+        // Aggiunge o aggiorna la proprietà
+        props.setProperty(key, value);
+
+        // Salva tutte le proprietà
+        try (FileOutputStream out = new FileOutputStream(getUserPropertiesFilePath().toFile())) {
+            props.store(out, "User preferences");
+        } catch (IOException e) {
+            System.err.println("Errore durante il salvataggio delle preferenze: " + e.getMessage());
+        }
+    }
 
 
 }

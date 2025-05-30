@@ -30,12 +30,12 @@ public class PreferencesView {
 
         // Selettore lingua
         ComboBox<String> languageComboBox = new ComboBox<>();
-        languageComboBox.getItems().addAll("en", "it");
+        languageComboBox.getItems().addAll("en-US", "it-CH");
         languageComboBox.setValue(preferencesController.getProperty("language"));
 
         // Slider numero di bombe
         //todo dovrebbe andare da 1 a (size*size)-1
-        Slider bombSlider = new Slider(1, 80, Double.parseDouble(preferencesController.getProperty("numMines")));
+        Slider bombSlider = new Slider(1, 80, Integer.parseInt(preferencesController.getProperty("numMines")));
         bombSlider.setShowTickLabels(true);
         bombSlider.setShowTickMarks(true);
         bombSlider.setMajorTickUnit(10);
@@ -49,8 +49,10 @@ public class PreferencesView {
         // Pulsanti
         Button saveButton = new Button("Salva");
         saveButton.setOnAction(e -> {
-            preferencesController.setProperty("language", languageComboBox.getValue());
-            preferencesController.setProperty("numMines",String.valueOf(bombSlider.getValue()));
+            //preferencesController.setProperty("language", languageComboBox.getValue());
+            //preferencesController.setProperty("numMines",String.valueOf((int)bombSlider.getValue()));
+            preferencesController.savePropertyToFile("language", languageComboBox.getValue());
+            preferencesController.savePropertyToFile("numMines", String.valueOf((int) bombSlider.getValue()));
             dialogStage.close();
         });
 

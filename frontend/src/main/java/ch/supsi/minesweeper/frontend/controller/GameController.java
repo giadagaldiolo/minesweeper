@@ -5,6 +5,7 @@ import ch.supsi.minesweeper.frontend.model.GameModel;
 
 
 import ch.supsi.minesweeper.frontend.view.DataView;
+import ch.supsi.minesweeper.frontend.view.PreferencesView;
 import javafx.application.Platform;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -16,6 +17,7 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
 
     private static GameController myself;
     private final TranslationsController translationsController;
+    private final PropertiesController propertiesController;
     private final GameModel gameModel;
     private final PropertiesBusinessInterface preferencesModel;
 
@@ -25,6 +27,7 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         this.gameModel = GameModel.getInstance();
         this.preferencesModel = PropertiesModel.getInstance();
         this.translationsController = TranslationsController.getInstance();
+        this.propertiesController = PropertiesController.getInstance();
     }
 
     public static GameController getInstance() {
@@ -99,6 +102,12 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     @Override
     public void quit() {
         Platform.exit();
+    }
+
+    @Override
+    public void editPreferences(Stage stage) {
+        PreferencesView preferencesView = new PreferencesView(stage, propertiesController);
+        preferencesView.show();
     }
 
     @Override

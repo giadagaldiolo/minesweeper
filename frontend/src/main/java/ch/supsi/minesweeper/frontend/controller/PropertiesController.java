@@ -27,4 +27,14 @@ public class PropertiesController implements PropertiesBusinessInterface {
     public String getDefaultProperty(String key) {
         return propertiesModel.getDefaultProperty(key);
     }
+
+    @Override
+    public void setProperty(String key, String value) {
+        this.propertiesModel.setProperty(key, value);
+    }
+
+    @Override
+    public void savePropertyToFile(String key, String value) {
+        this.propertiesModel.savePropertyToFile(key, value);
+    }
 }

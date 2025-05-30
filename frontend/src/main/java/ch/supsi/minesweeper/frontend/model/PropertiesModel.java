@@ -28,4 +28,8 @@ public class PropertiesModel implements PropertiesBusinessInterface {
     public void setProperty(String key, String value) {
         application.setProperty(key, value);
     }
+
+    public void savePropertyToFile(String key, String value) {
+        application.savePropertyToFile(key,value);
+    }
 }

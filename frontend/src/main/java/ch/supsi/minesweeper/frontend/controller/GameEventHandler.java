@@ -13,4 +13,6 @@ public interface GameEventHandler extends EventHandler {
     void open(Stage stage);
 
     void quit();
+
+    void editPreferences(Stage stage);
 }

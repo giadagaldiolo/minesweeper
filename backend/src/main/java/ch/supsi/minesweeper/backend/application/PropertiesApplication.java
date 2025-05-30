@@ -24,4 +24,8 @@ public class PropertiesApplication {
     public String getDefaultProperty(String key) {
         return propertiesLogic.getDefaultProperty(key);
     }
+
+    public void savePropertyToFile(String key, String value) {
+        propertiesLogic.savePropertyToFile(key,value);
+    }
 }
