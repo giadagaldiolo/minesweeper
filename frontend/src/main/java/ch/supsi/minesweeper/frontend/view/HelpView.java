@@ -14,7 +14,7 @@ public class HelpView {
 
     private final Stage dialogStage;
 
-    public HelpView(Stage owner) {
+    public HelpView(Stage owner, String label) {
         dialogStage = new Stage();
         dialogStage.setTitle("Guida");
         dialogStage.initOwner(owner);
@@ -23,7 +23,8 @@ public class HelpView {
 
 
         TranslationsController translationsController = TranslationsController.getInstance();
-        Label textLabel = new Label(translationsController.translate("label.helpText"));
+
+        Label textLabel = new Label(translationsController.translate(label));
         textLabel.setWrapText(true);
 
         ScrollPane scrollPane = new ScrollPane(textLabel);
