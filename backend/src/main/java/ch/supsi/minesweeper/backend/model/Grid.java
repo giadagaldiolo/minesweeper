@@ -1,4 +1,4 @@
-package ch.supsi.minesweeper.backend.business;
+package ch.supsi.minesweeper.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

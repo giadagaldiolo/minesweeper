@@ -1,7 +1,7 @@
 package ch.supsi.minesweeper.backend.business.open_game;
 
-import ch.supsi.minesweeper.backend.business.Grid;
-import ch.supsi.minesweeper.backend.business.new_game.NewGame;
+import ch.supsi.minesweeper.backend.model.Grid;
+import ch.supsi.minesweeper.backend.service.JsonLoadService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -10,6 +10,7 @@ import java.nio.file.Path;
 public class OpenGame implements IOpenGame{
 
     private static OpenGame myself;
+    private final JsonLoadService loadService = new JsonLoadService();
 
     private OpenGame() {}
 
@@ -22,9 +23,8 @@ public class OpenGame implements IOpenGame{
 
     @Override
     public Grid open(Path path) {
-        ObjectMapper mapper = new ObjectMapper();
         try {
-            Grid loadedGrid = mapper.readValue(path.toFile(), Grid.class);
+            Grid loadedGrid = loadService.loadFromFile(path, Grid.class);
 
             // Sostituisci lo stato attuale del singleton con quello caricato
             Grid current = Grid.getInstance();

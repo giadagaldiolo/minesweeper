@@ -10,7 +10,7 @@ public class TranslationsLogic{
     private static TranslationsLogic myself;
     private final List<String> supportedLanguageTags;
     private Properties translations;
-    private final TranslationsDataAccesInterface translationsDao;
+    private final TranslationsDataAccessInterface translationsDao;
 
     private TranslationsLogic() {
         this.translationsDao = TranslationsPropertiesDataAccess.getInstance();
@@ -34,9 +34,6 @@ public class TranslationsLogic{
     }
 
     public boolean isSupportedLanguageTag(String languageTag) {
-        if (!this.supportedLanguageTags.contains(languageTag)) {
-            return false;
-        }
-        return true;
+        return this.supportedLanguageTags.contains(languageTag);
     }
 }

@@ -1,14 +1,17 @@
 package ch.supsi.minesweeper.backend.application;
 
-import ch.supsi.minesweeper.backend.business.GameLogic;
-import ch.supsi.minesweeper.backend.business.GameStatus;
-import ch.supsi.minesweeper.backend.business.Grid;
+import ch.supsi.minesweeper.backend.business.*;
+import ch.supsi.minesweeper.backend.model.GameStatus;
+import ch.supsi.minesweeper.backend.model.Grid;
 
 import java.nio.file.Path;
 
-public class GameApplication {
+public class GameApplication implements IGameLifeCycleApplication, IGameStatusManagerApplication, ICellInteractionApplication, IGridConfigurationApplication {
     private static GameApplication instance;
-    private GameLogic gameLogic = GameLogic.getInstance();
+    private static final IGameLifeCycleBusiness lifeCycle = GameLogic.getInstance();
+    private static final ICellInteractionBusiness cellInteraction = GameLogic.getInstance();
+    private static final IGameStatusManagerBusiness statusManager = GameLogic.getInstance();
+    private static final IGridConfigurationBusiness gridConfiguration = GameLogic.getInstance();
 
     public static GameApplication getInstance() {
         if (instance == null) {
@@ -17,64 +20,75 @@ public class GameApplication {
         return instance;
     }
 
+
+    @Override
     public void newGame() {
-        gameLogic.newGame();
+        lifeCycle.newGame();
     }
 
-    public void save(){
-        gameLogic.save();
+    @Override
+    public void save() {
+        lifeCycle.save();
     }
 
-    public void toggleCell(int row, int col){
-        gameLogic.toggleCell(row, col);
-    }
-
-    public boolean reveal(int row, int col){
-        return gameLogic.reveal(row, col);
-    }
-
-    public void loseGame(){
-        gameLogic.loseGame();
-    }
-
-    public void winGame(){
-        gameLogic.winGame();
-    }
-
-    public boolean checkForWin(){
-        return gameLogic.checkForWin();
-    }
-
-    public int getNumOfMines(){
-        return gameLogic.getNumOfMines();
-    }
-
-    public boolean setMines(int numOfMines){
-        return gameLogic.setMines(numOfMines);
-    }
-
-    public boolean isInBounds(int row, int col) {
-        return gameLogic.isInBounds(row, col);
-    }
-
-    public Grid getGrid(){
-        return gameLogic.getGrid();
-    }
-
-
+    @Override
     public void saveAs(Path path) {
-        gameLogic.saveAs(path);
+        lifeCycle.saveAs(path);
     }
 
+    @Override
     public boolean open(Path path, String fileName) {
-        return gameLogic.open(path, fileName);
+        return lifeCycle.open(path, fileName);
     }
 
+    @Override
+    public void toggleCell(int row, int col) {
+        cellInteraction.toggleCell(row, col);
+    }
+
+    @Override
+    public boolean reveal(int row, int col) {
+        return cellInteraction.reveal(row, col);
+    }
+
+    @Override
+    public void loseGame() {
+        statusManager.loseGame();
+    }
+
+    @Override
+    public boolean checkForWin(){
+        return statusManager.checkForWin();
+    }
+
+    @Override
+    public void winGame() {
+        statusManager.winGame();
+    }
+
+    @Override
     public GameStatus getGameStatus() {
-        return gameLogic.getGameStatus();
+        return statusManager.getGameStatus();
     }
 
+    @Override
     public void setGameStatus(GameStatus status) {
-        gameLogic.setGameStatus(status);
+        statusManager.setGameStatus(status);
+    }
+
+    @Override
+    public int getNumOfMines() {
+        return gridConfiguration.getNumOfMines();
+    }
+
+    @Override
+    public boolean setMines(int numMines) {
+        return gridConfiguration.setMines(numMines);
+    }
+
+    @Override
+    public Grid getGrid() {
+        return gridConfiguration.getGrid();
     }
 }
+

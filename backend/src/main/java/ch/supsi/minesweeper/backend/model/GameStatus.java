@@ -1,4 +1,4 @@
-package ch.supsi.minesweeper.backend.business;
+package ch.supsi.minesweeper.backend.model;
 
 public enum GameStatus {
     NEW_GAME,

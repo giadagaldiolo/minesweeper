@@ -1,6 +1,6 @@
 package ch.supsi.minesweeper.frontend.view;
 
-import ch.supsi.minesweeper.backend.business.GameStatus;
+import ch.supsi.minesweeper.backend.model.GameStatus;
 import ch.supsi.minesweeper.frontend.model.AbstractModel;
 import ch.supsi.minesweeper.frontend.model.GameModel;
 import ch.supsi.minesweeper.frontend.model.TranslationsModel;

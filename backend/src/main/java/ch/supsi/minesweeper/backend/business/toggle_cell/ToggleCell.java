@@ -1,6 +1,6 @@
 package ch.supsi.minesweeper.backend.business.toggle_cell;
 
-import ch.supsi.minesweeper.backend.business.Grid;
+import ch.supsi.minesweeper.backend.model.Grid;
 
 public class ToggleCell implements IToggleCell{
 
@@ -18,14 +18,6 @@ public class ToggleCell implements IToggleCell{
 
     @Override
     public boolean toggleCell(Grid grid, int row, int col) {
-        if (grid.getGrid()[row][col].isHasFlag()) {
-            //aveva la bandiera
-            grid.getGrid()[row][col].setHasFlag(false);
-            return true;
-        } else {
-            //non aveva la bandiera
-            grid.getGrid()[row][col].setHasFlag(true);
-            return false;
-        }
+        return grid.getGrid()[row][col].toggleFlag();
     }
 }

@@ -1,7 +1,6 @@
 package ch.supsi.minesweeper.backend.business.check_win;
 
-import ch.supsi.minesweeper.backend.business.Grid;
-import ch.supsi.minesweeper.backend.business.lose_game.LoseGame;
+import ch.supsi.minesweeper.backend.model.Grid;
 
 public class CheckWin implements ICheckWin{
 

@@ -1,6 +1,6 @@
 package ch.supsi.minesweeper.backend.business.reveal;
 
-import ch.supsi.minesweeper.backend.business.Grid;
+import ch.supsi.minesweeper.backend.model.Grid;
 
 public interface IReveal {
 

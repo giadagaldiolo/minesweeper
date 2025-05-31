@@ -1,7 +1,7 @@
 package ch.supsi.minesweeper.frontend.view;
 
-import ch.supsi.minesweeper.backend.business.Cell;
-import ch.supsi.minesweeper.backend.business.GameStatus;
+import ch.supsi.minesweeper.backend.model.Cell;
+import ch.supsi.minesweeper.backend.model.GameStatus;
 import ch.supsi.minesweeper.frontend.controller.EventHandler;
 import ch.supsi.minesweeper.frontend.controller.PlayerEventHandler;
 import ch.supsi.minesweeper.frontend.model.AbstractModel;
@@ -318,7 +318,7 @@ public class GameBoardViewFxml implements ControlledFxView {
                             playerEventHandler.checkForWin();
                             break;
                         case SECONDARY: // Click destro
-                            playerEventHandler.toggleFlag(finalI, finalJ);
+                            playerEventHandler.toggleCell(finalI, finalJ);
                             break;
                         default:
                             break;

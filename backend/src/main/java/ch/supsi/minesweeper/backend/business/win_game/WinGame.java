@@ -1,7 +1,7 @@
 package ch.supsi.minesweeper.backend.business.win_game;
 
-import ch.supsi.minesweeper.backend.business.Grid;
-import ch.supsi.minesweeper.backend.business.reveal.Reveal;
+import ch.supsi.minesweeper.backend.model.Cell;
+import ch.supsi.minesweeper.backend.model.Grid;
 
 public class WinGame implements IWinGame{
 
@@ -19,12 +19,11 @@ public class WinGame implements IWinGame{
 
     @Override
     public void winGame(Grid grid) {
-        for(int i = 0; i < grid.getSize(); i++) {
-            for(int j = 0; j < grid.getGrid()[i].length; j++) {
-                if (grid.getGrid()[i][j].isHasFlag()) {
-                    grid.getGrid()[i][j].setHasFlag(false);
+        for (Cell[] row : grid.getGrid()) {
+            for (Cell cell : row) {
+                if (cell.isHasFlag()) {
+                    cell.setHasFlag(false);
                 }
-
             }
         }
     }

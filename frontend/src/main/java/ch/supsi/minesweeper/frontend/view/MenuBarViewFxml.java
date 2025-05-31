@@ -1,13 +1,11 @@
 package ch.supsi.minesweeper.frontend.view;
 
-import ch.supsi.minesweeper.backend.business.GameStatus;
+import ch.supsi.minesweeper.backend.model.GameStatus;
 import ch.supsi.minesweeper.frontend.controller.EventHandler;
 import ch.supsi.minesweeper.frontend.controller.GameEventHandler;
-import ch.supsi.minesweeper.frontend.controller.TranslationsController;
 import ch.supsi.minesweeper.frontend.model.AbstractModel;
 import ch.supsi.minesweeper.frontend.model.GameModel;
 import ch.supsi.minesweeper.frontend.model.TranslationsModel;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

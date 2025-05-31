@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
-public interface TranslationsDataAccesInterface {
+public interface TranslationsDataAccessInterface {
     List<String> getSupportedLanguageTags();
     Properties getTranslations(Locale locale);
 }

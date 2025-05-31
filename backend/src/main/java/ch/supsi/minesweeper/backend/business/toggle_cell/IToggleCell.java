@@ -1,6 +1,6 @@
 package ch.supsi.minesweeper.backend.business.toggle_cell;
 
-import ch.supsi.minesweeper.backend.business.Grid;
+import ch.supsi.minesweeper.backend.model.Grid;
 
 public interface IToggleCell {
 

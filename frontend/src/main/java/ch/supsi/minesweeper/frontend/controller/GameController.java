@@ -1,8 +1,8 @@
 package ch.supsi.minesweeper.frontend.controller;
 
-import ch.supsi.minesweeper.backend.business.GameStatus;
-import ch.supsi.minesweeper.frontend.model.PropertiesModel;
-import ch.supsi.minesweeper.frontend.model.GameModel;
+import ch.supsi.minesweeper.backend.application.*;
+import ch.supsi.minesweeper.backend.model.GameStatus;
+import ch.supsi.minesweeper.frontend.model.*;
 
 
 import ch.supsi.minesweeper.frontend.view.DataView;
@@ -19,18 +19,18 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
 
     private static GameController myself;
     private final TranslationsController translationsController;
-    private final PropertiesController propertiesController;
-    private final GameModel gameModel;
     private final PropertiesBusinessInterface preferencesModel;
+    private static final IGameLifeCycle lifeCycle = GameModel.getInstance();
+    private static final ICellInteraction cellInteraction = GameModel.getInstance();
+    private static final IGameStatusManager statusManager = GameModel.getInstance();
+    private static final IGridConfiguration gridConfiguration = GameModel.getInstance();
     private Stage primaryStage;
 
     private List<DataView> views;
 
     private GameController () {
-        this.gameModel = GameModel.getInstance();
         this.preferencesModel = PropertiesModel.getInstance();
         this.translationsController = TranslationsController.getInstance();
-        this.propertiesController = PropertiesController.getInstance();
     }
 
     public static GameController getInstance() {
@@ -49,21 +49,21 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     public void newGame() {
         int numMinesPref = Integer.parseInt(preferencesModel.getProperty("numMines"));
 
-        if (!gameModel.setMines(numMinesPref)) {
+        if (!gridConfiguration.setMines(numMinesPref)) {
             numMinesPref = Integer.parseInt(preferencesModel.getDefaultProperty("numMines"));
-            gameModel.setGameStatus(GameStatus.NEW_GAME_DEFAULT_PROPERTIES);
+            statusManager.setGameStatus(GameStatus.NEW_GAME_DEFAULT_PROPERTIES);
             this.views.forEach(DataView::update);
         }
-        gameModel.setMines(numMinesPref);
-        gameModel.newGame();
-        gameModel.setGameStatus(GameStatus.NEW_GAME);
+        gridConfiguration.setMines(numMinesPref);
+        lifeCycle.newGame();
+        statusManager.setGameStatus(GameStatus.NEW_GAME);
         this.views.forEach(DataView::update);
     }
 
     @Override
     public void save() {
-        gameModel.save();
-        gameModel.setGameStatus(GameStatus.SAVE);
+        lifeCycle.save();
+        statusManager.setGameStatus(GameStatus.SAVE);
         this.views.forEach(DataView::update);
     }
 
@@ -79,8 +79,8 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         File file = fileChooser.showSaveDialog(stage);
 
         if (file != null) {
-            gameModel.saveAs(file.toPath());
-            gameModel.setGameStatus(GameStatus.SAVE);
+            lifeCycle.saveAs(file.toPath());
+            statusManager.setGameStatus(GameStatus.SAVE);
             this.views.forEach(DataView::update);
         }
     }
@@ -97,10 +97,10 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         File file = fileChooser.showOpenDialog(stage);
 
         if (file != null) {
-            if (gameModel.open(file.toPath(), file.getName())) {
-                gameModel.setGameStatus(GameStatus.OPEN);
+            if (lifeCycle.open(file.toPath(), file.getName())) {
+                statusManager.setGameStatus(GameStatus.OPEN);
             } else {
-                gameModel.setGameStatus(GameStatus.NOT_OPEN);
+                statusManager.setGameStatus(GameStatus.NOT_OPEN);
             }
             this.views.forEach(DataView::update);
         }
@@ -133,31 +133,31 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     }
 
     @Override
-    public void toggleFlag(int row, int col) {
-        gameModel.toggleFlag(row, col);
-        gameModel.setGameStatus(GameStatus.FLAG_UPDATE);
+    public void toggleCell(int row, int col) {
+        cellInteraction.toggleCell(row, col);
+        statusManager.setGameStatus(GameStatus.FLAG_UPDATE);
         views.forEach(DataView::update);
     }
 
     @Override
     public void reveal(int row, int col) {
-        if(!gameModel.reveal(row, col)){
+        if(!cellInteraction.reveal(row, col)){
             loseGame();
         }
-        gameModel.setGameStatus(GameStatus.REVEAL);
+        statusManager.setGameStatus(GameStatus.REVEAL);
         views.forEach(DataView::update);
     }
 
     @Override
     public void loseGame() {
-        gameModel.loseGame();
-        gameModel.setGameStatus(GameStatus.LOSE);
+        statusManager.loseGame();
+        statusManager.setGameStatus(GameStatus.LOSE);
         views.forEach(DataView::update);
     }
 
     @Override
     public boolean checkForWin() {
-        if (gameModel.checkForWin()) {
+        if (statusManager.checkForWin()) {
             winGame();
             return true;
         }
@@ -166,8 +166,8 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
 
     @Override
     public void winGame() {
-        gameModel.winGame();
-        gameModel.setGameStatus(GameStatus.WIN);
+        statusManager.winGame();
+        statusManager.setGameStatus(GameStatus.WIN);
         views.forEach(DataView::update);
     }
 

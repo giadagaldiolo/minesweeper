@@ -1,12 +1,14 @@
 package ch.supsi.minesweeper.backend.business.new_game;
 
-import ch.supsi.minesweeper.backend.business.Cell;
-import ch.supsi.minesweeper.backend.business.Grid;
+import ch.supsi.minesweeper.backend.model.Cell;
+import ch.supsi.minesweeper.backend.model.Grid;
+import ch.supsi.minesweeper.backend.service.MinePlacementService;
 
 import java.util.Random;
 
 public class NewGame implements INewGame{
     private static NewGame mySelf;
+    private final MinePlacementService minePlacementService = new MinePlacementService();
 
 
     private NewGame(){}
@@ -33,25 +35,10 @@ public class NewGame implements INewGame{
                 grid.getGrid()[i][j] = new Cell();
             }
         }
-        placeMines(grid,numOfMines);
+        minePlacementService.placeMines(grid,numOfMines);
         setValueOnCell(grid);
     }
 
-    //Metodo che piazza le mine a random nella griglia
-    private void placeMines(Grid grid,int numOfMines){
-        int size = grid.getSize();
-        Random random = new Random();
-        int minesPlaced = 0;
-        while(minesPlaced<numOfMines){
-            int row = random.nextInt(size);
-            int col = random.nextInt(size);
-            if(!grid.getGrid()[row][col].isHasMine()){
-                grid.getGrid()[row][col].setHasMine(true);
-                System.out.println(row + " " + col);
-                minesPlaced++;
-            }
-        }
-    }
 
     private void setValueOnCell(Grid grid) {
         int size = grid.getSize();

@@ -1,13 +1,16 @@
 package ch.supsi.minesweeper.frontend.model;
 
-import ch.supsi.minesweeper.backend.application.GameApplication;
-import ch.supsi.minesweeper.backend.business.GameStatus;
-import ch.supsi.minesweeper.backend.business.Grid;
+import ch.supsi.minesweeper.backend.application.*;
+import ch.supsi.minesweeper.backend.model.GameStatus;
+import ch.supsi.minesweeper.backend.model.Grid;
 
 import java.nio.file.Path;
 
-public class GameModel extends AbstractModel{
-    private static final GameApplication gameApplication = GameApplication.getInstance();
+public class GameModel extends AbstractModel implements IGridConfiguration, IGameStatusManager, ICellInteraction, IGameLifeCycle {
+    private static final IGameLifeCycleApplication lifeCycle = GameApplication.getInstance();
+    private static final ICellInteractionApplication cellInteraction = GameApplication.getInstance();
+    private static final IGameStatusManagerApplication statusManager = GameApplication.getInstance();
+    private static final IGridConfigurationApplication gridConfiguration = GameApplication.getInstance();
     private static GameModel myself;
 
 
@@ -24,66 +27,73 @@ public class GameModel extends AbstractModel{
         return myself;
     }
 
-
+    @Override
     public void newGame() {
-        gameApplication.newGame();
+        lifeCycle.newGame();
     }
 
+    @Override
     public void save() {
-        gameApplication.save();
+        lifeCycle.save();
     }
 
+    @Override
     public void saveAs(Path path) {
-        gameApplication.saveAs(path);
+        lifeCycle.saveAs(path);
     }
 
-    public void toggleFlag(int row, int col) {
-        gameApplication.toggleCell(row, col);
-    }
-
-    public boolean reveal(int row, int col) {
-        if (!isInBounds(row, col)) return true;
-        return gameApplication.reveal(row, col);
-    }
-
-    public void loseGame() {
-        gameApplication.loseGame();
-    }
-
-    public boolean checkForWin(){
-        return gameApplication.checkForWin();
-    }
-
-    public void winGame() {
-        gameApplication.winGame();
-    }
-
-    public int getNumOfMines() {
-        return gameApplication.getNumOfMines();
-    }
-
-    private boolean isInBounds(int row, int col) {
-        return gameApplication.isInBounds(row, col);
-    }
-
-    public boolean setMines(int numMines) {
-        return gameApplication.setMines(numMines);
-    }
-
-    public Grid getGrid() {
-        return gameApplication.getGrid();
-    }
-
+    @Override
     public boolean open(Path path, String fileName) {
-        return gameApplication.open(path, fileName);
+        return lifeCycle.open(path, fileName);
     }
 
+    @Override
+    public void toggleCell(int row, int col) {
+        cellInteraction.toggleCell(row, col);
+    }
+
+    @Override
+    public boolean reveal(int row, int col) {
+        return cellInteraction.reveal(row, col);
+    }
+
+    @Override
+    public void loseGame() {
+        statusManager.loseGame();
+    }
+
+    @Override
+    public boolean checkForWin(){
+        return statusManager.checkForWin();
+    }
+
+    @Override
+    public void winGame() {
+        statusManager.winGame();
+    }
+
+    @Override
     public GameStatus getGameStatus() {
-        return gameApplication.getGameStatus();
+        return statusManager.getGameStatus();
     }
 
+    @Override
     public void setGameStatus(GameStatus status) {
-        gameApplication.setGameStatus(status);
+        statusManager.setGameStatus(status);
     }
 
+    @Override
+    public int getNumOfMines() {
+        return gridConfiguration.getNumOfMines();
+    }
+
+    @Override
+    public boolean setMines(int numMines) {
+        return gridConfiguration.setMines(numMines);
+    }
+
+    @Override
+    public Grid getGrid() {
+        return gridConfiguration.getGrid();
+    }
 }

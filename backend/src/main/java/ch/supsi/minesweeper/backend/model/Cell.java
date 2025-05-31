@@ -1,4 +1,4 @@
-package ch.supsi.minesweeper.backend.business;
+package ch.supsi.minesweeper.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -50,5 +50,9 @@ public class Cell {
         this.value = value;
     }
 
+    public boolean toggleFlag() {
+        this.hasFlag = !this.hasFlag;
+        return this.hasFlag;
+    }
 
 }
