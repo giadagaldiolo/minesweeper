@@ -1,12 +1,13 @@
 package ch.supsi.minesweeper.backend.business.translations;
 
+import ch.supsi.minesweeper.backend.data_access.TranslationsDataAccessInterface;
 import ch.supsi.minesweeper.backend.data_access.TranslationsPropertiesDataAccess;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
-public class TranslationsLogic{
+public class TranslationsLogic implements TranslationsLogicInterface {
     private static TranslationsLogic myself;
     private final List<String> supportedLanguageTags;
     private Properties translations;
@@ -24,15 +25,18 @@ public class TranslationsLogic{
         return myself;
     }
 
+    @Override
     public String translate(String key) {
         return translations.getProperty(key);
     }
 
+    @Override
     public boolean changeLanguage(String languageTag) {
         this.translations = translationsDao.getTranslations(Locale.forLanguageTag(languageTag));
         return this.translations != null;
     }
 
+    @Override
     public boolean isSupportedLanguageTag(String languageTag) {
         return this.supportedLanguageTags.contains(languageTag);
     }

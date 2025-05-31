@@ -1,6 +1,5 @@
 package ch.supsi.minesweeper.frontend.controller;
 
-import ch.supsi.minesweeper.backend.application.*;
 import ch.supsi.minesweeper.backend.model.GameStatus;
 import ch.supsi.minesweeper.frontend.model.*;
 
@@ -19,7 +18,7 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
 
     private static GameController myself;
     private final TranslationsController translationsController;
-    private final PropertiesBusinessInterface preferencesModel;
+    private final PropertiesInterface preferencesModel;
     private static final IGameLifeCycle lifeCycle = GameModel.getInstance();
     private static final ICellInteraction cellInteraction = GameModel.getInstance();
     private static final IGameStatusManager statusManager = GameModel.getInstance();

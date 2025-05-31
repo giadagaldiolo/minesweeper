@@ -1,7 +1,5 @@
 package ch.supsi.minesweeper.backend.data_access;
 
-import ch.supsi.minesweeper.backend.business.translations.TranslationsDataAccessInterface;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;

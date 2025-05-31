@@ -1,13 +1,15 @@
 package ch.supsi.minesweeper.frontend.controller;
 
 
+import ch.supsi.minesweeper.frontend.model.PropertiesInterface;
 import ch.supsi.minesweeper.frontend.model.PropertiesModel;
+import ch.supsi.minesweeper.frontend.model.TranslationsInterface;
 import ch.supsi.minesweeper.frontend.model.TranslationsModel;
 
 public class TranslationsController {
     private static TranslationsController myself;
-    private final TranslationsBusinessInterface translationsModel;
-    private final PropertiesBusinessInterface propertiesModel;
+    private final TranslationsInterface translationsModel;
+    private final PropertiesInterface propertiesModel;
 
 
     private TranslationsController() {

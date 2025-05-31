@@ -1,11 +1,11 @@
 package ch.supsi.minesweeper.backend.business.properties;
 
-import ch.supsi.minesweeper.backend.business.translations.TranslationsLogic;
 import ch.supsi.minesweeper.backend.data_access.PropertiesDataAccess;
+import ch.supsi.minesweeper.backend.data_access.PropertiesDataAccessInterface;
 
 import java.util.Properties;
 
-public class PropertiesLogic {
+public class PropertiesLogic implements IPropertiesLogic {
     private static PropertiesLogic myself;
     private final PropertiesDataAccessInterface propertiesDao;
     private final Properties userProperties;
@@ -24,6 +24,7 @@ public class PropertiesLogic {
         return myself;
     }
 
+    @Override
     public String getProperty(String key) {
         if (key == null || key.isEmpty()) {
             return null;
@@ -34,10 +35,12 @@ public class PropertiesLogic {
         return userProperties.getProperty(key);
     }
 
+    @Override
     public void setProperty(String key, String value) {
         userProperties.setProperty(key, value);
     }
 
+    @Override
     public String getDefaultProperty(String key) {
         if (key == null || key.isEmpty()) {
             return null;
@@ -48,6 +51,7 @@ public class PropertiesLogic {
         return defaultUserProperties.getProperty(key);
     }
 
+    @Override
     public void savePropertyToFile(String key, String value) {
         propertiesDao.savePropertyToFile(key, value);
     }

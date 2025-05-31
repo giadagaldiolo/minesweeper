@@ -1,9 +1,8 @@
 package ch.supsi.minesweeper.frontend.model;
 
 import ch.supsi.minesweeper.backend.application.TranslationsApplication;
-import ch.supsi.minesweeper.frontend.controller.TranslationsBusinessInterface;
 
-public class TranslationsModel extends AbstractModel implements TranslationsBusinessInterface {
+public class TranslationsModel extends AbstractModel implements TranslationsInterface {
     private static TranslationsModel myself;
     private static final TranslationsApplication application = TranslationsApplication.getInstance();
 

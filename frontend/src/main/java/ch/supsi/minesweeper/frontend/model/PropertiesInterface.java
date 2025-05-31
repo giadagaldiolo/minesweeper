@@ -1,6 +1,6 @@
-package ch.supsi.minesweeper.frontend.controller;
+package ch.supsi.minesweeper.frontend.model;
 
-public interface PropertiesBusinessInterface {
+public interface PropertiesInterface {
     String getProperty(String key);
 
     String getDefaultProperty(String key);
