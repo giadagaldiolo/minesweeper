@@ -59,20 +59,13 @@ public class MainFx extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
-
-        // handle the main window close request
-        // in real life, this event should not be dealt with here!
-        // it should actually be delegated to a suitable ExitController!
+        gameEventHandler.setPrimaryStage(primaryStage);
         primaryStage.setOnCloseRequest(
                 windowEvent -> {
                     // consume the window event (the main window would be closed otherwise no matter what)
                     windowEvent.consume();
 
-                    // quit the app
-                    // replace this hard close
-                    // by delegating the work to a suitable controller
-                    primaryStage.close();
+                    gameEventHandler.quit();
                 }
         );
 

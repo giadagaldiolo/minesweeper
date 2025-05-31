@@ -22,6 +22,7 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     private final PropertiesController propertiesController;
     private final GameModel gameModel;
     private final PropertiesBusinessInterface preferencesModel;
+    private Stage primaryStage;
 
     private List<DataView> views;
 
@@ -107,6 +108,9 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
 
     @Override
     public void quit() {
+        if (primaryStage != null) {
+            primaryStage.close();
+        }
         Platform.exit();
     }
 
@@ -167,5 +171,8 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         views.forEach(DataView::update);
     }
 
+    public void setPrimaryStage(Stage stage) {
+        this.primaryStage = stage;
+    }
 
 }
