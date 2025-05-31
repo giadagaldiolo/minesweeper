@@ -69,7 +69,6 @@
                     <mainClass>ch.supsi.minesweeper.frontend.Main</mainClass>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 </project>
