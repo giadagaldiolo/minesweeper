@@ -9,7 +9,7 @@ import ch.supsi.minesweeper.frontend.controller.TranslationsBusinessInterface;
 import ch.supsi.minesweeper.backend.business.translations.TranslationsDataAccesInterface;
 import ch.supsi.minesweeper.backend.data_access.TranslationsPropertiesDataAccess;
 
-public class TranslationsModel implements TranslationsBusinessInterface {
+public class TranslationsModel extends AbstractModel implements TranslationsBusinessInterface {
     private static TranslationsModel myself;
     private static final TranslationsApplication application = TranslationsApplication.getInstance();
 

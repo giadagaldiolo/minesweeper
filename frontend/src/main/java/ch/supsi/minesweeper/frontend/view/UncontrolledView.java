@@ -6,6 +6,6 @@ import ch.supsi.minesweeper.frontend.model.AbstractModel;
 
 public interface UncontrolledView extends DataView {
 
-    void initialize(AbstractModel model, TranslationsController translationsController);
+    void initialize(AbstractModel model, AbstractModel translationsModel);
 
 }

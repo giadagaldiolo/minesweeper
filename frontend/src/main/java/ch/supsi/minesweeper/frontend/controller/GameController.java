@@ -112,8 +112,11 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
 
     @Override
     public void editPreferences(Stage stage) {
-        PreferencesView preferencesView = new PreferencesView(stage, propertiesController);
-        preferencesView.show();
+        for (DataView view : views) {
+            if (view instanceof PreferencesView) {
+                ((PreferencesView)view).show(stage);
+            }
+        }
     }
 
     @Override

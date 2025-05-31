@@ -10,6 +10,6 @@ public interface ControlledTranslatableFxView extends ControlledView{
 
     Node getNode();
     // Passiamo anche il controller per le traduzioni nella view
-    void initialize(EventHandler eventHandler, AbstractModel model, TranslationsController translationsController);
+    void initialize(EventHandler eventHandler, AbstractModel model, AbstractModel translationsController);
 
 }

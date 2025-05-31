@@ -6,6 +6,7 @@ import ch.supsi.minesweeper.frontend.controller.GameEventHandler;
 import ch.supsi.minesweeper.frontend.controller.TranslationsController;
 import ch.supsi.minesweeper.frontend.model.AbstractModel;
 import ch.supsi.minesweeper.frontend.model.GameModel;
+import ch.supsi.minesweeper.frontend.model.TranslationsModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +25,7 @@ public class MenuBarViewFxml implements ControlledTranslatableFxView {
 
     private GameEventHandler gameEventHandler;
     private GameModel gameModel;
-    private TranslationsController translationsController;
+    private TranslationsModel translationsModel;
 
     @FXML
     private MenuBar menuBar;
@@ -76,11 +77,11 @@ public class MenuBarViewFxml implements ControlledTranslatableFxView {
     }
 
     @Override
-    public void initialize(EventHandler eventHandler, AbstractModel model, TranslationsController translationsController) {
+    public void initialize(EventHandler eventHandler, AbstractModel model, AbstractModel translationsModel) {
         this.createBehaviour();
         this.gameEventHandler = (GameEventHandler) eventHandler;
         this.gameModel = (GameModel) model;
-        this.translationsController = translationsController;
+        this.translationsModel = (TranslationsModel) translationsModel;
         this.translateText();
     }
 
@@ -126,18 +127,17 @@ public class MenuBarViewFxml implements ControlledTranslatableFxView {
     }
 
     public void translateText() {
-        this.fileMenu.setText(this.translationsController.translate("label.file"));
-        this.editMenu.setText(this.translationsController.translate("label.edit"));
-        this.helpMenu.setText(this.translationsController.translate("label.help"));
-
-        this.newMenuItem.setText(this.translationsController.translate("label.new"));
-        this.openMenuItem.setText(this.translationsController.translate("label.open"));
-        this.saveMenuItem.setText(this.translationsController.translate("label.save"));
-        this.saveAsMenuItem.setText(this.translationsController.translate("label.saveAs"));
-        this.quitMenuItem.setText(this.translationsController.translate("label.quit"));
-        this.preferencesMenuItem.setText(this.translationsController.translate("label.preferences"));
-        this.aboutMenuItem.setText(this.translationsController.translate("label.about"));
-        this.helpMenuItem.setText(this.translationsController.translate("label.help"));
+        this.fileMenu.setText(this.translationsModel.translate("label.file"));
+        this.editMenu.setText(this.translationsModel.translate("label.edit"));
+        this.helpMenu.setText(this.translationsModel.translate("label.help"));
+        this.newMenuItem.setText(this.translationsModel.translate("label.new"));
+        this.openMenuItem.setText(this.translationsModel.translate("label.open"));
+        this.saveMenuItem.setText(this.translationsModel.translate("label.save"));
+        this.saveAsMenuItem.setText(this.translationsModel.translate("label.saveAs"));
+        this.quitMenuItem.setText(this.translationsModel.translate("label.quit"));
+        this.preferencesMenuItem.setText(this.translationsModel.translate("label.preferences"));
+        this.aboutMenuItem.setText(this.translationsModel.translate("label.about"));
+        this.helpMenuItem.setText(this.translationsModel.translate("label.help"));
     }
 
     @Override

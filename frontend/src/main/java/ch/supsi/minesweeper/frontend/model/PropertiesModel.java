@@ -3,7 +3,7 @@ package ch.supsi.minesweeper.frontend.model;
 import ch.supsi.minesweeper.backend.application.PropertiesApplication;
 import ch.supsi.minesweeper.frontend.controller.PropertiesBusinessInterface;
 
-public class PropertiesModel implements PropertiesBusinessInterface {
+public class PropertiesModel extends AbstractModel implements PropertiesBusinessInterface {
     private static PropertiesModel myself;
     private static final PropertiesApplication application = PropertiesApplication.getInstance();
 

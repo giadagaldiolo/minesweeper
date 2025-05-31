@@ -1,9 +1,9 @@
 package ch.supsi.minesweeper.frontend.view;
 
 import ch.supsi.minesweeper.backend.business.GameStatus;
-import ch.supsi.minesweeper.frontend.controller.TranslationsController;
 import ch.supsi.minesweeper.frontend.model.AbstractModel;
 import ch.supsi.minesweeper.frontend.model.GameModel;
+import ch.supsi.minesweeper.frontend.model.TranslationsModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -18,7 +18,7 @@ public class UserFeedbackViewFxml implements UncontrolledFxView {
     private static UserFeedbackViewFxml myself;
 
     private GameModel gameModel;
-    private TranslationsController translationsController;
+    private TranslationsModel translationsModel;
 
     @FXML
     private ScrollPane containerPane;
@@ -49,12 +49,10 @@ public class UserFeedbackViewFxml implements UncontrolledFxView {
     }
 
     @Override
-    public void initialize(AbstractModel model, TranslationsController translationsController) {
+    public void initialize(AbstractModel model, AbstractModel translationsModel) {
         this.gameModel = (GameModel) model;
-        this.translationsController = translationsController;
-        this.userFeedbackBar.setText(
-                translationsController.translate("label.startText")
-        );
+        this.translationsModel = (TranslationsModel) translationsModel;
+        this.userFeedbackBar.setText(this.translationsModel.translate("label.startText"));
     }
 
     @Override
@@ -63,53 +61,52 @@ public class UserFeedbackViewFxml implements UncontrolledFxView {
     }
 
 
-
     @Override
     public void update() {
         GameStatus status = gameModel.getGameStatus();
         switch (status) {
             case NEW_GAME:
                 this.userFeedbackBar.setText(
-                        translationsController.translate("label.preferencesAplliedMines") + " " + gameModel.getNumOfMines() + "\n" +
-                                translationsController.translate("label.preferencesAplliedLanguage") + " " +
-                                translationsController.translate("label.language") + "\n" +
-                                translationsController.translate("label.firstMove")
+                        translationsModel.translate("label.preferencesAplliedMines") + " " + gameModel.getNumOfMines() + "\n" +
+                                translationsModel.translate("label.preferencesAplliedLanguage") + " " +
+                                translationsModel.translate("label.language") + "\n" +
+                                translationsModel.translate("label.firstMove")
                 );
                 break;
 
             case NEW_GAME_DEFAULT_PROPERTIES:
                 this.userFeedbackBar.setText(
-                        translationsController.translate("label.defaultPreferencesAplliedMines") + " " + gameModel.getNumOfMines() + "\n" +
-                                translationsController.translate("label.defaultPreferencesAplliedLanguage") + " " +
-                                translationsController.translate("label.language") + "\n" +
-                                translationsController.translate("label.firstMove")
+                        translationsModel.translate("label.defaultPreferencesAplliedMines") + " " + gameModel.getNumOfMines() + "\n" +
+                                translationsModel.translate("label.defaultPreferencesAplliedLanguage") + " " +
+                                translationsModel.translate("label.language") + "\n" +
+                                translationsModel.translate("label.firstMove")
                 );
                 break;
 
             case FLAG_UPDATE:
                 this.userFeedbackBar.setText(
-                        translationsController.translate("label.minesLeft") + " " + gameModel.getNumOfMines()
+                        translationsModel.translate("label.minesLeft") + " " + gameModel.getNumOfMines()
                 );
                 break;
 
             case WIN:
-                this.userFeedbackBar.setText(translationsController.translate("label.win"));
+                this.userFeedbackBar.setText(translationsModel.translate("label.win"));
                 break;
 
             case LOSE:
-                this.userFeedbackBar.setText(translationsController.translate("label.gameOver"));
+                this.userFeedbackBar.setText(translationsModel.translate("label.gameOver"));
                 break;
 
             case SAVE:
-                this.userFeedbackBar.setText(translationsController.translate("label.savedGame"));
+                this.userFeedbackBar.setText(translationsModel.translate("label.savedGame"));
                 break;
 
             case OPEN:
-                this.userFeedbackBar.setText(translationsController.translate("label.gameOpened"));
+                this.userFeedbackBar.setText(translationsModel.translate("label.gameOpened"));
                 break;
 
             case NOT_OPEN:
-                this.userFeedbackBar.setText(translationsController.translate("label.gameNotOpened"));
+                this.userFeedbackBar.setText(translationsModel.translate("label.gameNotOpened"));
                 break;
 
             default:

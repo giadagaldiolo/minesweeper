@@ -15,23 +15,30 @@ public class MainFx extends Application {
     public static final String APP_TITLE = "mine sweeper";
 
     private final AbstractModel gameModel;
+    private final AbstractModel propertiesModel;
+    private final AbstractModel translationsModel;
+
     private final ControlledTranslatableFxView menuBarView;
     private final ControlledFxView gameBoardView;
     private final UncontrolledFxView userFeedbackView;
+    private final PreferencesView preferencesView;
+
     private final GameEventHandler gameEventHandler;
     private final PlayerEventHandler playerEventHandler;
-
     private final PropertiesController propertiesController;
     private final TranslationsController translationsController;
 
     public MainFx() {
-        // GAME MODEL
+        // MODELS
         this.gameModel = GameModel.getInstance();
+        this.propertiesModel = PropertiesModel.getInstance();
+        this.translationsModel = TranslationsModel.getInstance();
 
         // VIEWS
         this.menuBarView = MenuBarViewFxml.getInstance();
         this.gameBoardView = GameBoardViewFxml.getInstance();
         this.userFeedbackView = UserFeedbackViewFxml.getInstance();
+        this.preferencesView = PreferencesView.getInstance();
 
         // CONTROLLERS
         this.gameEventHandler = GameController.getInstance();
@@ -40,11 +47,11 @@ public class MainFx extends Application {
         this.translationsController = TranslationsController.getInstance();
 
         // SCAFFOLDING of M-V-C
-        this.menuBarView.initialize(this.gameEventHandler, this.gameModel, this.translationsController);
+        this.menuBarView.initialize(this.gameEventHandler, this.gameModel, this.translationsModel);
         this.gameBoardView.initialize(this.playerEventHandler, this.gameModel);
-        this.userFeedbackView.initialize(this.gameModel, this.translationsController);
-        GameController.getInstance().initialize(List.of(this.menuBarView, this.gameBoardView, this.userFeedbackView));
-        //TranslationsController.getInstance().initialize(List.of(this.menuBarView, this.userFeedbackView));
+        this.userFeedbackView.initialize(this.gameModel, this.translationsModel);
+        this.preferencesView.initialize(this.propertiesModel, this.translationsModel);
+        GameController.getInstance().initialize(List.of(this.menuBarView, this.gameBoardView, this.userFeedbackView, this.preferencesView));
     }
 
     @Override
