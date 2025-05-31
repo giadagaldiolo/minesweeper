@@ -1,10 +1,9 @@
 package ch.supsi.minesweeper.frontend.model;
 
 import ch.supsi.minesweeper.backend.application.GameApplication;
+import ch.supsi.minesweeper.backend.business.GameStatus;
 import ch.supsi.minesweeper.backend.business.Grid;
-import javafx.stage.Stage;
 
-import java.io.File;
 import java.nio.file.Path;
 
 public class GameModel extends AbstractModel{
@@ -78,4 +77,13 @@ public class GameModel extends AbstractModel{
     public boolean open(Path path, String fileName) {
         return gameApplication.open(path, fileName);
     }
+
+    public GameStatus getGameStatus() {
+        return gameApplication.getGameStatus();
+    }
+
+    public void setGameStatus(GameStatus status) {
+        gameApplication.setGameStatus(status);
+    }
+
 }

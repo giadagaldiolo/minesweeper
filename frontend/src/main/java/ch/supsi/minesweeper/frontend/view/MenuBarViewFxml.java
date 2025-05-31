@@ -1,5 +1,6 @@
 package ch.supsi.minesweeper.frontend.view;
 
+import ch.supsi.minesweeper.backend.business.GameStatus;
 import ch.supsi.minesweeper.frontend.controller.EventHandler;
 import ch.supsi.minesweeper.frontend.controller.GameEventHandler;
 import ch.supsi.minesweeper.frontend.controller.TranslationsController;
@@ -145,49 +146,21 @@ public class MenuBarViewFxml implements ControlledTranslatableFxView {
     }
 
     @Override
-    public void updateForNewGame() {
-        // get your data from the model, if needed
-        // then update this view here
-        saveMenuItem.setDisable(false);
-        saveAsMenuItem.setDisable(false);
-        translateText();
-    }
-
-    @Override
-    public void updateFlags(int row, int col) {
-        //nothing
-    }
-
-    @Override
-    public void updateReveal() {
-        //nothing
-    }
-
-    @Override
-    public void loseGame() {
-        //nothing
-    }
-
-    @Override
-    public void winGame() {
-        //nothing
-    }
-
-    @Override
-    public void updateForSavedGame() {
-        //nothing
-    }
-
-    @Override
-    public void updateForOpen() {
-        saveMenuItem.setDisable(false);
-        saveAsMenuItem.setDisable(false);
-        //translateText();
-    }
-
-    @Override
-    public void updateForNotOpen() {
-        //nothing
+    public void update() {
+        GameStatus status = gameModel.getGameStatus();
+        switch (status) {
+            case NEW_GAME:
+                saveMenuItem.setDisable(false);
+                saveAsMenuItem.setDisable(false);
+                translateText();
+                break;
+            case OPEN:
+                saveMenuItem.setDisable(false);
+                saveAsMenuItem.setDisable(false);
+                break;
+            default:
+                break;
+        }
     }
 
 }

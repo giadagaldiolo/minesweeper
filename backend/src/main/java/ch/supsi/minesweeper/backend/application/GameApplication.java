@@ -1,6 +1,7 @@
 package ch.supsi.minesweeper.backend.application;
 
 import ch.supsi.minesweeper.backend.business.GameLogic;
+import ch.supsi.minesweeper.backend.business.GameStatus;
 import ch.supsi.minesweeper.backend.business.Grid;
 
 import java.nio.file.Path;
@@ -67,5 +68,13 @@ public class GameApplication {
 
     public boolean open(Path path, String fileName) {
         return gameLogic.open(path, fileName);
+    }
+
+    public GameStatus getGameStatus() {
+        return gameLogic.getGameStatus();
+    }
+
+    public void setGameStatus(GameStatus status) {
+        gameLogic.setGameStatus(status);
     }
 }
