@@ -156,6 +156,9 @@ public class MenuBarViewFxml implements ControlledTranslatableFxView {
                 saveMenuItem.setDisable(false);
                 saveAsMenuItem.setDisable(false);
                 break;
+            case LOSE:
+                saveMenuItem.setDisable(true);
+                saveAsMenuItem.setDisable(true);
             default:
                 break;
         }
