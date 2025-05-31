@@ -24,11 +24,13 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>17.0.14</version>
+            <classifier>win</classifier>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
+            <classifier>win</classifier>
             <version>17.0.14</version>
         </dependency>
     </dependencies>
