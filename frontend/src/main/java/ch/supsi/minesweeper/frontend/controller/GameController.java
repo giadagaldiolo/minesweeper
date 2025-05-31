@@ -121,8 +121,11 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
 
     @Override
     public void help(Stage stage, String label) {
-        HelpView helpView = new HelpView(stage, label);
-        helpView.show();
+        for (DataView view : views) {
+            if (view instanceof HelpView) {
+                ((HelpView)view).show(stage, label);
+            }
+        }
     }
 
     @Override

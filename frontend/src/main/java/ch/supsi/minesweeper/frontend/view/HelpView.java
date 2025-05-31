@@ -2,7 +2,10 @@ package ch.supsi.minesweeper.frontend.view;
 
 
 import ch.supsi.minesweeper.frontend.controller.TranslationsController;
+import ch.supsi.minesweeper.frontend.model.AbstractModel;
+import ch.supsi.minesweeper.frontend.model.TranslationsModel;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -10,35 +13,61 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class HelpView {
+public class HelpView implements UncontrolledFxView{
 
-    private final Stage dialogStage;
+    private static HelpView myself;
+    private Stage dialogStage;
+    private VBox root;
+    private String labelKey;
+    private TranslationsModel translationsModel;
 
-    public HelpView(Stage owner, String label) {
+    private HelpView() {
+    }
+
+    public static HelpView getInstance() {
+        if (myself == null) {
+            myself = new HelpView();
+        }
+        return myself;
+    }
+
+    public void show(Stage owner, String labelKey) {
+        this.labelKey = labelKey;
+
         dialogStage = new Stage();
         dialogStage.setTitle("Guida");
         dialogStage.initOwner(owner);
         dialogStage.initModality(Modality.APPLICATION_MODAL);
         dialogStage.setResizable(false);
 
-
-        TranslationsController translationsController = TranslationsController.getInstance();
-
-        Label textLabel = new Label(translationsController.translate(label));
+        Label textLabel = new Label(translationsModel.translate(labelKey));
         textLabel.setWrapText(true);
 
         ScrollPane scrollPane = new ScrollPane(textLabel);
         scrollPane.setFitToWidth(true);
         scrollPane.setPadding(new Insets(10));
 
-        VBox root = new VBox(scrollPane);
+        root = new VBox(scrollPane);
         root.setPadding(new Insets(10));
 
         Scene scene = new Scene(root, 450, 400);
         dialogStage.setScene(scene);
+
+        dialogStage.showAndWait();
     }
 
-    public void show() {
-        dialogStage.showAndWait();
+    @Override
+    public Node getNode() {
+        return root;
+    }
+
+    @Override
+    public void initialize(AbstractModel model, AbstractModel translationsModel) {
+        this.translationsModel = (TranslationsModel) translationsModel;
+    }
+
+    @Override
+    public void update() {
+
     }
 }
