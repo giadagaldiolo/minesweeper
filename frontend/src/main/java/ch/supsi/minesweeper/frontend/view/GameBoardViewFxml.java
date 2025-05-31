@@ -1,6 +1,7 @@
 package ch.supsi.minesweeper.frontend.view;
 
 import ch.supsi.minesweeper.backend.business.Cell;
+import ch.supsi.minesweeper.backend.business.GameStatus;
 import ch.supsi.minesweeper.frontend.controller.EventHandler;
 import ch.supsi.minesweeper.frontend.controller.PlayerEventHandler;
 import ch.supsi.minesweeper.frontend.model.AbstractModel;
@@ -428,8 +429,36 @@ public class GameBoardViewFxml implements ControlledFxView {
     }
 
     @Override
+    public void update() {
+        GameStatus status = gameModel.getGameStatus();
+        switch (status) {
+            case NEW_GAME:
+                updateForNewGame();
+                break;
+            case REVEAL:
+                updateReveal();
+                break;
+            case FLAG_UPDATE:
+                updateFlags();
+                updateReveal();
+                break;
+            case WIN:
+                winGame();
+                break;
+            case LOSE:
+                loseGame();
+                break;
+            case OPEN:
+                updateForOpen();
+                break;
+            default:
+                break;
+        }
+    }
+
+
     public void updateForNewGame() {
-        for(int i = 0; i < buttons.length; i++){
+        for (int i = 0; i < buttons.length; i++){
             for(int j = 0; j < buttons[i].length; j++){
                 buttons[i][j].setText("");
             }
@@ -437,16 +466,19 @@ public class GameBoardViewFxml implements ControlledFxView {
         enableButtons();
     }
 
-    @Override
-    public void updateFlags(int row, int col) {
-        if (gameModel.getGrid().getGrid()[row][col].isHasFlag()) {
-            buttons[row][col].setText("\uD83D\uDEA9");
-        } else {
-            buttons[row][col].setText("");
+
+    public void updateFlags() {
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                if (gameModel.getGrid().getGrid()[i][j].isHasFlag()) {
+                    buttons[i][j].setText("\uD83D\uDEA9");
+                } else {
+                    buttons[i][j].setText("");
+                }
+            }
         }
     }
 
-    @Override
     public void updateReveal() {
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
@@ -465,13 +497,12 @@ public class GameBoardViewFxml implements ControlledFxView {
         }
     }
 
-    @Override
+
     public void loseGame() {
         updateReveal();
         disableButtons();
     }
 
-    @Override
     public void winGame() {
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
@@ -483,25 +514,11 @@ public class GameBoardViewFxml implements ControlledFxView {
         disableButtons();
     }
 
-    @Override
-    public void updateForSavedGame() {
-        //nothing
-    }
 
-    @Override
     public void updateForOpen() {
         enableButtons();
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLUMNS; j++) {
-                updateFlags(i,j);
-            }
-        }
+        updateFlags();
         updateReveal();
-    }
-
-    @Override
-    public void updateForNotOpen() {
-        //nothing
     }
 
     public void disableButtons(){

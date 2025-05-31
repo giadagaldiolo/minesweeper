@@ -35,6 +35,7 @@ public class GameLogic {
 
     private static GameLogic myself;
     private String fileName = "";
+    private GameStatus status = GameStatus.NEW_GAME;
 
     private static Grid grid = Grid.getInstance();
 
@@ -117,5 +118,13 @@ public class GameLogic {
 
     public void save() {
         this.fileName = saveGame.save(this.fileName);
+    }
+
+    public GameStatus getGameStatus() {
+        return this.status;
+    }
+
+    public void setGameStatus(GameStatus status) {
+        this.status = status;
     }
 }

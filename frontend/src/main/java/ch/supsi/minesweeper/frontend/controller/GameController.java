@@ -1,5 +1,6 @@
 package ch.supsi.minesweeper.frontend.controller;
 
+import ch.supsi.minesweeper.backend.business.GameStatus;
 import ch.supsi.minesweeper.frontend.model.PropertiesModel;
 import ch.supsi.minesweeper.frontend.model.GameModel;
 
@@ -49,17 +50,20 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
 
         if (!gameModel.setMines(numMinesPref)) {
             numMinesPref = Integer.parseInt(preferencesModel.getDefaultProperty("numMines"));
-            // TODO: avvisa che hai usato default properties
+            gameModel.setGameStatus(GameStatus.NEW_GAME_DEFAULT_PROPERTIES);
+            this.views.forEach(DataView::update);
         }
         gameModel.setMines(numMinesPref);
         gameModel.newGame();
-        this.views.forEach(DataView::updateForNewGame);
+        gameModel.setGameStatus(GameStatus.NEW_GAME);
+        this.views.forEach(DataView::update);
     }
 
     @Override
     public void save() {
         gameModel.save();
-        this.views.forEach(DataView::updateForSavedGame);
+        gameModel.setGameStatus(GameStatus.SAVE);
+        this.views.forEach(DataView::update);
     }
 
     @Override
@@ -75,7 +79,8 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
 
         if (file != null) {
             gameModel.saveAs(file.toPath());
-            this.views.forEach(DataView::updateForSavedGame);
+            gameModel.setGameStatus(GameStatus.SAVE);
+            this.views.forEach(DataView::update);
         }
     }
 
@@ -92,11 +97,11 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
 
         if (file != null) {
             if (gameModel.open(file.toPath(), file.getName())) {
-                this.views.forEach(DataView::updateForOpen);
+                gameModel.setGameStatus(GameStatus.OPEN);
             } else {
-                this.views.forEach(DataView::updateForNotOpen);
+                gameModel.setGameStatus(GameStatus.NOT_OPEN);
             }
-
+            this.views.forEach(DataView::update);
         }
     }
 
@@ -120,22 +125,24 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     @Override
     public void toggleFlag(int row, int col) {
         gameModel.toggleFlag(row, col);
-        views.forEach(view -> view.updateFlags(row, col));
+        gameModel.setGameStatus(GameStatus.FLAG_UPDATE);
+        views.forEach(DataView::update);
     }
 
     @Override
     public void reveal(int row, int col) {
         if(!gameModel.reveal(row, col)){
             loseGame();
-            views.forEach(DataView::updateReveal);
-        };
-        views.forEach(DataView::updateReveal);
+        }
+        gameModel.setGameStatus(GameStatus.REVEAL);
+        views.forEach(DataView::update);
     }
 
     @Override
     public void loseGame() {
         gameModel.loseGame();
-        views.forEach(DataView::loseGame);
+        gameModel.setGameStatus(GameStatus.LOSE);
+        views.forEach(DataView::update);
     }
 
     @Override
@@ -150,7 +157,8 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     @Override
     public void winGame() {
         gameModel.winGame();
-        views.forEach(DataView::winGame);
+        gameModel.setGameStatus(GameStatus.WIN);
+        views.forEach(DataView::update);
     }
 
 
