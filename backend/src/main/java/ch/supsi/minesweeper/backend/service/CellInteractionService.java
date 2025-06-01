@@ -16,7 +16,6 @@ public class CellInteractionService implements ICellInteraction {
 
     @Override
     public void toggleCell(int row, int col) {
-        //se torna true la cella aveva una bandiera e ora bisogna toglierla -> va decrementato il numero di bandiere di 1
         if (toggleCell.toggleCell(grid, row, col)) {
             flagsHandler.decrementNumOfFlags();
             grid.incrementNumOfMines();

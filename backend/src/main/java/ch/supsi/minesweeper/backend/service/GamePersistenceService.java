@@ -12,10 +12,12 @@ public class GamePersistenceService implements IGamePersistence {
     private final ISaveGame saveGame = SaveGame.getInstance();
     private final IOpenGame openGame = OpenGame.getInstance();
     private String fileName = "";
+    private Path filePath;
     private Grid grid = Grid.getInstance();
 
     @Override
     public void saveAs(Path path) {
+        this.filePath = path;
         saveGame.saveAs(path);
     }
 
@@ -23,8 +25,11 @@ public class GamePersistenceService implements IGamePersistence {
     public boolean open(Path path, String fileName) {
         Grid opened = openGame.open(path);
         if (opened != null) {
+            System.out.println(path);
+            System.out.println(fileName);
             grid = opened;
-            this.fileName = fileName; //TODO:path
+            this.fileName = fileName;
+            this.filePath = path;
             return true;
         }
         return false;
@@ -32,7 +37,7 @@ public class GamePersistenceService implements IGamePersistence {
 
     @Override
     public void save() {
-        this.fileName = saveGame.save(this.fileName);
+        this.fileName = saveGame.save(this.fileName, this.filePath);
     }
 
 }

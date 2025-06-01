@@ -27,16 +27,18 @@ public class SaveGame implements ISaveGame{
     }
 
     @Override
-    public String save(String fileName) {
+    public String save(String fileName, Path path) {
         try {
-            Path dir = Paths.get(userHomeDirectory, projectDirectory, savedDirectory);
-            saveDataAccess.ensureDirectoryExists(dir);
+            if (path == null) {
+                path = Paths.get(userHomeDirectory, projectDirectory, savedDirectory);
+            }
+            saveDataAccess.ensureDirectoryExists(path);
             if (fileName.isEmpty()) {
                 fileName = LocalDateTime.now().toString().replace(":", "-") + ".json";
             }
-            Path filePath = dir.resolve(fileName);
+
             Grid grid = Grid.getInstance();
-            saveDataAccess.saveToFile(filePath, grid);
+            saveDataAccess.saveToFile(path, grid);
         } catch (IOException e) {
             System.err.println("Errore durante il salvataggio: " + e.getMessage());
         }
