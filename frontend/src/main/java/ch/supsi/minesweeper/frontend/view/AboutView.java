@@ -15,20 +15,22 @@ import javafx.stage.Stage;
 
 import java.text.MessageFormat;
 
-public class HelpView implements UncontrolledFxView{
+public class AboutView implements UncontrolledFxView{
 
-    private static HelpView myself;
+    private static AboutView myself;
     private Stage dialogStage;
     private VBox root;
     private String labelKey;
     private TranslationsModel translationsModel;
+    private ManifestInfoReader manifestInfo;
 
-    private HelpView() {
+    private AboutView() {
+        manifestInfo = new ManifestInfoReader();
     }
 
-    public static HelpView getInstance() {
+    public static AboutView getInstance() {
         if (myself == null) {
-            myself = new HelpView();
+            myself = new AboutView();
         }
         return myself;
     }
@@ -37,12 +39,31 @@ public class HelpView implements UncontrolledFxView{
         this.labelKey = labelKey;
 
         dialogStage = new Stage();
-        dialogStage.setTitle("label.help");
+        dialogStage.setTitle("label.about");
         dialogStage.initOwner(owner);
         dialogStage.initModality(Modality.APPLICATION_MODAL);
         dialogStage.setResizable(false);
 
-        Label textLabel = new Label(translationsModel.translate(labelKey));
+
+        String raw = translationsModel.translate(labelKey);
+
+        String dev1 = "";
+        String dev2 = "";
+        String dev3 = "";
+        if (manifestInfo.getDevelopers().size() >= 1) dev1 = manifestInfo.getDevelopers().get(0);
+        if (manifestInfo.getDevelopers().size() >= 2) dev2 = manifestInfo.getDevelopers().get(1);
+        if (manifestInfo.getDevelopers().size() >= 3) dev3 = manifestInfo.getDevelopers().get(2);
+
+        String formatted = MessageFormat.format(
+                raw,
+                manifestInfo.getVersion(),
+                manifestInfo.getData(),
+                dev1,
+                dev2,
+                dev3
+        );
+
+        Label textLabel = new Label(formatted);
         textLabel.setWrapText(true);
 
         ScrollPane scrollPane = new ScrollPane(textLabel);

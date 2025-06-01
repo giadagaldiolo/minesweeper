@@ -18,5 +18,7 @@ public interface GameEventHandler extends EventHandler {
 
     void help(Stage stage, String label);
 
+    void about(Stage stage, String label);
+
     void setPrimaryStage(Stage stage);
 }

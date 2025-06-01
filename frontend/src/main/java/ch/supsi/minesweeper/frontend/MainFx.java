@@ -23,6 +23,7 @@ public class MainFx extends Application {
     private final UncontrolledFxView userFeedbackView;
     private final PreferencesView preferencesView;
     private final HelpView helpView;
+    private final AboutView aboutView;
 
     private final GameEventHandler gameEventHandler;
     private final PlayerEventHandler playerEventHandler;
@@ -41,6 +42,7 @@ public class MainFx extends Application {
         this.userFeedbackView = UserFeedbackViewFxml.getInstance();
         this.preferencesView = PreferencesView.getInstance();
         this.helpView = HelpView.getInstance();
+        this.aboutView = AboutView.getInstance();
 
         // CONTROLLERS
         this.gameEventHandler = GameController.getInstance();
@@ -54,7 +56,8 @@ public class MainFx extends Application {
         this.userFeedbackView.initialize(this.gameModel, this.translationsModel);
         this.preferencesView.initialize(this.propertiesModel, this.translationsModel);
         this.helpView.initialize(this.propertiesModel, this.translationsModel);
-        GameController.getInstance().initialize(List.of(this.menuBarView, this.gameBoardView, this.userFeedbackView, this.preferencesView, this.helpView));
+        this.aboutView.initialize(this.propertiesModel, this.translationsModel);
+        GameController.getInstance().initialize(List.of(this.menuBarView, this.gameBoardView, this.userFeedbackView, this.preferencesView, this.helpView, this.aboutView));
     }
 
     @Override

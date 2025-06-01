@@ -4,6 +4,7 @@ import ch.supsi.minesweeper.backend.model.GameStatus;
 import ch.supsi.minesweeper.frontend.model.*;
 
 
+import ch.supsi.minesweeper.frontend.view.AboutView;
 import ch.supsi.minesweeper.frontend.view.DataView;
 import ch.supsi.minesweeper.frontend.view.HelpView;
 import ch.supsi.minesweeper.frontend.view.PreferencesView;
@@ -127,6 +128,15 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         for (DataView view : views) {
             if (view instanceof HelpView) {
                 ((HelpView)view).show(stage, label);
+            }
+        }
+    }
+
+    @Override
+    public void about(Stage stage, String label) {
+        for (DataView view : views) {
+            if (view instanceof AboutView) {
+                ((AboutView)view).show(stage, label);
             }
         }
     }
