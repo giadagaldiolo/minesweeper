@@ -38,8 +38,8 @@ public class GameModel extends AbstractModel implements IGameConfiguration, IGam
     }
 
     @Override
-    public void saveAs(Path path) {
-        persistence.saveAs(path);
+    public void saveAs(String fileName,Path path) {
+        persistence.saveAs(fileName,path);
     }
 
     @Override

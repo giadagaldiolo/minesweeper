@@ -31,19 +31,24 @@ public class SaveGame implements ISaveGame{
         try {
             if (path == null) {
                 path = Paths.get(userHomeDirectory, projectDirectory, savedDirectory);
-            }
-            saveDataAccess.ensureDirectoryExists(path);
-            if (fileName.isEmpty()) {
-                fileName = LocalDateTime.now().toString().replace(":", "-") + ".json";
+                saveDataAccess.ensureDirectoryExists(path);
+                if (fileName.isEmpty()) {
+                    fileName = LocalDateTime.now().toString().replace(":", "-") + ".json";
+                }
+                path = path.resolve(fileName);
+            } else {
+                saveDataAccess.ensureDirectoryExists(path.getParent());
             }
 
             Grid grid = Grid.getInstance();
             saveDataAccess.saveToFile(path, grid);
+
         } catch (IOException e) {
             System.err.println("Errore durante il salvataggio: " + e.getMessage());
         }
         return fileName;
     }
+
 
     @Override
     public void saveAs(Path path) {

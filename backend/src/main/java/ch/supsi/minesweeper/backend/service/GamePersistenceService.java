@@ -16,8 +16,9 @@ public class GamePersistenceService implements IGamePersistence {
     private Grid grid = Grid.getInstance();
 
     @Override
-    public void saveAs(Path path) {
+    public void saveAs(String fileName,Path path) {
         this.filePath = path;
+        this.fileName = fileName;
         saveGame.saveAs(path);
     }
 
@@ -25,8 +26,6 @@ public class GamePersistenceService implements IGamePersistence {
     public boolean open(Path path, String fileName) {
         Grid opened = openGame.open(path);
         if (opened != null) {
-            System.out.println(path);
-            System.out.println(fileName);
             grid = opened;
             this.fileName = fileName;
             this.filePath = path;
@@ -38,6 +37,11 @@ public class GamePersistenceService implements IGamePersistence {
     @Override
     public void save() {
         this.fileName = saveGame.save(this.fileName, this.filePath);
+    }
+
+    public void reset(){
+        this.filePath = null;
+        this.fileName = "";
     }
 
 }

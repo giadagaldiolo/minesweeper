@@ -78,7 +78,7 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         File file = fileChooser.showSaveDialog(stage);
 
         if (file != null) {
-            persistence.saveAs(file.toPath());
+            persistence.saveAs(file.getName(),file.toPath());
             statusManager.setGameStatus(GameStatus.SAVE);
             this.views.forEach(DataView::update);
         }

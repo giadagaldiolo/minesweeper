@@ -4,6 +4,6 @@ import java.nio.file.Path;
 
 public interface IGamePersistence {
     void save();
-    void saveAs(Path path);
+    void saveAs(String filename , Path path);
     boolean open(Path path, String fileName);
 }

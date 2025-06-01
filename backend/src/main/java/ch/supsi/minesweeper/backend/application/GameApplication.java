@@ -23,6 +23,7 @@ public class GameApplication implements IGamePersistenceApplication, IGameStateA
 
     @Override
     public void newGame() {
+        persistenceService.reset();
         configService.newGame();
     }
 
@@ -32,8 +33,8 @@ public class GameApplication implements IGamePersistenceApplication, IGameStateA
     }
 
     @Override
-    public void saveAs(Path path) {
-        persistenceService.saveAs(path);
+    public void saveAs(String fileName,Path path) {
+        persistenceService.saveAs(fileName,path);
     }
 
     @Override
