@@ -55,4 +55,16 @@ public class Cell {
         return this.hasFlag;
     }
 
+    @Override
+    public Cell clone() {
+        Cell cloned = new Cell();
+        cloned.value = this.value;
+        cloned.revealed = this.revealed;
+        cloned.hasMine = this.hasMine;
+        cloned.hasFlag = this.hasFlag;
+        cloned.row = this.row;
+        cloned.col = this.col;
+        return cloned;
+    }
+
 }

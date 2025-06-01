@@ -1,9 +1,10 @@
-package ch.supsi.minesweeper.backend.business;
+package ch.supsi.minesweeper.frontend.model;
 
 import ch.supsi.minesweeper.backend.model.Grid;
 
-public interface IGridConfigurationBusiness {
+public interface IGameConfiguration {
     int getNumOfMines();
     boolean setMines(int numMines);
     Grid getGrid();
+    void newGame();
 }

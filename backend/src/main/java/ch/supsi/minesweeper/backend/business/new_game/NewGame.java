@@ -2,14 +2,12 @@ package ch.supsi.minesweeper.backend.business.new_game;
 
 import ch.supsi.minesweeper.backend.model.Cell;
 import ch.supsi.minesweeper.backend.model.Grid;
-import ch.supsi.minesweeper.backend.service.MinePlacementService;
 
 import java.util.Random;
 
 public class NewGame implements INewGame{
     private static NewGame mySelf;
-    private final MinePlacementService minePlacementService = new MinePlacementService();
-
+    private final Random random = new Random();
 
     private NewGame(){}
 
@@ -35,10 +33,22 @@ public class NewGame implements INewGame{
                 grid.getGrid()[i][j] = new Cell();
             }
         }
-        minePlacementService.placeMines(grid,numOfMines);
+        placeMines(grid,numOfMines);
         setValueOnCell(grid);
     }
 
+    public void placeMines(Grid grid, int numOfMines) {
+        int size = grid.getSize();
+        int minesPlaced = 0;
+        while(minesPlaced < numOfMines){
+            int row = random.nextInt(size);
+            int col = random.nextInt(size);
+            if(!grid.getGrid()[row][col].isHasMine()){
+                grid.getGrid()[row][col].setHasMine(true);
+                minesPlaced++;
+            }
+        }
+    }
 
     private void setValueOnCell(Grid grid) {
         int size = grid.getSize();

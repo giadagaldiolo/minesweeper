@@ -57,4 +57,16 @@ public class Grid {
         numOfMines++;
     }
 
+    public void copyFrom(Grid other) {
+        this.size = other.size;
+        this.numOfMines = other.numOfMines;
+        this.grid = new Cell[size][size];
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                this.grid[i][j] = other.getGrid()[i][j].clone();
+            }
+        }
+    }
+
 }

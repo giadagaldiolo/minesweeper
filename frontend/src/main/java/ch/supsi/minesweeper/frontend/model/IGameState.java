@@ -1,8 +1,8 @@
-package ch.supsi.minesweeper.backend.application;
+package ch.supsi.minesweeper.frontend.model;
 
 import ch.supsi.minesweeper.backend.model.GameStatus;
 
-public interface IGameStatusManagerApplication {
+public interface IGameState {
     void winGame();
     void loseGame();
     boolean checkForWin();

@@ -6,11 +6,11 @@ import ch.supsi.minesweeper.backend.model.Grid;
 
 import java.nio.file.Path;
 
-public class GameModel extends AbstractModel implements IGridConfiguration, IGameStatusManager, ICellInteraction, IGameLifeCycle {
-    private static final IGameLifeCycleApplication lifeCycle = GameApplication.getInstance();
+public class GameModel extends AbstractModel implements IGameConfiguration, IGameState, ICellInteraction, IGamePersistence {
+    private static final IGamePersistenceApplication persistence = GameApplication.getInstance();
     private static final ICellInteractionApplication cellInteraction = GameApplication.getInstance();
-    private static final IGameStatusManagerApplication statusManager = GameApplication.getInstance();
-    private static final IGridConfigurationApplication gridConfiguration = GameApplication.getInstance();
+    private static final IGameStateApplication statusManager = GameApplication.getInstance();
+    private static final IGameConfigurationApplication gameConfiguration = GameApplication.getInstance();
     private static GameModel myself;
 
 
@@ -29,22 +29,22 @@ public class GameModel extends AbstractModel implements IGridConfiguration, IGam
 
     @Override
     public void newGame() {
-        lifeCycle.newGame();
+        gameConfiguration.newGame();
     }
 
     @Override
     public void save() {
-        lifeCycle.save();
+        persistence.save();
     }
 
     @Override
     public void saveAs(Path path) {
-        lifeCycle.saveAs(path);
+        persistence.saveAs(path);
     }
 
     @Override
     public boolean open(Path path, String fileName) {
-        return lifeCycle.open(path, fileName);
+        return persistence.open(path, fileName);
     }
 
     @Override
@@ -84,16 +84,16 @@ public class GameModel extends AbstractModel implements IGridConfiguration, IGam
 
     @Override
     public int getNumOfMines() {
-        return gridConfiguration.getNumOfMines();
+        return gameConfiguration.getNumOfMines();
     }
 
     @Override
     public boolean setMines(int numMines) {
-        return gridConfiguration.setMines(numMines);
+        return gameConfiguration.setMines(numMines);
     }
 
     @Override
     public Grid getGrid() {
-        return gridConfiguration.getGrid();
+        return gameConfiguration.getGrid();
     }
 }

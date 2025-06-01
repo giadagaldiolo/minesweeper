@@ -19,10 +19,10 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     private static GameController myself;
     private final TranslationsController translationsController;
     private final PropertiesInterface preferencesModel;
-    private static final IGameLifeCycle lifeCycle = GameModel.getInstance();
+    private static final IGamePersistence persistence = GameModel.getInstance();
     private static final ICellInteraction cellInteraction = GameModel.getInstance();
-    private static final IGameStatusManager statusManager = GameModel.getInstance();
-    private static final IGridConfiguration gridConfiguration = GameModel.getInstance();
+    private static final IGameState statusManager = GameModel.getInstance();
+    private static final IGameConfiguration gameConfiguration = GameModel.getInstance();
     private Stage primaryStage;
 
     private List<DataView> views;
@@ -48,20 +48,20 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
     public void newGame() {
         int numMinesPref = Integer.parseInt(preferencesModel.getProperty("numMines"));
 
-        if (!gridConfiguration.setMines(numMinesPref)) {
+        if (!gameConfiguration.setMines(numMinesPref)) {
             numMinesPref = Integer.parseInt(preferencesModel.getDefaultProperty("numMines"));
             statusManager.setGameStatus(GameStatus.NEW_GAME_DEFAULT_PROPERTIES);
             this.views.forEach(DataView::update);
         }
-        gridConfiguration.setMines(numMinesPref);
-        lifeCycle.newGame();
+        gameConfiguration.setMines(numMinesPref);
+        gameConfiguration.newGame();
         statusManager.setGameStatus(GameStatus.NEW_GAME);
         this.views.forEach(DataView::update);
     }
 
     @Override
     public void save() {
-        lifeCycle.save();
+        persistence.save();
         statusManager.setGameStatus(GameStatus.SAVE);
         this.views.forEach(DataView::update);
     }
@@ -78,7 +78,7 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         File file = fileChooser.showSaveDialog(stage);
 
         if (file != null) {
-            lifeCycle.saveAs(file.toPath());
+            persistence.saveAs(file.toPath());
             statusManager.setGameStatus(GameStatus.SAVE);
             this.views.forEach(DataView::update);
         }
@@ -96,7 +96,7 @@ public class GameController implements GameEventHandler, PlayerEventHandler {
         File file = fileChooser.showOpenDialog(stage);
 
         if (file != null) {
-            if (lifeCycle.open(file.toPath(), file.getName())) {
+            if (persistence.open(file.toPath(), file.getName())) {
                 statusManager.setGameStatus(GameStatus.OPEN);
             } else {
                 statusManager.setGameStatus(GameStatus.NOT_OPEN);

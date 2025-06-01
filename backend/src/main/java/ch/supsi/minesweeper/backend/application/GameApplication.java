@@ -1,17 +1,17 @@
 package ch.supsi.minesweeper.backend.application;
 
-import ch.supsi.minesweeper.backend.business.*;
+import ch.supsi.minesweeper.backend.service.*;
 import ch.supsi.minesweeper.backend.model.GameStatus;
 import ch.supsi.minesweeper.backend.model.Grid;
 
 import java.nio.file.Path;
 
-public class GameApplication implements IGameLifeCycleApplication, IGameStatusManagerApplication, ICellInteractionApplication, IGridConfigurationApplication {
+public class GameApplication implements IGamePersistenceApplication, IGameStateApplication, ICellInteractionApplication, IGameConfigurationApplication {
     private static GameApplication instance;
-    private static final IGameLifeCycleBusiness lifeCycle = GameLogic.getInstance();
-    private static final ICellInteractionBusiness cellInteraction = GameLogic.getInstance();
-    private static final IGameStatusManagerBusiness statusManager = GameLogic.getInstance();
-    private static final IGridConfigurationBusiness gridConfiguration = GameLogic.getInstance();
+    private final CellInteractionService cellService = new CellInteractionService();
+    private final GameConfigurationService configService = new GameConfigurationService();
+    private final GamePersistenceService persistenceService = new GamePersistenceService();
+    private final GameStateService stateService = new GameStateService();
 
     public static GameApplication getInstance() {
         if (instance == null) {
@@ -23,72 +23,72 @@ public class GameApplication implements IGameLifeCycleApplication, IGameStatusMa
 
     @Override
     public void newGame() {
-        lifeCycle.newGame();
+        configService.newGame();
     }
 
     @Override
     public void save() {
-        lifeCycle.save();
+        persistenceService.save();
     }
 
     @Override
     public void saveAs(Path path) {
-        lifeCycle.saveAs(path);
+        persistenceService.saveAs(path);
     }
 
     @Override
     public boolean open(Path path, String fileName) {
-        return lifeCycle.open(path, fileName);
+        return persistenceService.open(path, fileName);
     }
 
     @Override
     public void toggleCell(int row, int col) {
-        cellInteraction.toggleCell(row, col);
+        cellService.toggleCell(row, col);
     }
 
     @Override
     public boolean reveal(int row, int col) {
-        return cellInteraction.reveal(row, col);
+        return cellService.reveal(row, col);
     }
 
     @Override
     public void loseGame() {
-        statusManager.loseGame();
+        stateService.loseGame();
     }
 
     @Override
     public boolean checkForWin(){
-        return statusManager.checkForWin();
+        return stateService.checkForWin();
     }
 
     @Override
     public void winGame() {
-        statusManager.winGame();
+        stateService.winGame();
     }
 
     @Override
     public GameStatus getGameStatus() {
-        return statusManager.getGameStatus();
+        return stateService.getGameStatus();
     }
 
     @Override
     public void setGameStatus(GameStatus status) {
-        statusManager.setGameStatus(status);
+        stateService.setGameStatus(status);
     }
 
     @Override
     public int getNumOfMines() {
-        return gridConfiguration.getNumOfMines();
+        return configService.getNumOfMines();
     }
 
     @Override
     public boolean setMines(int numMines) {
-        return gridConfiguration.setMines(numMines);
+        return configService.setMines(numMines);
     }
 
     @Override
     public Grid getGrid() {
-        return gridConfiguration.getGrid();
+        return configService.getGrid();
     }
 }
 
