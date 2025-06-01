@@ -82,33 +82,26 @@ public class UserFeedbackViewFxml implements UncontrolledFxView {
                                 translationsModel.translate("label.firstMove")
                 );
                 break;
-
             case FLAG_UPDATE:
-                this.userFeedbackBar.setText(
-                        translationsModel.translate("label.minesLeft") + " " + gameModel.getNumOfMines()
-                );
+                this.userFeedbackBar.setText(translationsModel.translate("label.minesLeft") + " " + gameModel.getNumOfMines());
                 break;
-
             case WIN:
                 this.userFeedbackBar.setText(translationsModel.translate("label.win"));
                 break;
-
             case LOSE:
                 this.userFeedbackBar.setText(translationsModel.translate("label.gameOver"));
                 break;
-
             case SAVE:
                 this.userFeedbackBar.setText(translationsModel.translate("label.savedGame"));
                 break;
-
             case OPEN:
                 this.userFeedbackBar.setText(translationsModel.translate("label.gameOpened"));
                 break;
-
             case NOT_OPEN:
                 this.userFeedbackBar.setText(translationsModel.translate("label.gameNotOpened"));
                 break;
-
+            case REVEAL:
+                this.userFeedbackBar.setText(translationsModel.translate("label.minesLeft") + " " + gameModel.getNumOfMines());
             default:
                 break;
         }

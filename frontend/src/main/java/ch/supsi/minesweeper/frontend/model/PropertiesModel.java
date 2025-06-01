@@ -24,10 +24,12 @@ public class PropertiesModel extends AbstractModel implements PropertiesInterfac
         return application.getDefaultProperty(key);
     }
 
+    @Override
     public void setProperty(String key, String value) {
         application.setProperty(key, value);
     }
 
+    @Override
     public void savePropertyToFile(String key, String value) {
         application.savePropertyToFile(key,value);
     }
